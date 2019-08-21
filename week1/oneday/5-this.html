@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按钮</button>
+
+</body>
+
+</html>
+<script>
+    var btn = document.querySelector('#btn');
+    /*    btn.onclick=function(){
+           console.log(this)//当前操作的元素
+       } 
+    btn.onclick = () => {
+        console.log(this) //当前操作的元素       
+    }
+    
+    1.箭头函数的this 当做变量去处理了。
+    2.普通函数this指向规律：
+        *是将绑定函数中的this，是指向当前操作元素的
+        *自执行函数中this是指向window的
+        *其他的函数执行中的this看点（执行的时候看前面有没有点）
+    
+    
+    
+    */
+    /*********************   自执行函数    *************************/
+    var obj = {
+        fn: function () {
+            console.log(this) //当前操作的元素
+        },
+        a: 12,
+        b: 13
+    }
+    btn.onclick = (function () {
+        //赋予onclick的盖子之行函数的返回结果，也就是一个箭头函数
+        return () => {
+            console.log(this) //当前操作的元素
+            obj.fn();
+        }
+    })()
+
+    (function (a, b) {
+        console.log(this)
+    })(2, 3); //window
+ 
+    var f = obj.fn;
+    f() //window
+    obj.fn() //obj  .前面是谁就找谁所以输出obj
+
+    var obj = {
+        a: fn,
+        b: 12,
+        c: 13
+    }
+    var ary = [4, 5, fn];
+    var obj2 = {
+        q: 12,
+        w: fn
+    }
+</script>

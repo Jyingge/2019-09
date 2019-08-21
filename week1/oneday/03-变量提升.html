@@ -14,25 +14,31 @@
 
 </html>
 <script>
-    /*
-    console.log(a);
+
+/*  console.log(a);
     console.log(b);
     var a=b=21;  //这样就是 一个undefined，一个报错
     var a=12,b=13;//这样就是undefined
 
-
   
     当页面一打开，js要从上向下执行的时候，先把整个js浏览一遍，把其中带var和function的提前声明.
-    var只是声明，不定义；带function的是即声明，又定义；
+    var只是声明，不定义；带function的是即声明，又定义；  
 
-    变量提升：在代码执行之前，会把js中带有var和function关键字的变量提前声明下，
-    对于带var是只声明，不定义； 默认值就是undefined
-    带function的是即声明又定义；
-    var a;  //声明
-    a=12;   //定义
+1. 变量提升：在代码执行之前，会把js中带有var和function关键字的变量提前声明下，
+            对于带var是只声明，不定义； 默认值就是undefined
+            带function的是即声明又定义；
+            提升 指提升等号左边。
+       
+2.  function 声明的在{}块级作用域中只声明不定义；声明不定义默认值是undefined
 
-    function 声明的函数在整个代码执行之前，早就已经存在了，所以在整个js中都可以执行
-    在条件句中的代码，也会进行变量提升，不管条件是否成立。此时的function只有声明，没定义。
+        var a;  //声明
+        a=12;   //定义
+
+3. function 声明的函数在整个代码执行之前，早就已经存在了，所以在整个js中都可以执行在条件句中的代码，也会进行变量提升，不管条件是否成立。此时的function只有声明，没定义。
+
+4. 针对let const 有一个暂时性死区：在声明之前不能调用 
+
+*/
     
             console.log(f,f2)
             function f() {
@@ -59,7 +65,7 @@
                 console.log(a1, f6) //12  f6(){}
 
 
-*/
+
 
    
 /********************************全局对象******************************/    
