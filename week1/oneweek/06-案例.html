@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .box {
+            width: 400px;
+            margin: auto;
+        }
+
+        .tabbox {
+            width: 100%;
+            height: 50px;
+            display: flex;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        .tab.current {
+            background: saddlebrown;
+            color: aqua;
+        }
+
+        .body {
+            width: 400px;
+            height: 400px;
+            font-size: 50px;
+            text-align: center;
+            border: 1px dashed skyblue;
+            display: none;
+        }
+
+        .body.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!--  <div id="btnBox">
+        <input type="button" value="button_1" />
+        <input type="button" value="button_2" />
+        <input type="button" value="button_3" />
+        <input type="button" value="button_4" />
+        <input type="button" value="button_5" />
+    </div> -->
+
+    <div class="box">
+        <ul class="tabbox">
+            <li class="tab current">1</li>
+            <li class="tab">2</li>
+            <li class="tab">3</li>
+        </ul>
+        <div class="body current">1</div>
+        <div class="body">2</div>
+        <div class="body">3</div>
+    </div>
+
+</body>
+
+</html>
+<script src="./log.js"></script>
+<script type="text/javascript">
+    logModal.f();
+    regM.f();
+
+
+    /****************************       事件绑定            *****************************/
+
+    /* var btnBox = document.getElementById('btnBox'),
+        inputs = btnBox.getElementsByTagName('input');
+    var l = inputs.length; */
+
+    /*方法一 let方法   
+        for(let i=0;i<l;i++){
+            inputs[i].onclick=function(){
+                alert(i);
+            }
+        } */
+
+    /*方法二  自定义属性  
+         for(var i = 0; i < l;i++){
+            //使用自定义属性，思想在于把索引存储到对应元素的自身上
+        inputs[i].myIndex = i;
+            //当i=0时，给第一个input增加一个自定义属性，对应的值是当前索引。
+        inputs[i].onclick = function(){
+            alert(this.myIndex+1)
+          }
+      } */
+
+    /*方法三 自执行函数方法
+        for(var i=0;i<l;i++){
+            (function(n){
+            inputs[i].onclick=function(){
+                alert(n+1);
+            }})(i)
+        }
+
+
+        闭包的第二种写法
+        for(var i=0;i<l;i++){
+            inputs[i].onclick=(function(n){
+                return function(){
+                    alert(n+1);
+                }
+            })(i)
+        }
+
+
+        闭包的第三种方式
+        function fn(n){
+            return function(){
+                console.log(n+1)
+        }
+        for(var i=0;i<l;i++){
+            inputs[i].onclick=fn(i);
+        }
+    */
+
+    /*************************    选项卡       ***********************/
+
+    let tabs = document.getElementsByClassName('tab'),
+        bodys = document.getElementsByClassName('body');
+    function clearClass() {
+        for( var i=0;i<tabs.length;i++){
+            tabs[i].className='tab';
+            bodys[i].className='body';
+        }
+    }
+/**这是用闭包写出来的*/  
+    for( var i=0;i<tabs.length;i++){
+        (function(n){
+            tabs[n].onclick = function(){
+            //点击tabs 让当前元素有current类名，其他元素没有
+            // 先清除所有current类名，然后在点击的元素上加上，随之封装函数
+            clearClass();
+            this.className='tab current'; 
+            // 让body跟着改变，让对应索引的body添加current类名，其他的移除即可
+            bodys[n].className='body current'
+            }    
+        })(i)
+    }
+</script>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id='box' style='background:red'>
+        <button>红</button>
+        <button>绿</button>
+        <button>蓝</button>
+    </div>
+</body>
+
+</html>
+<script>
+/*预期效果： 
+页面中有三个按钮，点击每一个按钮让#box的背景颜色，改变为数组中对应的某种颜色（例如：点击第二个按钮（按钮索引1），让背景颜色为数组索引为1对应的颜色值…点击按钮的索引则为在数组中查找颜色的索引）
+*/
+    var box = document.querySelector('#box');
+    var btnList = document.querySelectorAll('button');
+    var colorAry = ['red', 'green', 'blue'];
+
+    /* 1
+    for (var i = 0; i < btnList.length; i++) {
+        (function (n) {
+            btnList[n].onclick = function () {
+                box.style.background = colorAry[n];
+            }
+        })(i)
+    }
+
+    2
+    for(let i=0;i<btnList.length;i++){
+        btnList[i].onclick=function(){
+            box.style.background=colorAry[i];
+        }
+    } 
+
+    3
+    function f(n) {
+        return function(){
+            box.style.background=colorAry[n];
+        }
+    }
+    for(var i=0;i<btnList.length;i++){      
+            btnList[i].onclick=f(i)   
+    }
+
+    4
+    function clearColor() {
+        for (var i = 0; i < btnList.length; i++) {
+            btnList[i].style.background = ''
+        }
+    }
+    for (var i = 0; i < btnList.length; i++) {
+        (function (n) {
+            btnList[n].onclick = function () {
+                clearColor();
+                box.style.background = colorAry[n];
+            }
+        })(i)
+    }
+*/
+
+/************************************************/
+ /* var x = 1;
+        var obj = { x: 2 };
+        obj.fn = (function (x) {
+            this.x *= x++;
+            return function (y) {
+                x += y;
+                this.x *= ++x;
+                console.log(x);
+            }
+        })(obj.x);
+        var fn = obj.fn;
+        obj.fn(2);
+        fn(1);
+        console.log(obj.x, x);*/
+
+
+
+        var n = 2;
+    var obj = {
+        n: 3,
+        fn: (function (n) {
+            n *= 2;
+            this.n += 2;
+            var n = 5;
+            return function (m) {
+                this.n *= 2;
+                console.log(m + (++n));
+            }
+        })(n)
+    }
+    var fn = obj.fn;
+    fn(3);
+    obj.fn(3);
+    console.log(n, obj.n);
+
+</script>
