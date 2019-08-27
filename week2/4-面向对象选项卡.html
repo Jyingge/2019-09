@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .box {
+            width: 400px;
+            margin: auto;
+        }
+
+        .tabbox {
+            width: 100%;
+            height: 50px;
+            display: flex;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .tab.current {
+            background: saddlebrown;
+            color: aqua;
+        }
+
+        .body {
+            width: 100%;
+            height: 200px;
+            font-size: 50px;
+            text-align: center;
+            border: 1px dashed skyblue;
+            display: none;
+        }
+
+        .body.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tab_box">
+        <ul class="tabbox">
+            <li class="tab current">1</li>
+            <li class="tab">2</li>
+            <li class="tab">3</li>
+        </ul>
+        <div class="body current">1</div>
+        <div class="body">2</div>
+        <div class="body">3</div>
+    </div>
+    <div id="tab_box1">
+        <ul class="tabbox">
+            <li class="tab current">1</li>
+            <li class="tab">2</li>
+            <li class="tab">3</li>
+        </ul>
+        <div class="body current">1</div>
+        <div class="body">2</div>
+        <div class="body">3</div>
+    </div>
+    <div id="tab_box2">
+        <ul class="tabbox">
+            <li class="tab current">1</li>
+            <li class="tab">2</li>
+            <li class="tab">3</li>
+        </ul>
+        <div class="body current">1</div>
+        <div class="body">2</div>
+        <div class="body">3</div>
+    </div>
+    <div id="tab_box3">
+        <ul class="tabbox">
+            <li class="tab current">1</li>
+            <li class="tab">2</li>
+            <li class="tab">3</li>
+        </ul>
+        <div class="body current">1</div>
+        <div class="body">2</div>
+        <div class="body">3</div>
+    </div>
+    <div id="tab_box4">
+        <ul class="tabbox">
+            <li class="tab current">1</li>
+            <li class="tab">2</li>
+            <li class="tab">3</li>
+        </ul>
+        <div class="body current">1</div>
+        <div class="body">2</div>
+        <div class="body">3</div>
+    </div>
+</body>
+
+</html>
+<script>
+    function Tab(id) {
+        this.box = document.querySelector(id);
+        this.tabs = this.box.getElementsByClassName('tab');
+        this.bodys = this.box.getElementsByClassName('body');
+        this.mapBind();
+    }
+    Tab.prototype.mapBind = function () {
+        for (let i = 0; i < this.tabs.length; i++) {
+            this.tabs[i].onclick = () => {
+                this.clearClass();
+                this.tabs[i].className = 'tab current';
+                this.bodys[i].className = 'body current';
+            }
+        }
+    }
+    Tab.prototype.clearClass = function () {
+        [...this.tabs].forEach((v, i) => {
+            v.className = 'tab';
+            this.bodys[i].className = 'body';
+        })
+    }
+
+
+    new Tab('#tab_box');
+    new Tab('#tab_box1');
+    new Tab('#tab_box2');
+    new Tab('#tab_box3');
+    new Tab('#tab_box4');
+</script>

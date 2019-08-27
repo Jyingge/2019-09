@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    /*
+    *数组原型（天生自带）上的方法，我们可以修改，但是不能覆盖。
+    *自定义类是可以直接修改prototype指向的。 
+    *
+    */
+</body>
+
+</html>
+<script>
+    Array.prototype.pop=function(){
+        console.log('hahahaha');   
+    }
+    var ary=[1,2,3,4,5];
+    // ary.pop();
+    // console.log(ary);
+    // ary.pop().slice(0) pop返回删除的哪一项，所以不是数组，没办法使用slice，结果就报错
+    // ary.slice(0).pop()
+    
+/****************************       封装一个方法，能够连续打点  **************************/    
+    Array.prototype.mypop=function(){
+        this.length--;
+        return this;
+    }
+    Array.prototype.mypush=function(){
+        for(var i=0;i<arguments.length;i++){
+            this[this.length=arguments[i]]
+        }
+        return this;
+    }
+    ary.mypop().mypush(100,200,300).mypop().mypop();
+    console.log(ary);
+    
+    
+</script>
