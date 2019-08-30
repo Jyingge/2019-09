@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /*编写unique方法，实现如下的效果：先去重后排序*/
+
+    //=> 最后的ary等于[8,12,13,14,23]
+
+    /* Array.prototype.unique = function () {
+        for (var i = 0; i < this.length; i++) {
+            var temp = this[i];
+            for (var j = i + 1; j < this.length; j++) {
+                if (temp == this[j]) {
+                    this.splice(j, 1)
+                    j--
+                }
+            }
+        }
+        return this
+    }
+    var ary = [12, 23, 12, 13, 13, 12, 23, 14, 8];
+    var result = ary.unique().sort((a, b) => a - b);
+    console.log(result); */
+
+
+
+
+    /* var ary = [12, 23, 12, 13, 13, 12, 23, 14, 8];
+    for (var i = 0; i < ary.length; i++) {
+        var obj={};
+        ary.forEach((v,i)=> {
+            obj[v]=v;
+        });
+        var str=[];
+        for(var k in obj){
+            str.push(obj[k]);
+        }
+    }
+    console.log(str);
+     */
+
+
+
+   // 分析下面的changeThis方法该如何实现？
+   /*  Function.prototype.changeThis=function changeThis(context,...arg){
+            var n=Symbol();
+            context[n] =this;
+            context[n](...arg);
+            delete context[n];
+    };
+    let obj = {name:'Alibaba'};
+    function fn(x,y){
+        this.total=x+y;
+        return this;
+    }
+    let res = fn.changeThis(obj,100,200);
+    res = {name:'Alibaba',total:300} 
+    console.log(res); */
+
+    // let ary = [12,23,12,13,13,12,23,14,8];
+//=>实现你的代码（至少三种）
+    // var res=Math.max(...ary)
+    // var res= ary.sort((a,b)=>b-a)[0];
+    // var res=Math.max.apply(null,ary);
+    // var res=Math.max.call(null,12,23,12,13,13,12,23,14,8);
+    /* var max=ary[0];
+    for(var i=1;i<ary.length;i++){
+        if(max<=ary[i]){
+            var temp=max;
+            max=ary[i];
+            ary[i]=temp
+        }
+    }
+    console.log(max); */
+    
+   
+
+
+
+</script>

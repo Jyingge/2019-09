@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    /*
+    函数的三种角色：
+    1.普通函数：
+    形参 实参 this return arguments 作用域
+    2.构造函数：
+    原型： prototype
+    原型链： __proto__
+    私有属性 共有属性 hasOwnproperty
+    in instanceof
+    new 执行 注意其中的this
+    3.作为普通对象
+
+    */
+</body>
+
+</html>
+
+<script>
+    /*求一组数的平均值 */
+
+//剩余运算符。转成数组在计算
+    var average = function (...ary) {      
+        ary.sort((a, b) => a - b);
+        ary.shift();
+        ary.pop();
+        var res = eval(ary.join('+')) / ary.length;
+        return res
+    }
+    average(7, 2, 5, 9, 56, 9, 3, 59, 5, 99);
+
+//扩展运算符
+    var average = function () {        
+        var ary= [...arguments]
+        ary.sort((a, b) => a - b);
+        ary.shift();
+        ary.pop();
+        var res = eval(ary.join('+')) / ary.length;
+        return res
+    }
+    average(7, 2, 5, 9, 56, 9, 3, 59, 5, 99);
+
+//arguments
+    var average = function () {        
+        arguments.__proto__ =Array.prototype;
+        arguments.sort((a, b) => a - b);
+        arguments.shift();
+        arguments.pop();
+        var res = eval(arguments.join('+')) / arguments.length;
+        return res
+    }
+    console.log(average(7, 2, 5, 9, 56, 9, 3, 59, 5, 99))
+
+// 数组
+    var ary = [7, 2, 5, 9, 56, 9, 3, 59, 5, 99];
+    ary.sort((a, b) => a - b);
+    ary.shift();
+    ary.pop();
+    var res = eval(ary.join('+')) / ary.length;
+    console.log(res);
+</script>

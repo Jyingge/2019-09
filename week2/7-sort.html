@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实现sort 排序   姓名排序用localeCompare </title>
+</head>
+
+<body>
+    <button id="nameBtn">姓名排序</button>
+    <button id="ageBtn">年龄排序</button>
+    <ul id="box">
+        <li>点击后实现效果</li>
+    </ul>
+</body>
+
+</html>
+<script>
+    var ary = [{
+            name: 'ming',
+            age: 5
+        },
+        {
+            name: 'tian',
+            age: 6
+        },
+        {
+            name: 'hui',
+            age: 7
+        },
+        {
+            name: 'geng',
+            age: 8
+        },
+        {
+            name: 'hao',
+            age: 9
+        }
+    ]
+    var box = document.querySelector('#box');
+    var nameBtn = document.querySelector('#nameBtn');
+    var ageBtn = document.querySelector('#ageBtn');
+
+
+    function renderHtml() {
+        var str = '';
+        for (var i = 0; i < ary.length; i++) {
+            str += `<li>姓名是：${ary[i].name};   年龄是：${ary[i].age}</li>`
+        }
+        box.innerHTML = str;
+    }
+    var flag = 1;
+    ageBtn.onclick = function () {
+        flag *= -1;
+        for (var i = 0; i < ary.length; i++) {
+            ary.sort((a, b) => {
+               return (a.age - b.age)*flag
+            });
+        }
+        renderHtml();
+    }
+    nameBtn.onclick =function(){
+        flag *= -1;
+        ary.sort((a,b)=>{
+            return (a.name.localeCompare(b.name))*flag
+        })
+        renderHtml();
+    }
+
+</script>

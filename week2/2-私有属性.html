@@ -10,13 +10,29 @@
 
 <body>
     /*
-
+    'eat' in per1   per1这个对象能否调用到eat属性
+    in  不能用在值类型身上
 
     */
 </body>
 
 </html>
 <script>
+// 封装一个方法：  plus 、minus 实现如下的执行结果
+  
+    Number.prototype.plus=function(a){
+        return this+a
+    }
+    Number.prototype.minus=function(a){
+        return this-a
+    }
+
+    let n= 10 ;
+    let m = n.plus(10).minus(5);
+    console.log(m);
+  
+    /******************************************************************/
+
     function Person(name, age) {
         this.name = name;
         this.age = age;
@@ -46,7 +62,7 @@
     console.log(per1.hasPubProperty('eat')); //true
 
 
-/*******************************   instanceof   ******************************************/
+/***********************   instanceof 判断一个值在不在原型链上     ************************/
 
     var ary = [];
     console.log(ary instanceof Array); //true
