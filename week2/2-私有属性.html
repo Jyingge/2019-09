@@ -11,7 +11,13 @@
 <body>
     /*
     'eat' in per1   per1这个对象能否调用到eat属性
-    in  不能用在值类型身上
+    in  不能用在值类型身上 查看是不是某个对象的属性
+    hasOwnProperty 查看是不是私有属性
+    instanceof  是用来判断属性的
+    concat 返回的是一个新数组不改变原有数组
+    push  返回的值是改变后的数组长度（length）
+    split 返回值就是用符号拼接成的数组
+    join  返回的是字符串
 
     */
 </body>
@@ -52,7 +58,9 @@
 /****************************  封装函数 hasOwnProperty 和他功能一样 ***********************/
 
     //用this获取per1。属性通过kew这个形参可以获取到。紧接着判断 key是否为this的共有属性？
-    // 前提是，它是this 的属性。 同时还要满足它不能是私有属性。    
+    // 判断是不是他的属性用in   判断是不是私有属性用hasOwnproperty
+    // 前提是，它是this 的属性。 同时还要满足它不能是私有属性。   
+    // 形参key就代表了push 
     Object.prototype.hasPubProperty = function (key) {
         if ((key in this) && !this.hasOwnProperty(key)) {
             return true
@@ -69,14 +77,16 @@
     console.log(ary instanceof Number); //false
     console.log(ary instanceof Object); //true
     // A instanceof B 就是看从A能不能通过原型链 链到B的原型，能就是true。A必须是引用数据类型，和B判断的时候就是true。如果A是值类型，那结果就是false
+    // 任何引用数据类型 instanceof Object  都是true
 
 
 /********************  封装一个方法， myType()检测数据类型  ********************************/
 
     //this就是我们要去判断类型的数据（放在了基类上）
     Object.prototype.myType = function () {
-        var str = ({}).toString.call(this);
-        var str2 = str.slice(8, length - 1);
+        var str = ({}).toString.call(this); 
+        // 这个时候，this在执行时，this就是ary，她的返回值是[Object Array],所以接下来就要用到截取函数，把【Object截取掉。
+        var str2 = str.slice(8, str.length - 1);
         var str3 = str2.toLowerCase();
         return str3
     }
@@ -89,4 +99,25 @@
         });
     }
     sum(1, 2)
+/******************** 在封装一个plus  minus ******************/   
+    Number.prototype.plus=function(n){
+        return this+n
+    }
+    Number.prototype.minus=function(n){
+        return this-n
+    }
+    var a=10;
+    a.plus(1).minus(2).plus(20)//10+1-2+20
+    // 为什么可以使用链式调用？？？？
+    // 原因是前边函数执行的返回结果可以调用到后边的函数
+
+    var ary=[];
+    // ary.concat(1,2,3).push(4).plus(10);
+    // ary.push(6,6,6,).join('+').split('+').push(6).toFixed(2);
+console.log(ary.concat(6,6,6).join('+').split('-'));
+
+
+
+
+
 </script>

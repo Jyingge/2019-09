@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var data;
+    //这是一门从后台请求数据的技术
+    /*1创造实力，确定请求路径 监听请求状态 发送请求*/
+    var xhr = new XMLHttpRequest();
+    xhr.open('get','./data.json',false);//true是异步，false是同步
+    xhr.onreadystatechange = function(){
+        if(xhr.status==200&&xhr.readyState==4){
+            console.log(xhr.response)
+            console.log(JSON.parse(xhr.response));//把json字符串转成json对象
+            // JSON.stringify(对象) 吧对象转成JSON字符串
+            data=JSON.parse(xhr.response)
+        }
+    }
+    xhr.send();
+    console.log(data);
+
+</script>

@@ -18,15 +18,20 @@
     这两个方法相等: console.log(a.toString()) === Object.prototype.toString.call('')
     而call在执行的时候，把toString方法中的this改成了字符串，所以返回的就是字符串的数据类型 问题：call这个方法在什么地方存放？ Function.prototype
 
-    2. apply
-    aoply 的目的和call一样，但是区别在于第二个参数，需要用集合的形式表达，最好是一个数组或者累数组。
+    2. apply（和call只差在了第二个参数上，apply的第二个参数是个集合）
+    aoply 的目的和call一样，但是区别在于第二个参数，需要用集合的形式表达，最好是一个数组或者类数组。
     虽然第二个参数是一个集合，但是函数执行时，参数还是被散乱传上去的，并不是以集合的形式出出去的。
 
     3. bind
+    使用bind更改过之后的函数，，this指向就不会在更改了。
+        var fn5=fn.bind(obj,3,3);
+        var fn6=fn5.bind(array,6,6);
+        此时，我们发现，这时候不管是fn5执行，还是fn6执行，this指向结果都是obj，由此也印证了使用bind更改过后的函数，this指向就不会在做更改了。
+
     它的用法和call一模一样，只是不让函数立即执行，随之返回了一个新函数，新函数执行的时候this指向换掉了
     bind 返回值是个新函数，新函数执行的时候让老函数执行了，并且把老函数中的this指向改变了
     新函数执行传递的参数会不在通过bind绑定的参数后边，我们可以把bind绑定的参数理解成新函数的默认参数
-    用箭头函数的话，比较方便，因为它会直接找上级作用域
+    用箭头函数的话，比较方便，因为它会直接找上级作用域,不管前面写的怎么花里胡哨，都是上级作用域
     */
 </body>
 
@@ -66,7 +71,7 @@
         context.eee(...arg);
         delete context.eee; //为了不再原有的对象中添加属性
 
-        /* 这个是万无一失的做法
+        /* 这个是万无一失的做法   Symbol 就理解成一个唯一不重复的随机数
             var n=Symbol();
             context[n] =this;
             context[n](...arg);
@@ -124,22 +129,21 @@
     f2(); //window
     f2.call(obj); //window
 
-   /*  Function.prototype.myBind = function (context, ...arg) {
+   /* Function.prototype.myBind = function (context, ...arg) {
         var _this = this; //此时，_this这个变量存储的就是f2函数
-        return function () {
-            // console.log(_this);
-            // _this.call(context,...arg)
-            _this.apply(context,arg)
+        return function (...arr) {
+            return _this.call(context,...arg,...arr)
+            //    return  _this.apply(context,arg)
         }
     } */
     Function.prototype.myBind = function (context, ...arg) {
         return (...ary)=>{
-            this.call(context, ...arg,...ary)
+            this.call(context, ...arg,...ary) //指得是mybind中的this
         }
     }
-    var fn2 = f.myBind(obj); //window
+    var fn2 = f2.myBind(obj); //window
     //fn2执行的时候，f2执行，并且f2中的this改成了obj
-    fn2()
+    fn2()    // fn2(2,2,2)是可以这样传参的,这两种方法都是可以写的，
 
 
     var fun =function(){
@@ -148,4 +152,5 @@
     }
     var fun2 =fun.bind(obj,666,888);
     fun2();
+    
 </script>

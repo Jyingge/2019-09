@@ -1,0 +1,37 @@
+[
+    {
+        "img":"https://res.vmallres.com/pimages//product/6901443316496/428_428_1563762865294mp.png",
+        "title":"华为手机",
+        "price":18880,
+        "num":2300,
+        "time":4
+    },
+    {
+        "img":"https://res.vmallres.com/pimages//product/6901443254712/428_428_1542768008007mp.png",
+        "title":"华为手机",
+        "price":123580,
+        "num":2325,
+        "time":2900
+    },
+    {
+        "img":"https://res.vmallres.com/pimages//product/6901443278138/428_428_1544693593610mp.png",
+        "title":"华为手机",
+        "price":1000,
+        "num":2900,
+        "time":422
+    },
+    {
+        "img":"https://res.vmallres.com/pimages//product/6901443292189/428_428_1552440582581mp.png",
+        "title":"华为手机",
+        "price":1200,
+        "num":333,
+        "time":436
+    },
+    {
+        "img":"https://res.vmallres.com/pimages//product/6901443321315/428_428_1563353009647mp.png",
+        "title":"华为手机",
+        "price":12080,
+        "num":250,
+        "time":488
+    }
+]

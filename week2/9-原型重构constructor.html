@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型重构</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /*  function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.say = function () {
+        console.log(`${this.name}说话`);
+    }
+    var per1 = new Person('cendy', 22);
+    Person.prototype = {
+        constructor:Person,  //这个改变了constructor指向，不写之前就指向Object
+        // 原型重构
+        say() {
+            console.log(`${this.name}唠嗑`);
+        }
+    }
+    var per2 = new Person('lily', 20);
+    per1.say();   //说话
+    per2.say();   //唠嗑
+    console.log(per1.constructor);  //Person
+    console.log(per2.constructor);  // Object
+ */
+    /*     
+        function Fn() {
+            var n =10;
+            this.m=20;
+            this.aa=function(){
+                console.log(this.m);     
+            }
+        }
+        Fn.prototype.bb=function(){
+            console.log(this.n);
+        }
+        var f1=new Fn;
+        Fn.prototype = { 
+            aa:function() {console.log(this.m+10); }      
+        }
+        var f2=new Fn; */
+
+
+
+    // console.log(f1.constructor);
+    // console.log(f2.constructor);
+    //    f1.bb();
+    // f1.aa();
+    // f2.bb();
+    //   f2.aa();
+    // f2.__proto__.aa(); 
+
+
+
+    var name = '中国', age = 5000;
+    function Person() {
+        getName = function () {
+            console.log(this.name)
+        };
+        this.name = 'zfpx';
+        this.age = 9;
+    }
+    Person.name = '珠峰';
+    Person.getName = function () {
+        console.log(this.name);
+    };
+    Person.prototype.getName = function () {
+        console.log(this.name);
+    };
+    var obj = {
+        name: '培训',
+        f: Person
+    };
+    var per = new Person();
+    per.getName = function () {
+        console.log(12)
+    };
+    var per2 = new Person();
+    obj.f();
+    Person();
+    per.getName();
+    per2.getName();
+</script>

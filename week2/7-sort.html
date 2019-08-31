@@ -5,15 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>实现sort 排序   姓名排序用localeCompare </title>
+    <title>实现sort 排序 姓名排序用localeCompare </title>
 </head>
 
 <body>
     <button id="nameBtn">姓名排序</button>
     <button id="ageBtn">年龄排序</button>
     <ul id="box">
-        <li>点击后实现效果</li>
+        <li>点击后实现效果<span class="age">10</span></li>
     </ul>
+
+
+    <!-- 
+        这就是数组的结构赋值，是按照位置决定的
+        let [a,,,b]=[1,2,3,4] 
+        这个是对象的结构赋值，是按照属性名对应的
+        let {x,y,z}={x:12,a:13,y:14,z:22}
+    -->
 </body>
 
 </html>
@@ -39,12 +47,12 @@
             age: 9
         }
     ]
-    var box = document.querySelector('#box');
+    var box = document.querySelector('#box');//query获取不存在映射关系。
     var nameBtn = document.querySelector('#nameBtn');
     var ageBtn = document.querySelector('#ageBtn');
 
 
-    function renderHtml() {
+    /*  function renderHtml() {
         var str = '';
         for (var i = 0; i < ary.length; i++) {
             str += `<li>姓名是：${ary[i].name};   年龄是：${ary[i].age}</li>`
@@ -68,5 +76,48 @@
         })
         renderHtml();
     }
+ */
+    /********************************  Dom 映射排序 *********************************/
+    function renderHtml() {
+        let str = '';
+        ary.forEach((item, index) => {
+            let {name,age} =item;//对象的解构赋值。这个地方也可以不写，在下面的反引号中，就要写成item.age....
+            str += `<li>姓名是：${name};   年龄是：<span class="age">${age} </span> </li>;`;
+        })
+        box.innerHTML = str;
+    }
+    renderHtml();
 
+    let oLis = document.getElementsByTagName('li');
+    let temp = oLis[0];
+    let flag = 1;
+    ageBtn.onclick = function () {
+        flag *= -1;
+        //temp是页面上已经存在的节点，再去使用appendChile时，页面不会新增一个节点，只会改变原有节点的位置
+        // box.appendChild(oLis[1]);
+        // 吧olis转成数组，然后在把数组中的项按照年龄排序，然后在将排好序的数组中的每一项append到box中。
+        let ary2 = [...oLis];
+        ary2.sort((a, b) => {
+            // a,b对应的就是li标签，用这个内部标签span的innerHtml进行排序，
+            var age1 = a.getElementsByClassName('age')[0].innerHTML;
+            var age2 = b.getElementsByClassName('age')[0].innerHTML;
+            return (age1 - age2) * flag
+        })
+        // console.log(ary2);
+        ary2.forEach((item) => {
+            box.appendChild(item)
+        })
+    }
+    nameBtn.onclick = function () {
+        let arr = [...oLis];
+        arr.sort((a, b) => {
+            // a,b对应的就是li标签，用这个内部标签span的innerHtml进行排序，
+            var name1 = a.getElementsByClassName('span')[0].innerHTML;
+            var name2 = b.getElementsByClassName('span')[0].innerHTML;
+            return name2.localeCompare(name1)
+        })
+        arr.forEach((item) => {
+            box.appendChild(item)
+        })
+    }
 </script>
