@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="身份证号码" id="IDcard">
+    <button id="btn">提交</button>
+    <h2 id="textBox">这个人的出生年月日是2019年09月03日 性别是男</h2>
+
+</body>
+
+</html>
+<script>
+    var str = '珠峰2019哈哈2020';
+    var reg = /\d+/;
+    var res = reg.exec(str);
+    var str2 = str.match(reg);
+    console.log(res, str2);
+
+
+    var str1 = 'http://www.baidu.com?a=12&b=13&c=34';
+    var reg2 = /([^?=&]+)=([^?=&]+)/;
+    console.log(reg2.exec(str1));
+    console.log(str1.match(reg2));
+
+
+    /*
+     *  match 是字符串的方法，当正则不加全局修饰符的时候，效果跟exec是一样的。但是如果加上全局修饰符g之后，match只会捕获到所有的大正则匹配的内容
+     */
+   
+
+</script>
+<script>
+
+var IDcard=document.querySelector('#IDcard');
+var btn=document.querySelector('#btn');
+var textBox=document.getElementById('textBox');
+
+btn.onclick=function(){
+    var str=IDcard.value;
+    var reg=/[1-9]\d{5}(\d{4})(\d{2})(\d{2})\d{2}(\d)(\d|X)/;
+    var res=str.match(reg);
+    console.log(res);
+    var html=`这个人的出生年月日是${res[1]}年${res[2]}月${res[3]}日 性别是${res[4]%2?'男':'女'}`;
+    textBox.innerHTML=html;
+    
+}
+
+
+</script>

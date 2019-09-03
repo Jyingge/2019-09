@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /*
+     * 匹配：
+     *      就是查看字符串是否满足正则的规则
+     * 捕获：
+     *      就是把字字符串中满足正则规则的部分获取到
+     * exec：
+     *      正则.exec(字符串)
+     *      它的返回值是： 第一项是大正则捕获到的内容，从第二项开始都是小分组的内容
+     * lastIndex:
+     *      正则的lastIndex属性是定义了下一次捕获开始的位置
+     */
+    /*  var reg=/\d/;
+      var res=reg.exec('珠峰2019年哈哈哈2020');
+      console.log(res); 
+      var res2=reg.exec('珠峰2019年哈哈哈2020');
+      console.log(res2);  */
+
+    var str = '你好2019www哈哈2018hello珠峰2020哈哈2021londne'; //就捕获哈哈后面的数字
+    var reg0 = /哈哈(\d+)([a-z]+)/g;
+    /*   var res9=reg0.exec(str);
+     console.log(res9); */
+
+    /*封装一个execAll的方法 可以一次性吧所有符合条件的内容捕获到*/
+    RegExp.prototype.execAll = function (str = '') {
+        // 首先查看对应的正则有没有修饰符g 
+        if (!this.global) {
+            // 代表正则没有修饰符g
+            throw new Error('您的正则没有修饰符g 不能使用该方法');
+            return;
+        }
+        // 怎么保证str是 字符串？
+        str = str.toString();
+        // this =====>  reg0
+        var res = this.exec(str);
+        var ary = [];
+        while (res) {
+            // 每次循环的时候都要让res更新
+            ary.push(res);
+            res = this.exec(str);
+        }
+        return ary
+    }
+    console.log(reg0.execAll(str));
+</script>
+
+<script>
+    var str = '你好2019www哈哈2018hello珠峰2020哈哈2021londne'; //就捕获哈哈后面的数字
+    var reg0 = /哈哈(\d+)([a-z]+)/g;
+    /*封装一个execAll的方法 可以一次性吧所有符合条件的内容捕获到*/
+    RegExp.prototype.execAll = function (str = '') {
+        // 首先查看对应的正则有没有修饰符g 
+        var reg=this;
+        if (!reg.global) {
+            // 代表正则没有修饰符g
+           reg=eval(reg.toString()+'g')
+        }
+        // 怎么保证str是 字符串？
+        str = str.toString();
+        // this =====>  reg0
+        var res = reg.exec(str);
+        var ary = [];
+        while (res) {
+            // 每次循环的时候都要让res更新
+            ary.push(res);
+            res = reg.exec(str);
+        }
+        return ary
+    }
+    console.log(reg0.execAll(str));
+</script>

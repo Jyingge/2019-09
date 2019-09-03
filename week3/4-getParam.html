@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="./3.js"></script>
+<script>
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var reg = /([^?=&]+)=([^?=&]+)/;
+    var ary = reg.execAll(str)
+    console.log(ary);
+    var obj = {};
+    ary.forEach(item => {
+        // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
+        obj[item[1]] = item[2]
+    });
+    console.log(obj);
+</script>

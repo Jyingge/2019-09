@@ -74,9 +74,10 @@
         /* 这个是万无一失的做法   Symbol 就理解成一个唯一不重复的随机数
             var n=Symbol();
             context[n] =this;
-            context[n](...arg);
+            var res=context[n](...arg);
             delete context[n]；
-        */
+            console.log(res);
+            */
     }
 
     function f2(a, b) {
