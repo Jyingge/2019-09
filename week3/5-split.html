@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+//三种方法结果都是  ["1", "2", "3", "5", "258", "1542", "5", "31", "45", "68"]
+   var str='1_2+3+5+258+1542=5-31,45,68';
+   var reg=/\d+/g;
+   console.log(str.match(reg));
+
+   var ary=str.split(/[-_+=,]/);
+   console.log(ary);
+  
+   console.log(str.split(/\D/));
+   
+</script>

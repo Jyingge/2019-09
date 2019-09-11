@@ -24,7 +24,20 @@
      *      它的返回值是： 第一项是大正则捕获到的内容，从第二项开始都是小分组的内容
      * lastIndex:
      *      正则的lastIndex属性是定义了下一次捕获开始的位置
-     */
+     * 用exec加上全局修饰符g的时候，每次匹配或者捕获的时候 都会修改正则的lastIndex属性
+     *
+     *  
+     *                     懒惰性 
+     * 找到一次符合规则的字符串之后就不在向后捕获了
+     * 怎么解决捕获的懒惰性？？   直接增加一个修饰符 g 就可以了
+     * 
+     *                     贪婪性
+     * 一次性吧所有符合条件的都拿到
+     * 怎么解决捕获的贪婪性？？    直接在对应元字符的末尾增加一个 ？即可
+     * 
+     * 懒惰性就是只获取一次，贪婪性就是一次尽量多的获取
+     * 
+     * */ 
     /*  var reg=/\d/;
       var res=reg.exec('珠峰2019年哈哈哈2020');
       console.log(res); 
@@ -33,9 +46,9 @@
 
     var str = '你好2019www哈哈2018hello珠峰2020哈哈2021londne'; //就捕获哈哈后面的数字
     var reg0 = /哈哈(\d+)([a-z]+)/g;
-    /*   var res9=reg0.exec(str);
-     console.log(res9); */
-
+     /*  var res9=reg0.exec(str);
+     console.log(res9);
+ */
     /*封装一个execAll的方法 可以一次性吧所有符合条件的内容捕获到*/
     RegExp.prototype.execAll = function (str = '') {
         // 首先查看对应的正则有没有修饰符g 
@@ -57,6 +70,21 @@
         return ary
     }
     console.log(reg0.execAll(str));
+</script>
+
+
+<script src="./3.js"></script>
+<script>
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var reg = /([^?=&]+)=([^?=&]+)/;
+    var ary = reg.execAll(str)
+    console.log(ary);
+    var obj = {};
+    ary.forEach(item => {
+        // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
+        obj[item[1]] = item[2]
+    });
+    console.log(obj);
 </script>
 
 <script>
@@ -83,4 +111,14 @@
         return ary
     }
     console.log(reg0.execAll(str));
+</script>
+
+<script>
+    var str="[Object Undefined]"
+    // var reg=/\[Object (\w+)]/;
+    var reg=/ (\w+)/;
+    // var reg=/[A-Z]\w+/;
+    console.log(reg.exec(str));
+    
+
 </script>

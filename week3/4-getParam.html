@@ -15,14 +15,45 @@
 </html>
 <script src="./3.js"></script>
 <script>
+  
+    function getParam(str) {
+        var reg = /([^?=&]+)=([^?=&]+)/g;
+        var ary = reg.execAll(str)
+        console.log(ary);
+        var obj = {};
+        ary.forEach(item => {
+            // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
+            obj[item[1]] = item[2]
+        });
+        return obj
+    } 
     var str = 'http://www.baidu.com?a=12&b=13&c=34';
-    var reg = /([^?=&]+)=([^?=&]+)/;
-    var ary = reg.execAll(str)
-    console.log(ary);
-    var obj = {};
-    ary.forEach(item => {
-        // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
-        obj[item[1]] = item[2]
-    });
-    console.log(obj);
+    var res=getParam(str);
+    console.log(res);
+</script>
+<script>
+    String.prototype.mygetParam = function mygetParam() {
+        var reg = /([^?=&]+)=([^?=&]+)/g;
+        var ary = this.match(reg)
+        console.log(ary);
+        var obj = {};
+        ary.forEach(item => {
+            // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
+            var m = item.split('=')
+            obj[m[0]] = m[1]
+        });
+        return obj
+    } 
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var res=str.mygetParam();
+    console.log(res);
+</script>
+<script>
+//replace 比match的优势是 即使有g;也能实现小分组的捕获
+    //str.replace('a','b')
+    //str.replace(/a/g,'b')
+    //str.replace(/a/g,function(){})
+    var str='珠峰zf培训px';
+    str=str.replace(/\w+/g,c=>c.toUpperCase())
+    console.log(str)
 </script>

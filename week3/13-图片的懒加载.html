@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+        list-style: none;
+    }
+    body{
+        height: 2000px;
+        background: #eee;
+    }
+    #box{
+        width: 300px;
+        height: 300px;
+        position: relative;
+        top: 1600px;
+        border: 2px solid springgreen;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img  src="./defualt.gif" realSrc='./1.jpg' alt="">
+        <img  src="./defualt.gif" realSrc='./1.jpg' alt="">
+        <img  src="./defualt.gif" realSrc='./1.jpg' alt="">
+        <img  src="./defualt.gif" realSrc='./1.jpg' alt="">
+        <img  src="./defualt.gif" realSrc='./1.jpg' alt="">
+        <img  src="./defualt.gif" realSrc='./1.jpg' alt="">
+
+    </div>
+
+</body>
+</html>
+<script src="./1.utils.js"></script>
+<script>
+/*刚进入页面的时候，让图片现实一张默认小图片，等到图片加载出来，再把图片的链接换成真实的图片地址*/
+var {offset,winH}=utils;
+var img=document.getElementById('img');
+function loadImg(ele) {
+    // 一执行该函数，我们就要判断ele这个元素 是否早已经加载完成，若已经加载过了，下边代码就不在执行了。
+    if(ele.loaded)return;
+    let scrT=document.documentElement.scrollTop;//卷去的高度
+    let winh=winH();
+    let tarT=offset(ele).t;//当前元素到body的偏移量
+    if(scrT+winh>tarT){
+        let realSrc=ele.getAttribute('realSrc');
+        // ele.src=realSrc;
+        let temp=new Image();
+        // 创造了一个img标签等同于let temp=document.createElement('img');
+        temp.src=realSrc;
+        //使用临时创造的img去远程服务器获取真实的图片
+        temp.onload=function(){
+            // onload图片加载完成会触发的函数
+            ele.src=realSrc;
+            //不会出现白图或者黑屏
+            temp=null;
+            // 不用分身的时候，直接把他null掉就可以
+            fadeIn(ele);
+        }
+        ele.loaded=true;
+        //自定义一个loaded属性，用来记录这个元素的加载情况
+    }
+}
+
+window.onscroll=function(){
+    // loadImg(img);
+    loadAll();
+}
+
+function loadAll() {
+    var imgs=document.getElementsByTagName('img');
+    for(var i=0;i<imgs.length;i++){
+        loadImg(imgs[i])
+    }
+}
+
+function fadeIn(ele) {
+    ele.style.opacity=0;
+    let a=0;
+    ele.timer=setInterval(()=>{
+        a+=0.01;
+        if(a>=1){
+            clearInterval(ele.timer);
+            a=1;
+        }
+        ele.style.opacity=a;
+    },20)
+}
+
+
+</script>

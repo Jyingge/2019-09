@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    /*
+    * replace 的两种用法，在于第二个参数可以使字符串，也可以是回调函数
+    *   如果是字符串的话，他指的是 用爱字符串去替换当前正则捕获到的内容
+    *   如果是回调函数的话，他指的是 用该回调函数的返回值去替换当前正则匹配到的内容
+    *
+    */
+</body>
+
+</html>
+<script>
+    var str = '2019-02-03';
+    var res = str.replace(/-/g, '/');
+
+    var str = '13sdaf454fz213dz5s4f3ae131zd35c1z5'; //清空所有数字
+    var res = str.replace(/\d+/g, '');
+    var res = str.replace(/\d+/g, function (...arg) {
+        // 该回调函数的参数，第一项为大正则捕获到的内容，后面若有小正则，就是小正则捕获的内容。他的倒数第一项就是整个字符串，倒数第二项是匹配到的大的其实字符的索引
+        console.log(arg);
+        return 666
+    })
+    console.log(res);
+</script>
+
+<script>
+    //'2019/9/4 上午11:37:48‘
+    var str = new Date().toLocaleString();
+    console.log(str);
+
+    var str2 = str.replace(/(\d{4})(\/)(\d+)(\/)(\d+)/, function (...arg) {
+        console.log(arg);
+        str11 = `今天是${arg[1]}年${arg[3]}月${arg[5]}日`
+        return str11;
+    });
+    console.log(str2);
+</script>
+
+<script>
+    // 使用replace实现身份证识别
+    var str = '130826199712272125';
+    var str2 = str.replace(/\d{6}(\d{4})(\d{2})(\d{2})\d{2}(\d)(\d|X)/, function (...arg) {
+        console.log(arg);
+        return `这个人的性别是${arg[4]%2 ? '男':'女'}  生日是${arg[1]}年${arg[2]}月${arg[3]}日`;
+    });
+    console.log(str2);
+</script>
+
+<script>
+// 用replace方法去实现getParam方法
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    function getParam(str) {
+        var o={};
+        /* str.replace(/([^?=&]+)=([^?=&]+)/g,function (a,b,c) {
+            console.log(a,b,c);
+            o[b]=c;
+        }) */
+
+        str.replace(/([^?=&]+)=([^?=&]+)/g,(a,b,c)=>o[b]=c);
+
+        
+        return o;
+    }
+    var obj=getParam(str);
+    console.log(obj);
+    
+
+</script>
