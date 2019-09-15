@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //=> 1.数组去重
+    var ary = [1, 2, 344, 5, 8, 5, 5, 8];
+    for (var i = 0; i < ary.length; i++) {
+        var temp = ary[i];
+        for (var j = i + 1; j < ary.length; j++) {
+            if (temp == ary[j]) {
+                ary.splice(j, 1);
+                j--;
+            }
+        }
+
+    }
+    console.log(ary);
+    //=> 2
+    for (var i = 0; i < ary.length; i++) {
+        var obj = {};
+        if (obj[ary[i]] !== undefined) {
+            ary.splice(i, 1);
+            i--;
+        }
+        obj[ary[i]] = ary[i];
+    }
+    console.log(ary);
+
+    // =>3
+    for (var i = 0; i < ary.length; i++) {
+        var ele = ary[i];
+        var obj = {};
+        if (obj.hasOwnProperty('ele')) {
+            ary.splice(i, 1);
+            i--
+            continue;
+        }
+        obj[ele] = ele;
+    }
+    console.log(ary);
+
+    //=>4
+    for (var i = 0; i < ary.length; i++) {
+        var obj = {};
+        ary.forEach((item) => {
+            obj[item] = item;
+        })
+        var arary = [];
+        for (var key in obj) {
+            arary.unshift(obj[key]);
+        }
+    }
+    console.log(ary);
+
+    //=>5
+    for (var i = 0; i < ary.length; i++) {
+        var obj = {};
+
+        if (typeof obj[ary[i]] !== 'undefined') {
+            ary.splice(i, 1);
+            i--
+        }
+        obj[ary[i]] = ary[i]
+    }
+    console.log(ary);
+</script>
+<script>
+    // 1.封装getParam()
+    String.prototype.getParam=function(key){
+        var reg=/([^?=&]+)=([^?=&]+)/g;
+        var ary=this.match(reg);
+        var obj={};
+        ary.forEach((item)=>{
+            var m=item.split('=');
+            obj[m[0]]=m[1];
+        })
+        return key?obj[key]:obj  
+    }
+    var url = "locallhost?key1=val1&key2=val2&key3=val3";
+    console.log(url.getParam("key3")); //=>'val3'
+   
+    // 2
+    String.prototype.getParam=function(key){
+        var obj={};
+        var reg=/([^?=&]+)=([^?=&]+)/g;
+        this.replace(reg,function (...arg) {
+            return obj[arg[1]]=arg[2];
+        })
+        return key?obj[key]:obj
+    }
+    var url = "locallhost?key1=val1&key2=val2&key3=val3";
+    console.log(url.getParam("key3")); //=>'val3'
+
+    // 3
+    String.prototype.getParam=function(key){
+        var obj={};
+        var reg=/([^?=&]+)=([^?=&]+)/g;
+        this.replace(reg,function (a,b,c) {
+            return obj[b]=c;
+        })
+        return key?obj[key]:obj
+    }
+    var url = "locallhost?key1=val1&key2=val2&key3=val3";
+    console.log(url.getParam("key3")); //=>'val3'
+</script>
+<script>
+// 检测数据中的最大最小值？？
+ var ary=[11,22,88,99,633,5];
+ console.log(ary.sort((a,b)=>a-b)[0]);
+
+// =>2
+var max=ary[0];
+ary.slice(1).forEach((item)=>{
+    item >max?max=item:null
+});
+var ary= [11,22,88,99,633,5];
+console.log(max);
+
+// =>3  基于apply
+console.log(Math.max.apply(null,ary));
+
+// =>4  基于展开运算符
+console.log(Math.max(...ary));
+
+</script>
+<script>
+// 将两个升序数组放在一起，组成新数组进行排序
+var ary1=[2,3,4,5,6];
+var ary2=[1,2,3,4,5];
+var ary=ary1.concat(ary2).sort((a,b)=>a-b);
+console.log(ary);
+
+</script>
