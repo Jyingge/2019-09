@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<!-- <script src="./1.js"></script> -->
+<script>
+
+/* 
+// 千分符
+var str='123456789';
+    var reg=/\d{1,3}(?=(\d{3})+$)/g;
+    var res=str.replace(reg,'$1,')
+console.log(res);
+ */
+
+//  日期格式化
+
+/* function Mydate(temp) {
+    temp=temp||'今天是{0}年{1}月{2}日 {3}时{4}分{5}秒';
+    var time=new Date();
+    var y=time.getFullYear(),
+        m=time.getMonth()+1,
+        d=time.getDate(),
+        h=time.getHours(),
+        mi=time.getMinutes(),
+        s=time.getSeconds();
+    var reg=/\{(\d+)\}/g;
+    var ary=[y,m,d,h,mi,s];
+    var res=temp.replace(reg,(...arg)=>{
+        return  ary[arg[1]]
+    })
+    return res
+}
+
+console.log(Mydate());
+
+Mydate();
+ */
+
+
+
+/*  RegExp.prototype.execAll = function (str1 = '') {
+        let _this = this;
+        if (!_this.global) {
+            _this = eval(_this + 'g');
+        }
+        let res = _this.exec(str1);
+        let ary = [];
+        while (res) {
+            ary.push(res);
+            res = _this.exec(str1)
+        }
+        return ary.length === 0 ? null : ary
+    }
+    let str1 = '珠峰2019珠峰2020'
+    let reg = /\d+/
+    console.log(reg.execAll(str1));
+    console.log(str1.match(reg));
+
+
+    String.prototype.getParam = function (key) {
+        let reg = /([^?=&]+)=([^?=&]+)/g
+        let ary = reg.execAll(this)
+        console.log(ary);
+        let obj = {};
+
+        ary.forEach(item => {
+            obj[item[1]] = item[2]
+        })
+        return key ? obj[key] : obj;
+    }
+    let str = "http://www.zhufengpeixun.cn/index.html?lx=1&from=wx#video";
+    console.log(str.getParam());
+    console.log(str.getParam('lx')); */
+
+    // 数组中出现次数最多的项
+
+    var str='aijiuxianglantianbaiyunqingkongwanli';
+    var ary=str.split('').sort((a,b)=>a.localeCompare(b)).join('');
+        console.log(ary);//aaaaaabgggiiiiiiijkllnnnnnnnoqtuuwxy
+    var reg=/(\w)\1+/g;
+    var res=ary.match(reg).sort((a,b)=>b.length-a.length);
+        console.log(res); // ["iiiiiii", "nnnnnnn", "aaaaaa", "ggg", "ll", "uu"]
+    var max=res[0].length;
+        console.log(max);  //7
+    var text=[res[0].substr(0,1)];
+        console.log(text); //i
+    for (let i = 1; i < res.length; i++) {
+        var temp=res[i];
+            console.log(temp);
+        if(temp.length<max){
+            break;
+        }
+        text.push(temp.substr(0,1))
+    }
+    
+    console.log(`出现次数最多的字符是：${res}, ${max}次`);
+    
+    
+    
+    
+     
+    
+</script>

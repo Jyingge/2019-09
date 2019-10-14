@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            border: 4px solid red;
+            text-align: center;
+            list-style: 200px;
+            user-select: none;
+            /*用户选不中 */
+            position: relative;
+            left: 0;
+            transition:left 1s 2s ease-out;
+        }
+    </style>
+</head>
+
+<body>                                                                                     
+    <button id="btn">niu</button>
+    <div id="box">zfpx</div>
+</body>
+
+</html>
+<!-- 
+    $('#box').width()       利用jq获取盒子的宽度
+    $('#box').css('border') <=> getComputedStyle(box).border  利用jq获取盒子的boder样式
+    box.currentStyle  这个是低版本浏览器用到的方法（元素.currentStyle）
+    getComputedStyle（元素）.属性
+    监听窗口大小的改变我们使用window.onresize
+-->
+<script src="./jquery.js"></script>
+<script>
+    var box = document.getElementById('box');
+    let l = 0;
+    var winw = document.documentElement.clientWidth || document.body.clientWidth;
+    var boxw = box.offsetWidth; //offsetWidth  包括border。盒子的宽度
+    let maxL = winw - boxw; //可移动的最大值
+    /*  let timer=setInterval(() => {
+          l+=11;//固定步长
+          if(l>=maxL){
+              l=maxL;
+              clearInterval(timer)
+          }
+          box.style.left = l + 'px';
+      }, 10) */
+    //   利用setTimeout实现递归调用
+    function fn() {
+        l += 5; //固定步长
+        if (l >= maxL) {
+            l = maxL;
+        } else {
+            /* setTimeout(() => {
+                fn()
+            }, 10) */
+            requestAnimationFrame(fn)
+        }
+        box.style.left = l + 'px';
+    }
+    // fn();
+btn.onclick=function(){
+    box.style.left=maxL+'px'
+    // box.style.left='translate(300px,300px)'
+}
+</script>

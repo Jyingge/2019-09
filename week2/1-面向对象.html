@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-       
+
     </style>
 </head>
 
@@ -62,7 +62,7 @@
                 }
                 tools.f1();//这就是说，封装了一个工具库，在用的时候直接调用就可以了
             ========================================================================
-        *    高级单例模式：就是闭包返回的普通对象
+        *    高级单例模式：就是闭包返回的普通对象（比普通单例模式多了隐私空间）
                 var utils=function(){
                     var name ='mingtian';
                     var sex='man'
@@ -71,6 +71,7 @@
                     }
                     return {
                         name,sex,eat
+                        
                     }
                 }    
                 var per3 = utils();//per3任然是个对象，
@@ -129,7 +130,8 @@
                     // return []  若返回的是一个引用数据类型，就会覆盖new的执行结果
                 }
                 var per4=new F('four');
-                        //new执行函数的时候，**开辟作用域，形参赋值，变量提升**，然后把函数中的this指向了一个新开辟的堆内存。。然后在这之后，在操作this，其实就是在操作这个堆内存。最后，把this返出来。
+                        //new执行函数的时候，**开辟作用域，形参赋值，变量提升**，然后把函数中的this指向了一个新开辟的堆内存。。然后在这之后，在操作this，其实就是在操作这个堆内存。最后，把this（当前创造的实例）返出来。
+                     
                 console.log(per4);
      =========  =====   =====   =====   =======   ======  ===========
         构造函数模式和工厂模式之间的区别？
@@ -138,9 +140,31 @@
             构  造函数模式比构造函数模式多了一个原型
             原型是每个函数都有的默认属性，对应的值是一个对象              
 
+=========   ======   ===   =======    =====        =========       ===========
+            class Man(){
+                // constructor里面存放的就是私有属性
+                constructor(name,age){
+                    this.name=name;
+                    this.age=age;
+                }
+            
+                // eat 和play都是共有属性，而且两个属性中不能加任何标点，会报错，机制如此.并且只能写简写方式的函数，其他的不能写。
+                eat(){
+                    console.log('girl eat')
+                }
+                play(){
+                    console.log('women paly')
+                }
+            }    
+            var w1=new Man('lily',20);
+            var w2=new Man('candy',10);
+            // 用class创建的也只能用new来执行
+
+
 ===============================================================================
-        *    原型模式：prototype         
-                每一个（对象）实例都有一个__proto__的实例，指向所属类的原型；Person.prototype
+        *    原型模式：prototype 
+        // 在构造函数模式的基础上增加一个原型，原型其实就是一个堆内存 
+                每一个（对象）实例都有一个__proto__的属性，指向所属类的原型；Person.prototype
                 每一个（函数）类都有一个prototype的属性，指向自己的原型（prototype）
                 每一个类的原型上都有一个constructor属性，指向所有类（函数）本身。
                             
@@ -213,60 +237,56 @@
 
 */
 
-function Fn() {
-    this.x = 100;
-    this.y = 200;
-    this.getX = function () {
-        console.log(this.x);
+    function Fn() {
+        this.x = 100;
+        this.y = 200;
+        this.getX = function () {
+            console.log(this.x);
+        }
     }
-}
-Fn.prototype = {
-    y: 400,
-    getX: function () {
-        console.log(this.x);
-    },
-    getY: function () {
-        console.log(this.y);
-    },
-    sum: function () {
-        console.log(this.x + this.y);
-    }
-};
+    Fn.prototype = {
+        y: 400,
+        getX: function () {
+            console.log(this.x);
+        },
+        getY: function () {
+            console.log(this.y);
+        },
+        sum: function () {
+            console.log(this.x + this.y);
+        }
+    };
 
-var f1 = new Fn;
-var f2 = new Fn;
-console.log(f1.getX === f2.getX);//false
-console.log(f1.getY === f2.getY);//true
-console.log(f1.__proto__.getY === Fn.prototype.getY);//true
-console.log(f1.__proto__.getX === f2.getX); //false
-console.log(f1.getX === Fn.prototype.getX);  //false
-console.log(f1.constructor); //Object 类
-console.log(Fn.prototype.__proto__.constructor); //Object 类
-f1.getX();//100
-f1.__proto__.getX();//undefined
-f2.getY();//200
-Fn.prototype.getY();//400
-f1.sum();
-Fn.prototype.sum();
+    var f1 = new Fn;
+    var f2 = new Fn;
+    console.log(f1.getX === f2.getX); //false
+    console.log(f1.getY === f2.getY); //true
+    console.log(f1.__proto__.getY === Fn.prototype.getY); //true
+    console.log(f1.__proto__.getX === f2.getX); //false
+    console.log(f1.getX === Fn.prototype.getX); //false
+    console.log(f1.constructor); //Object 类
+    console.log(Fn.prototype.__proto__.constructor); //Object 类
+    f1.getX(); //100
+    f1.__proto__.getX(); //undefined
+    f2.getY(); //200
+    Fn.prototype.getY(); //400
+    f1.sum();
+    Fn.prototype.sum();
 
+    
 
+    function Person() {
+        this.name = 'zhufeng'
+    };
+    Person.prototype.getName = function () {
+        console.log(this.name)
+    };
+    Person.prototype.age = 5000;
 
-function Person() {
-    this.name = 'zhufeng'
-};
-Person.prototype.getName = function () {
-    console.log(this.name)
-};
-Person.prototype.age = 5000;
-
-var per1 = new Person;
-per1.getName();
-per1.age = 9;
-console.log(per1.age);
-var per2 = new Person;
-console.log(per2.age);
-
-
-
-
+    var per1 = new Person;
+    per1.getName();
+    per1.age = 9;
+    console.log(per1.age);
+    var per2 = new Person;
+    console.log(per2.age);
 </script>

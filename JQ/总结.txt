@@ -1,0 +1,398 @@
+1.隔行变色 方法一
+    var oLis = document.getElementsByTagName('li');
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].style.background = i % 2 == 0 ? 'yellow' : 'gold';
+        oLis[i].myBg = oLis[i].style.background;
+        oLis[i].myIndex = i;
+        oLis[i].onmouseenter = function () {
+            this.style.background = 'orange';
+        }
+        oLis[i].onmouseleave = function () {
+            this.style.background = this.myBg;
+        } 
+        oLis[i].onclick = function () {
+            alert(`这是第${this.myIndex+1}行 背景是${this.myBg}`)
+        }
+    }
+2.选项卡  方法一（es6新语法）
+    let btns = document.querySelectorAll('.tab'),
+        bodys = document.querySelectorAll('.body');
+    for(let i = 0; i < btns.length; i++){
+        btns[i].onclick = function(){
+            for(let j = 0 ; j < btns.length; j++){
+                btns[j].classList.remove('current');
+                bodys[j].classList.remove('current');
+            }
+            this.classList.add('current');
+            bodys[i].classList.add('current');
+        }
+    } 
+        方法二
+    var tabs = document.getElementsByTagName('li');
+    var bodys = document.querySelectorAll('.body_box div');
+    console.log(tabs, bodys)
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].myIndex = i;
+        tabs[i].onclick = function () {
+            console.log(this);
+            for (var j = 0; j < tabs.length; j++) {
+                tabs[j].className = '';
+                bodys[j].className = '';
+            }
+            this.className = 'current';
+            bodys[this.myIndex].className = 'current';
+        }
+    }
+        方法三 （面向对象选项卡）
+    function Tab(id) {
+        this.box = document.querySelector(id);
+        this.tabs = this.box.getElementsByClassName('tab');
+        this.bodys = this.box.getElementsByClassName('body');
+        this.mapBind();
+    }
+    Tab.prototype.mapBind = function () {
+        var _this=this;
+        for (let i = 0; i < this.tabs.length; i++) {     
+            this.tabs[i].onclick = () => {
+                _this.clearClass();
+                _this.tabs[i].className = 'tab current';
+                _this.bodys[i].className = 'body current';
+            }
+        }
+    }
+    Tab.prototype.clearClass = function () {
+        [...this.tabs].forEach((v, i) => {
+            v.className = 'tab';
+            this.bodys[i].className = 'body';
+        })
+    }
+    new Tab('#tab_box');
+    new Tab('#tab_box1');
+    new Tab('#tab_box2');
+    new Tab('#tab_box3');
+    new Tab('#tab_box4');        
+3.循环绑定事件
+    var btns = document.getElementsByTagName('button');
+    for(var i = 0 ; i < btns.length ; i++){  
+        btns[i] .myIndex = i;
+        btns[i].onclick=function(){
+            alert(this.myIndex);
+        }
+    }
+4.分割url   方法一
+    function queryURLParameter(url) {
+        var str1 = str.split('?')[1];
+        var ary = str1.split('&');
+        var obj = {};
+        ary.forEach((v, i) => {
+            var arr = v.split('=');
+            obj[arr[0]] = arr[1];
+        })
+        return obj;
+    }
+    let str = 'http://www.zhufengpeixun.com/stu/?name=zxt&age=28&sex=0&HASH=teacher';
+    let result = queryURLParameter(str);
+    console.log(result);    
+        方法二（execAll）
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var reg = /([^?=&]+)=([^?=&]+)/;
+    var ary = reg.execAll(str)
+    console.log(ary);
+    var obj = {};
+    ary.forEach(item => {
+        obj[item[1]] = item[2]
+    });
+    console.log(obj);  
+        方法三 （match）
+    String.prototype.mygetParam = function mygetParam() {
+        var reg = /([^?=&]+)=([^?=&]+)/g;
+        var ary = this.match(reg)
+        console.log(ary);
+        var obj = {};
+        ary.forEach(item => {
+            var m = item.split('=')
+            obj[m[0]] = m[1]
+        });
+        return obj
+    } 
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var res=str.mygetParam();
+    console.log(res);    
+5.排序   方法一（双for）
+    function mySort(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    var temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+    var res = mySort(ary);
+    console.log(ary);      
+        方法二（sort）
+    ary.sort((a,b)=>a-b)；
+        方法三
+
+
+6.数组翻转 
+     function myReverse(arr) {
+        var a = [];
+        for (var i = 0; i < arr.length; i++) {
+            var temp = arr[i];
+            a.unshift(temp)
+        }
+        return a;
+    }
+    var ary = [1, 2, 3];
+    var res2 = myReverse(ary);
+    console.log(res2, ary);  
+7.数组去重  方法一（双for）
+    function unique(ary){   
+    for (var i = 0; i < ary.length; i++) {
+        var temp = ary[i];
+        for (var j = i + 1; j < ary.length; j++) {
+            if (temp === ary[j]) {
+                ary.splice(j, 1) 
+                j--
+            }
+        }
+    }
+     return ary
+    } 
+        方法二
+    function unique(ary){   
+    for (var i = 0; i < ary.length; i++) {
+        var temp = ary[i];
+        for (var j = i + 1; j < ary.length; j++) {
+            if (temp === ary[j]) {
+                ary[j]=arr[ary.length-1];
+                ary.pop();
+                j--
+            }
+        }
+    } 
+     return ary
+    } 
+        方法三（对象的属性名不能重复）
+    function unique2(arr) {
+        var obj = {};
+        arr.forEach(function (v) {
+            obj[v] = v 
+        })
+        console.log(obj);
+        var arr = [];
+        for (var k in obj) {
+            arr.push(obj[k])
+        }
+        return arr;
+    }
+    var res = unique2(ary);
+    console.log(res, ary);      
+        方法四（indexof lastindexof）
+    function unique3(arr) {
+        for (var i = 0; i < ary.length; i++) {
+            var n = arr.indexOf(arr[i]),
+                m = arr.lastIndexOf(arr[i]);
+            if (n !== m){
+                arr.splice(m,1);
+                i--;
+            }
+        }
+        return arr;
+    }
+    var res4=unique3(ary);
+    console.log(res4,ary)
+    }
+        方法五（new Set）
+    Array.prototype.unique=function(){
+        var temp=new Set(this);
+        return [...temp]
+        /*return [...new Set(this)];*/
+
+    }
+    var ary=[1,2,1,2,1,2,1,555,55,8,1,2,8];
+    console.log(ary);
+    ary.unique();
+8.小时钟
+     function fn() {
+        var now = new Date();
+        var y = now.getFullYear(),
+            m = now.getMonth(),
+            d = now.getDate(),
+            w = now.getDay(),
+            h = now.getHours(),
+            mi = now.getMinutes(),
+            s = now.getSeconds();
+        var date = ['日', '一', '二', '三', '四', '五', '六'];
+        time.innerHTML = `${y}年 ${m+1}月 ${d}日 星期${date[w]} ${h}时 ${mi}分 ${s}秒`;
+    }
+    var timer = window.setInterval(function () {
+        fn();
+    }, 1000) 
+9.倒计时
+    function timeCount() {
+        var target = new Date('2019/8/18 13:00:00').getTime(),
+            now = new Date().getTime(),
+            time = target - now; //时间差 是毫秒数，然后在转成时分秒
+        if (time <= 0) {
+            time=0;
+            clearInterval(timer9); 
+        }
+        var hours = parseInt(time / (1000 * 60 * 60)); //整个小时数
+        time = time - hours * 1000 * 60 * 60;  //一小时对应的毫秒数
+        var minutes = parseInt(time / (1000 * 60)); //整个分钟数
+        time = time - minutes * 1000 * 60;//一分钟对应的毫秒数
+        var seconds = parseInt(time / 1000); //整个毫秒数
+        time = time - seconds * 1000;//一秒钟对应的毫秒数
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        var str = `${hours}时${minutes}分${seconds}秒`;
+        document.getElementById('time1').innerHTML = str;
+    }
+    var timer9 = setInterval(() => {
+        timeCount(); //距离下课还有几分几秒
+    }, 1000)   
+9.四位随机数
+     function fn() {
+        var str = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+        var str2 = '';
+        for (var i = 0; i < 4; i++) {
+            var n = Math.round(Math.random() * 9);
+            if (str2.indexOf(str[n] === -1)) {
+                str2 += str[n];
+            } else {
+                i--;
+            }
+        }
+        return str2;
+    }
+    var str = fn();
+    console.log(fn()); 
+10. shift \ pop 的返回值是 删除项
+    unshift \ push 的返回值 改变后的数组长度
+    split 返回值是删除项组成的新数组
+    
+11. 封装函数
+    function myNew(...arg) {
+        //  ...arg  就相当于  Person,name,age
+        var obj={};
+        // 第一步删除了Person，第二部吧Person赋给了constructor变量
+        var Constructor=arg.shift();
+        // 把obj.__proto__指向Constructor的原型
+        obj.__proto__=Constructor.prototype;
+        // res就是引用数据类型
+        var res=Constructor.call(obj,...arg);
+        return typeof res==='object'?res:obj;
+    }
+    myNew(Person,'珠峰',10);
+----------------------------------------------------------------------
+    Function.prototype.myApply = function (context, arg) {
+        // arg = arg || [];
+        context = context || window;
+        var n = Symbol();
+        context[n] = this;
+        var res = context[n](...arg);
+        delete context[n];
+        return res;
+
+    }
+    function fn(a, b, c, d) {
+        console.log(this);
+        console.log(a + b + c + d);
+    }
+    var obj = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 5
+    }
+    fn.myApply(obj, [5, 6, 7, 8]);  
+    ----------------------------------------------------
+    Function.prototype.myCall = function (context, ...arg) {
+            var n=Symbol();
+            context[n] =this;
+            var res=context[n](...arg);
+            delete context[n]；
+            return res;     
+    }
+    function f2(a, b) {
+        console.log(this);
+        console.log(a + b);
+    }
+    var obj = {
+        q: 123,
+        w: 456,
+        e: 789
+    }
+    f2.myCall(obj, 3, 3);   
+    ---------------------------------------------------------
+    Function.prototype.myBind = function (context, ...arg) {
+        return (...ary) => {
+            this.call(context, ...arg, ...ary) //指得是mybind中的this
+        }
+    }
+    var fn2 = f2.myBind(obj); //window
+    //fn2执行的时候，f2执行，并且f2中的this改成了obj
+    fn2() // fn2(2,2,2)是可以这样传参的,这两种方法都是可以写的，
+    var fun = function () {
+        console.log(arguments);
+        console.log(this);
+    }
+    var fun2 = fun.bind(obj, 666, 888);
+    fun2();
+12.
+    class Man(){
+    constructor(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    eat(){
+        console.log('girl eat')
+    }
+    play(){
+        onsole.log('women paly')
+    }
+    }    
+    var w1=new Man('lily',20);
+    var w2=new Man('candy',10);
+13.
+Array.prototype.mypop=function(){
+        let temp=this[this.length-1]
+        this.length--;
+        return temp;
+    }
+    Array.prototype.mypush=function(){
+        for(var i=0;i<arguments.length;i++){
+            this[this.length=arguments[i]]
+        }
+        return this;
+    }
+    ary.mypop().mypush(100,200,300).mypop().mypop();
+    console.log(ary);
+
+14.
+Function.prototype.changeThis=function changeThis(context,...arg){
+            var n=Symbol();
+            context[n] =this;
+            context[n](...arg);
+            delete context[n];
+    };
+    let obj = {name:'Alibaba'};
+    function fn(x,y){
+        this.total=x+y;
+        return this;
+    }
+    let res = fn.changeThis(obj,100,200);
+    res = {name:'Alibaba',total:300} 
+    console.log(res);

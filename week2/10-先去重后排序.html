@@ -9,7 +9,7 @@
 </head>
 
 <body>
-                编写unique方法，实现如下的效果：先去重后排序
+    编写unique方法，实现如下的效果：先去重后排序
 </body>
 
 </html>
@@ -53,24 +53,24 @@
 
 
 
-   // 分析下面的changeThis方法该如何实现？
-   /*  Function.prototype.changeThis=function changeThis(context,...arg){
-            var n=Symbol();
-            context[n] =this;
-            context[n](...arg);
-            delete context[n];
-    };
-    let obj = {name:'Alibaba'};
-    function fn(x,y){
-        this.total=x+y;
-        return this;
-    }
-    let res = fn.changeThis(obj,100,200);
-    res = {name:'Alibaba',total:300} 
-    console.log(res); */
+    // 分析下面的changeThis方法该如何实现？
+    /*  Function.prototype.changeThis=function changeThis(context,...arg){
+             var n=Symbol();
+             context[n] =this;
+             context[n](...arg);
+             delete context[n];
+     };
+     let obj = {name:'Alibaba'};
+     function fn(x,y){
+         this.total=x+y;
+         return this;
+     }
+     let res = fn.changeThis(obj,100,200);
+     res = {name:'Alibaba',total:300} 
+     console.log(res); */
 
     // let ary = [12,23,12,13,13,12,23,14,8];
-//=>实现你的代码（至少三种）
+    //=>实现你的代码（至少三种）
     // var res=Math.max(...ary)
     // var res= ary.sort((a,b)=>b-a)[0];
     // var res=Math.max.apply(null,ary);
@@ -84,9 +84,7 @@
         }
     }
     console.log(max); */
+
+
     
-   
-
-
-
 </script>

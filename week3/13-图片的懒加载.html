@@ -44,6 +44,7 @@
 <script src="./1.utils.js"></script>
 <script>
 /*刚进入页面的时候，让图片现实一张默认小图片，等到图片加载出来，再把图片的链接换成真实的图片地址*/
+/*怎么知道图片露出一半？ 屏幕底边，到body的偏移量，跟元素底边到body的偏移量进行对比 */
 var {offset,winH}=utils;
 var img=document.getElementById('img');
 function loadImg(ele) {

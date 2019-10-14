@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //                                  数组扁平化                                   //
+
+    let ary = [1, [2, [3, [4, 5]]], 6];
+    // flat方法
+    // console.log(ary.flat(Infinity));
+
+    // tostring方法
+    // function flatten(ary) {
+    //     return ary.toString().split(',').map(item=>+item)
+    // }
+    // console.log(flatten(ary));
+
+    // 方法some
+    // function flatten(arr) {
+    //     while (arr.some(item=>Array.isArray(item))) {
+    //         arr=[].concat.apply([],arr);
+    //     }
+    //     return arr;
+    // }
+    // console.log(flatten(ary));
+
+    // 扩展运算符
+    // function flatten(arr) {
+    //     while (ary.some(Array.isArray)) {
+    //         ary = [].concat(...ary);
+    //     }
+    //     return ary;
+    //     }
+    // console.log(flatten(ary));
+
+    // 利用循环吧括号去掉
+    // function flat(arr) {
+    //     let temp = [];
+    //     function fn(ary) {
+    //         ary.forEach(item => {
+    //             if (typeof item == 'object') {
+    //                 fn(item)
+    //             } else {
+    //                 temp.push(item)
+    //             }
+    //         })
+    //     }
+    //     fn(arr)
+    //     return temp;
+    // }
+    // console.log(flat(ary));
+</script>

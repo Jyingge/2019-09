@@ -1,0 +1,13 @@
+<body>
+    <input type="text" id='inp' >
+</body>
+<script>
+    //实现输入框不允许打空格
+    inp.oninput = function () {
+        // console.log(this);
+        let str = this.value;
+        // var res = str.replace(/^ +/g,'');
+        var res = str.replace(/[^\d ]/g,'');
+        this.value = res;
+    }
+</script>

@@ -11,8 +11,8 @@
 <body>
     /*
     * replace 的两种用法，在于第二个参数可以使字符串，也可以是回调函数
-    *   如果是字符串的话，他指的是 用爱字符串去替换当前正则捕获到的内容
-    *   如果是回调函数的话，他指的是 用该回调函数的返回值去替换当前正则匹配到的内容
+    * 如果是字符串的话，他指的是 用爱字符串去替换当前正则捕获到的内容
+    * 如果是回调函数的话，他指的是 用该回调函数的返回值去替换当前正则匹配到的内容
     *
     */
 </body>
@@ -56,23 +56,42 @@
 </script>
 
 <script>
-// 用replace方法去实现getParam方法
+    // 用replace方法去实现getParam方法
     var str = 'http://www.baidu.com?a=12&b=13&c=34';
+
     function getParam(str) {
-        var o={};
+        var o = {};
         /* str.replace(/([^?=&]+)=([^?=&]+)/g,function (a,b,c) {
             console.log(a,b,c);
             o[b]=c;
         }) */
+        str.replace(/([^?=&]+)=([^?=&]+)/g, (a, b, c) => o[b] = c);
+        console.log('a', '--------');
 
-        str.replace(/([^?=&]+)=([^?=&]+)/g,(a,b,c)=>o[b]=c);
-console.log('a','--------');
 
-        
         return o;
     }
-    var obj=getParam(str);
+    var obj = getParam(str);
     console.log(obj);
-    
 
+    /***********************************************/
+    var str = '  jidsf dsljfs  ';
+    // 使用正则替换首位空格
+    var reg = /^ +| +$/g;
+    console.log(str.replace(reg, ''));
+    /*---------------------------------------------*/
+    var s = 'get-elment-by-id';
+    //  使用正则吧字符串的首字母变成大写
+    var res = s.replace(/-([a-z])/g, function ($1) {
+        return $1.toUpperCase()
+    })
+    console.log(res); //get-Element-By-Id 
+
+    /************************************/
+    var a = '今年是2017年';
+    var b = ['零','一','二','三','四','五','六','七','八','九'];
+    var reg = /\d/g;
+    var res = a.replace(reg,$1=>b[$1] )
+
+    console.log(res, '*******');
 </script>

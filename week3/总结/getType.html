@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    Object.prototype.getType = function () {
+        let str = ({}).toString.call(this);
+        let reg = /[a-z]+/ig;
+        reg.test(str);
+        return reg.exec(str)[0].toLowerCase();
+    }
+    console.log(''.getType());
+    console.log([].getType());
+
+    
+    //不光只有这一种办法，我们还可以把正则更改成一下这种：
+            // var reg=/\[Object (\w+)]/;
+            // var reg = / (\w+)/;
+            // var reg=/[A-Z]\w+/;
+            // let reg = /[a-z]+/ig;
+            // let reg = /.{8}(\w+)/;
+
+
+    Object.prototype.getType = function () {
+        let reg = /.{8}(\w+)/;
+        let str = Object.prototype.toString.call(this);
+        return reg.exec(str)[1].toLowerCase();
+    }
+    console.log(''.getType());
+    console.log([].getType());
+</script>

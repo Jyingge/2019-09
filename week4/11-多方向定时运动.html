@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单方向的定时运动</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            left: 100px;
+            background:rgb(178, 233, 221);
+            position: relative;
+            text-align: center;
+            line-height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">蓝天 白云</div>
+</body>
+
+</html>
+<script src="./1.js"></script>
+
+<script>
+function linear(b,e,d,t) {
+    // b:begin  e:end  d:duration  t:time
+    return (e-b)/d*t+b
+}
+function move(ele,attr,duration,target) {
+    let start=parseFloat(getComputedStyle(ele)[attr]);//初始位置
+    let time=0;//记录运动过的时间
+    let l=0;//记录元素当前的位置
+    let timer=setInterval(()=>{
+        time+=10;
+        l=linear(start,target,duration,time);
+        if (time>=duration) {
+            l=target;
+            clearInterval(timer)
+        }
+        ele.style[attr]=l+(attr==='opacity'?'':'px');
+    },10)
+}
+// move(box,'opacity',500,0);
+// move(box,'left',500,200);
+// move(box,'top',500,200);
+// 下面利用对象---------------------------------------------
+
+var moveType = {
+        linear:function linear(time,changeL,duration,beginL) {
+            return changeL/duration*time + beginL;
+        },
+        easeIn: function (t,c,d,b) {
+            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+        },
+        easeOut: function (t,c,d,b) {
+            return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+        },
+        easeInOut: function (t,c,d,b) {
+            if ((t /= d / 2) < 1) {
+                return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+            }
+            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+        }
+    };
+
+// move2(box,500,{opacity:0,left:200,top:200});
+function move2(ele,duration,option) {
+    let startObj={};
+    for(var k in option){
+        startObj[k]=parseFloat(getComputedStyle(ele)[k]);
+    }
+    // 上面这步是  拿哥哥属性的初始值
+    let time=0; //记录运动过的时间
+    let l={};  //记录元素的当前位置
+    let timer=setInterval(()=>{
+        time+=10;
+        for(let k in startObj){
+            l[k]=linear(startObj[k],option[k],duration,time)
+        }
+        if (time>=duration) {
+            // 为了处理opacity的负值
+            l=option;//当前位置等于目标位置即可
+            clearInterval(timer)
+        }
+        for(let key in option){
+            ele.style[key]=l[key]+(key==='opacity'?'':'px')
+        }
+    },10)
+}
+animate(move2(box,500,{left:200,top:200}))
+
+
+
+</script>

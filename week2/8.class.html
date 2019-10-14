@@ -43,27 +43,39 @@ Fn.prototype=new Array();
     }
     Person.prototype.eat=function(){}
     function Child(name,age,toy) {
-        // 这一步就是让Person函数执行，并且吧Person执行时的this改成了当前Child的this。也就是说，这句话直接复制了Person中的两个属性
+        // 这一步就是让Person函数执行，并且吧Person执行时的this改成了当前Child的this。也就是说，这句话直接复制了Person中的两个属性  
+        // call继承，只能继承私有属性
         Person.call(this,name,age)
-        this.toy=toy
+        this.toy=toy;
+        this.name=name;
+        this.age=age;
     }
     // Child.prototype=Person.prototype;
     // 上面这个情况，小孩类的原型直接改成了人类的原型，这样人类的共有属性，小孩类也会拥有。
     // child.prototype=new Person();
     // 这个是把小孩类的原型，改成父类（Person类）的一个实例。
     
-    Child.prototype=Object.create(Person.prototype);
+    Child.prototype=Object.create(Person.prototype);// 小孩继承人类的共有属性
     // 以上这种，的返回值就是一个空对象，但是空对象的__proto__是指向Person原型的。
+  
     //前面两种方法有点小弊端，而这种就很强大。而它就属于 寄生组合式继承。 
     Child.prototype.sleep=function(){};
     var xm=new Child('xiaoming',20,'wajueji');
     console.log(xm);
+
+    //--------------------------
+    function creat(o){
+        var obj={};
+        obj.__proto__=o;
+        return obj;
+    }
     
 
 /******************************    class声明语法     ************************************/
     class Parent{
         constructor(name){
-            this.name
+            this.name='parent';
+            this.age=100;
         }
         eat(){}
         play(){}
@@ -71,7 +83,8 @@ Fn.prototype=new Array();
     }
     class Children extends Parent{
         constructor(toy){
-            super();//这个super就是Parent的constructor，相当于我们的call继承
+            super();//这个super就是Parent的constructor，相当于我们的call继承。
+            // 有entents 和constructor 就必须得写super，
             this.toy=toy
         }
         study(){}
@@ -80,8 +93,5 @@ Fn.prototype=new Array();
     var c1=new Children('wajuejijishu');
     console.log(c1);
     
-
-
-
 
 </script>

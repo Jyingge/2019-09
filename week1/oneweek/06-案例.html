@@ -143,7 +143,7 @@
         }
     }
 /**这是用闭包写出来的*/  
-    for( var i=0;i<tabs.length;i++){
+    /* for( var i=0;i<tabs.length;i++){
         (function(n){
             tabs[n].onclick = function(){
             //点击tabs 让当前元素有current类名，其他元素没有
@@ -154,5 +154,17 @@
             bodys[n].className='body current'
             }    
         })(i)
-    }
+    } */
+
+    // 这是用foreach写的
+    // [...tabs]是可以直接写成tabs，只要把获取元素的时候换成querySelect就可以了。
+    [...tabs].forEach((item,index) => {
+        item.onclick = function(){
+            clearClass();
+            this.className='tab current'; 
+            bodys[index].className='body current';
+        }
+    });
+
+
 </script>

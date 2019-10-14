@@ -6,10 +6,10 @@ RegExp.prototype.execAll = function (str = '') {
     var reg=this;
     if (!reg.global) {
         // 代表正则没有修饰符g
-       reg=eval(reg.toString()+'g')
+       reg=eval(reg+'g')
     }
     // 怎么保证str是 字符串？
-    str = str.toString();
+    // str = str.toString();
     // this =====>  reg0
     var res = reg.exec(str);
     var ary = [];

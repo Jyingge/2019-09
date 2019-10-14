@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #box{height: 2000px;}
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    // 这就是防抖  频繁清定时器，就是让滚轮停下的时候在触发666，
+    // var timer=null;
+    // window.onscroll=function(){
+    //     clearTimeout(timer);
+    //     timer=setTimeout(() => {
+    //         console.log(666);            
+    //     }, 1000);
+    // }
+// 必考防抖
+    function debounce(fn,wait) {
+        wait=wait||100;
+        var timer=null;
+        return function () {
+            clearTimeout(timer);
+            timer=setTimeout(()=>{
+                fn.apply(this,arguments)//保证this指向，传递参数
+            },wait)
+        }
+    }
+    let fn=function () {console.log(666)}
+    let f=debounce(fn,100,true)
+    window.onscroll=f;
+    
+</script>
+<script>
+ // function debounce(func, wait, immediate) {
+    //         let result = null
+    //             timeout = null;
+    //         return function (...args) {
+    //             let context = this,
+    //             now = immediate && !timeout;
+    //             clearTimeout(timeout)
+    //             timeout = setTimeout(() => {
+    //                 timeout = null;
+    //               if (!immediate)result = func.call(context,...args);   
+    //             }, wait);
+    //            if(now) result = func.call(context,...args);
+    //            return result
+    //         }
+    //     }
+    //     let count = 0;
+    //     function fn() {
+    //         console.log(++count);
+    //     }
+    //     let lazyFn = debounce(fn, 100, true);
+    //     window.onscroll = lazyFn;
+    /*@param
+    *   func 执行的方法
+    *   wait等待的时间间隔
+    *   immediate 触发边界
+    * @return
+    *   可被调用的函数
+    */
+    //模拟underscroll 里面的debounce防抖
+    // function debounce(func, wait, immediate) {
+    //         let result = null
+    //             timeout = null;
+    //         return function (...args) {
+    //             let context = this,
+    //             now = immediate && !timeout;
+    //             clearTimeout(timeout)
+    //             timeout = setTimeout(() => {
+    //                 timeout = null;
+    //               if (!immediate)result = func.call(context,...args);   
+    //             }, wait);
+    //            if(now) result = func.call(context,...args);
+    //            return result
+    //         }
+    //     }
+    //     let count = 0;
+    //     function fn() {
+    //         console.log(++count);
+    //     }
+    //     let lazyFn = debounce(fn, 100, true);
+    //     window.onscroll = lazyFn;
+</script>

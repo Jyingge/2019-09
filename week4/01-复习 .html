@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /* 正则
+     * var reg=/\d/g;
+       var reg=new RegExp('\\d','g');
+    
+     * test匹配  exec捕获(返回的是数组)
+
+     * i：ignoreCase    m:mutiline    g:global
+
+     * (?:)只匹配不捕获
+       (?=)正向肯定预查
+       (?!)正向否定预查
+     
+     *  数组扁平化 flat
+        var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+        arr.flat(Infinity);
+         //=>(16) [1, 2, 2, 3, 4, 5, 5, 6, 7, 9, 11, 12, 12, 13, 14, 10]
+
+    *   数组去重
+        var arr = [1,2,2,3,3,6,5,5];
+        [...new Set(arr)]  //=> [1,2,3,6,5]
+    
+     */
+</script>
+<script>
+ var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+    function flat(arr){
+        let temp = [];
+        function fn(ary){
+            ary.forEach(item=>{
+                if(typeof item == 'object'){
+                    fn(item)
+                }else{
+                    temp.push(item)
+                }
+            })
+        }
+        fn(arr)
+        return temp;
+    }
+/*******************************/
+var a= ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'];
+var b=['A', 'B', 'C', 'D'];
+var temp=a.map(item=>item+'3')
+console.log(b.concat(temp).sort().map(item=>item.replace('3','')));
+//=> ["A", "A1", "A2", "B", "B1", "B2", "C", "C1", "C2", "D", "D1", "D2"]
+
+
+</script>
+<script>
+String.prototype.getParam=function (key) {
+    var reg=/([^?=&]+)=([^?=&#]+)/g;
+    var obj={};
+    var res=this.replace(reg,(a,b,c)=>{obj[b]=c})
+    // var arr=str.match(reg);
+    // arr.forEach((item)=>{
+    //     var temp=item.split('=');
+    //     obj[temp[0]]=temp[1]
+    // })
+    var hash=this.match(/#(.+)/) ? this.match(/#(.+)/)[1] : null;
+    obj.hash=hash;
+    return  key ? obj[key] : obj
+}
+var str = 'http://www.baidu.com?a=12&b=13&c=34#11';
+var res=str.getParam();
+console.log(res);//{a: "12", b: "13", c: "34", hash: "11"}
+
+ 
+
+</script>

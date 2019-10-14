@@ -56,7 +56,7 @@
 
     /*******  注册手机号  ****************/
     var iphone = document.querySelector('.input');
-    var inp = document.querySelector('#input');
+    var inp = document.querySelector('#inp');
     var btn = document.querySelector('.btn');
     // oninput  只要框里的内容发生改变就会触发该函数
     btn.onclick = function () {
@@ -112,10 +112,32 @@
     var reg = /^((1[89])|([2-5]\d)|(6[0-5]))$/; //18-65之间的有效年龄
     console.log(reg.test(65));
 
-    /*****************************************************/
+    /****************** 用正则匹配数据类型的几种方法   ******************************/
     var str = "[Object Undefined]"
+    
     // var reg=/\[Object (\w+)]/;
-    var reg = / (\w+)/;
+    // var reg = / (\w+)/;
     // var reg=/[A-Z]\w+/;
+    // let reg = /[a-z]+/ig;
+    // let reg = /.{8}(\w+)/;
+
     console.log(reg.exec(str));
+
+    Object.prototype.getType = function () {
+        let str = ({}).toString.call(this);
+        let reg = /[a-z]+/ig;
+        reg.test(str);
+        return reg.exec(str)[0].toLowerCase();
+    }
+    console.log(''.getType());
+    console.log([].getType());
+
+
+    Object.prototype.getType = function () {
+        let reg = /.{8}(\w+)/;
+        let str = Object.prototype.toString.call(this);
+        return reg.exec(str)[1].toLowerCase();
+    }
+    console.log(''.getType());
+    console.log([].getType());
 </script>

@@ -15,10 +15,68 @@
    var str='1_2+3+5+258+1542=5-31,45,68';
    var reg=/\d+/g;
    console.log(str.match(reg));
-
+   var str='1_2+3+5+258+1542=5-31,45,68';
    var ary=str.split(/[-_+=,]/);
    console.log(ary);
   
    console.log(str.split(/\D/));
+
+
+
    
+   
+// 实现大小写转换
+        // 1.最普通的办法
+        var str='adfsfeEVEDSF';
+        var str2='';
+        for(var i=0;i<str.length;i++){
+            let a =str[i];
+            if(a.toLowerCase()==a){
+                // 说明变量a对应的字符是一个小写字母
+                str2+=a.toUpperCase();
+            }
+            else{
+                str2+=a.toLowerCase();
+            }
+        }
+        console.log(str,str2);
+
+        //2.利用正则书写
+        var  str='sdfaseFEFEFedf';
+        var str2='';
+        var res =str.replace(/([a-z]*)([A-Z]*)/g,function(a,b,c){
+            return b.toUpperCase()+c.toLowerCase();
+        });
+        console.log(res);
+
+        //3.利用$1
+        var  str='sdfaseFEFEFedf';
+        var res=str.replace(/[a-zA-Z]/g,function ($1) {
+            console.log($1);
+            // $1代表的是全部字符。
+            if($1.toLowerCase()===$1){
+                return $1.toUpperCase();
+            } else{
+                return $1.toLowerCase();           
+
+            }
+        })
+        console.log(res);
+        // replace  的回调函数的实参结果 跟 match和exec获取的 类似
+        // 返回的字符串 是由匹配到的内容 被return值替换之后的 新字符串
+        // 回调函数的执行次数 跟 正则匹配到的次数一样
+
+
+        var str ='dsfasd2112dffd1s2f1s2f';
+        var res=str.replace(/([a-z]+)(\d+)/g,'$1////$2 ');
+        // 这里的$1.....代表 的就是小分组捕获的内容。
+        console.log(res);
+
+        var str ='dsfasd2112dffd1s2f1s2f';
+        var res2=str.replace(/[a-z]+\d+/g,function ($0,$1,$2) {
+            console.log($0);
+            return res2
+        });
+        // 这里的$1.....代表 的就是小分组捕获的内容。
+        console.log(res2);
 </script>

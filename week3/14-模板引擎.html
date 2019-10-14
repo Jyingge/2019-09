@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+function render(template,data) {
+    var str=template.replace(/\{\{(\w+)\}\}/g,function (context,$1) {
+        return data[$1];        
+    })
+    return str
+}
+
+let template='我是{{name}}，年龄{{age}}，性别{{sex}}';
+let data ={
+    name:'lili',age:18,sex:'man'
+}
+console.log (render(template,data))
+</script>

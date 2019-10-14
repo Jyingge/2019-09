@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            left: 0;
+            background: salmon;
+            position: relative;
+            /* animation: move 4s linear infinite;  这个也能让盒子运动起来*/
+            /* infinite 无限循环   linear 线性运动 */
+        }
+
+        @keyframes move {
+
+            0% {
+                left: 0;
+            }
+
+            50% {
+                left: 400px
+            }
+
+            100% {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <input type="text" id="inp">
+</body>
+
+</html>
+<script>
+    // 让盒子运动起来
+    let box = document.querySelector('#box')
+    let l = 0;
+    let maxl = 400;
+
+    function f() {
+        l += 10;
+        if (l > maxl) {
+            l = maxl + 'px';
+        } else {
+            requestAnimationFrame(f)
+        }
+        box.style.left = l + 'px';
+    }
+    f()
+
+    // 防抖简单写法一
+    var timer = null;
+    inp.oninput = function () {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            let str = this.value;
+            if (!/^1[3-9]\d{9}$/.test(str)) {
+                console.log('No');
+            } else {
+                console.log('Yes');
+
+            }
+        }, 1000);
+    }
+
+    // 防抖写法二
+    function f2() {
+        let str = this.value;
+        if (!/^1[3-9]\d{9}$/.test(str)) {
+            console.log('No');
+        } else {
+            console.log('Yes');
+
+        }
+    }
+    inp.oninput = debounce(f2, 500);
+
+    function debounce(fn, wait) {
+        wait = wait || 1000;
+        var timer = null;
+        return function () {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                fn.apply(this, arguments) //保证this指向，传递参数
+            }, wait)
+        }
+    }
+</script>
+<script>
+    function currying(fn, length) {
+        length = length || fn.length; //传参数的话，就是传进来的参数，没有的话，就是函数的形参个数
+        return function (...arg) {
+            if (arg.length >= length) {
+                // 如果实参的个数 大于等于 传递的参数
+                return fn.apply(this, arg)
+            } else {
+                return currying(fn.bind(this, ...arg), length - arg.length);
+                // bind 返回新函数体，不执行；
+            }
+        }
+    }
+    let f3 = function (a, b, c) {
+        return a + b + c
+    }
+    let add = currying(f3);
+    // currying  柯里化函数
+    console.log(add(1)(2)(3));
+    console.log(add(1, 2)(3));
+    console.log(add(1)(2, 3));
+    console.log(add(1, 2, 3));
+</script>

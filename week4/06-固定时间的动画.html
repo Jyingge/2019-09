@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            border: 4px solid red;
+            text-align: center;
+            list-style: 200px;
+            user-select: none;
+            /*用户选不中 */
+            position: relative;
+            left: 0;
+            /* transition:left 1s 2s ease-out; */
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">niu</button>
+    <div id="box">zfpx</div>
+
+    <!-- 
+    //let minL = 0,
+    //maxL = document.documentElement.clientWidth - box.offsetWidth;
+    //t:time 当前运动的时间
+    //d:duration总时间
+    //b:begin起始位置
+    //c:change总距离
+    //=>t/d：当前已经运动的时间/总时间=>当前动画完成的百分比
+    //t/d*c:当前动画完成的百分比*总距离=>当前已经走的距离
+    //t/d*c+b:用当前走的距离+盒子的起始位置=>当前盒子应该有的位置 
+    // let duration = 1000,//总时间
+    //     interavl = 1,   // 频率 ：多长时间迈一步
+    //     begin = 0,//=>起始位置
+    //     time = 0,//=>已经运动的时间  
+    //     target = maxL,//=>目标位置
+    //     change = target - begin;//==>总距离=目标值减初始值
+    // let autoTimer = setInterval(() => {
+    //     //=>根据公式算出当前盒子应有的位置
+    //     time += interavl   //=> time + 17 
+    //     if (time >= duration) {
+    //         box.style.left = target + 'px';
+    //         clearInterval(autoTimer)
+    //         begin = 0;
+    //         return ;
+    //         }
+    //     let curL = time / duration * change + begin;
+    //     box.style.left = curL + 'px'
+    // }, interavl);
+     -->
+</body>
+
+</html>
+
+<script src="./jquery.js"></script>
+<script>
+
+  /*   let minL = 0,
+        maxL = document.documentElement.clientWidth - box.offsetWidth;
+
+    let duration = 1000,//总时间
+        interavl = 1,   // 频率 ：多长时间迈一步
+        begin = 0,//=>起始位置
+        time = 0,//=>已经运动的时间  
+        target = maxL,//=>目标位置
+        change = target - begin;//==>总距离=目标值减初始值
+
+   let autoTimer = setInterval(() => {
+        //=>根据公式算出当前盒子应有的位置
+        time += interavl   //=> time + 17 
+        if (time >= duration) {
+            box.style.left = target + 'px';
+            clearInterval(autoTimer)
+            begin = 0;
+            return ;
+            }
+        let curL = time / duration * change + begin;
+        box.style.left = curL + 'px'
+    }, interavl); */
+
+</script>
+<script>
+    var box = document.getElementById('box');
+    let l = 0;
+    var winw = document.documentElement.clientWidth || document.body.clientWidth;
+    var boxw = box.offsetWidth; //offsetWidth  包括border。盒子的宽度
+    let maxL = winw - boxw; //可移动的最大值
+    let duration=1000;//一共需要的时间
+    let speed=maxL/duration;//一毫秒移动的距离
+    let timer=setInterval(()=>{
+        l+=20*speed;
+        if (l>=maxL) {
+            l=maxL;
+            clearInterval(timer)
+        }
+        box.style.left=l+'px'
+    },20)
+
+     
+
+
+</script>

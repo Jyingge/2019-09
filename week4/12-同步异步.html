@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        js异步单线程 : 
+            进程（浏览器就是一个进程） 
+            线程（一个进程包括多个线程）
+        
+        主队列 :
+            等待队列
+
+    -->
+ 
+    
+</body>
+</html>
+<script>    
+    // 主队列  ：  等待队列
+
+    console.log(666);
+    setTimeout(() => {
+        console.log(111);
+    }, 1000);
+    setTimeout(() => {
+        console.log(222);
+    }, 200);
+    for (let i = 0; i < 9999; i++) {
+    console.log(99);
+            
+    }
+</script>

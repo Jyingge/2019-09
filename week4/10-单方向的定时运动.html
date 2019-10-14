@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单方向的定时运动</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            left: 100px;
+            background: salmon;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">宝贝</div>
+</body>
+
+</html>
+<script>
+//  function move(ele, attr, duration, target) {
+//         // 要移动的距离  目标位置-初始位置
+//         let start = parseFloat(getComputedStyle(ele)[attr]); // getcomputedStyle得到的是一个像素值（例如100px）
+//         let changel = target - start; //
+//         let speed=changel/duration;//速度
+//         let l=0;//改变的距离
+//         let timer=setInterval(()=>{
+//             l+=20*speed;//一个步长的移动距离
+//             if (l>=changel) {
+//                 l=changel;
+//                 clearInterval(timer);
+//             }
+//             ele.style[attr]=start+l+'px';
+//         },17)
+//     }
+//     let box = document.getElementById('box');
+//     move(box, 'left', 1000, 500) //一秒之内 向右移动 500像素
+//两种方法--  ------------------  ------------------------------------------------
+
+    // 要移动的元素ele 要移动的方向attr 要移动的位置duration   要移动的距离target
+    function move(ele, attr, duration, target) {
+        // 要移动的距离  目标位置-初始位置
+        let start = parseFloat(getComputedStyle(ele)[attr]); // getcomputedStyle得到的是一个像素值（例如100px）
+        let time=0;
+        let timer=setInterval(()=>{
+            time+=20;
+            let L=linear(start,target,duration,time)
+            if (L>=target) {
+                L=target;
+                clearInterval(timer)
+            }
+            ele.style[attr]=start+L+'px';
+
+        },17)
+    }
+function linear(begin,target,duration,time) {
+    // begin初始值   target目标值  duration运动总时间  time当前运动过的时间
+    return (target-begin)/duration*time+begin;
+}
+    let box = document.getElementById('box');
+    move(box, 'left', 1000, 500) //一秒之内 向右移动 500像素
+</script>

@@ -69,8 +69,12 @@
 
 
 
-/**************************   下面是用dom获取   ***********************************/
-/*
+/**************************   下面是用dom获取   **********************************
+//getElement 系列获取到的元素集合是有映射关系的，当页面上曾江或者减少了对应的元素，该变量会跟着默认改变
+// query系列获取到的元素没有这种映射关系，获取的时候是那些元素，那么对应的变量就永远是那些变量。
+// let olis=[...document.getElementsByTagName('li')];
+
+
 let dataAry ;
 // 1、通过ajax获取数据
 let xhr = new XMLHttpRequest();
@@ -131,8 +135,8 @@ timeBtn.onclick = function(){
     // 文档碎片
     // document.createDocumentFragment
     ary.forEach(item=>{
-        box.appendChild(item);
+        box.appendChild(item);//把第一行的li元素添加到body的末尾
+        // 若添加的页面上已经存在元素，那么只相当于改变一下元素的位置，不会增加新元素
     })
 }
-// price  和  num 排序自己实现； 
-*/
+// price  和  num 排序自己实现； */

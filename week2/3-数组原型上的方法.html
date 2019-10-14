@@ -11,35 +11,88 @@
 <body>
     /*
     *数组原型（天生自带）上的方法，我们可以修改，但是不能覆盖。
-    *自定义类是可以直接修改prototype指向的。 
+    *自定义类是可以直接修改prototype指向的。
     *在原型上封装的方法，里边的this需要保证是该类的实例。
+    */
+
+    /*
+    * shift \ pop 的返回值是 删除项
+    * unshift \ push的返回值 改变后的数组长度
+    * split 返回值是删除项组成的新数组
     */
 </body>
 
 </html>
 <script>
-    Array.prototype.pop=function(){
-        console.log('hahahaha');   
+    // 实现数组去重
+    Array.prototype.unique = function () {
+        var temp = new Set(this);
+        return [...temp]
     }
-    var ary=[1,2,3,4,5];
+    var ary = [1, 2, 1, 2, 1, 2, 1, 555, 55, 8, 1, 2, 8];
+    console.log(ary);
+    ary.unique();
+
+    //--------------------------------------------
+    function unique(ary) {
+        return Array.from(new Set(ary))
+    }
+    //--------------------------------------------
+      const unique = arr => [...new Set(ary)];
+
+    //--------------------------------------------
+    (a, b) => Array.from(new Set([...a, ...b]));
+
+    //--------------------------------------------
+    arr => arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
+
+</script>
+<script>
+    Array.prototype.pop = function () {
+        console.log('hahahaha');
+    }
+    var ary = [1, 2, 3, 4, 5];
     // ary.pop();
     // console.log(ary);
     // ary.pop().slice(0) pop返回删除的哪一项，所以不是数组，没办法使用slice，结果就报错
     // ary.slice(0).pop()
-    
-/****************************       封装一个方法，能够连续打点  **************************/    
-    Array.prototype.mypop=function(){
+
+    /****************************       封装一个方法，能够连续打点  **************************/
+    Array.prototype.mypop = function () {
+        let temp = this[this.length - 1]
         this.length--;
         return this;
     }
-    Array.prototype.mypush=function(){
-        for(var i=0;i<arguments.length;i++){
-            this[this.length=arguments[i]]
+    Array.prototype.mypush = function () {
+        for (var i = 0; i < arguments.length; i++) {
+            this[this.length] = arguments[i]
         }
         return this;
     }
-    ary.mypop().mypush(100,200,300).mypop().mypop();
+    ary.mypop().mypush(100, 200, 300).mypop().mypop();
     console.log(ary);
-    
-    
+</script>
+<script>
+    /**********        myreverse方法  (倒序)  ********/
+    Array.prototype.myReverse = function () {
+        for (var i = 0; i < this.length / 2; i++) {
+            var temp = this[i];
+            this[i] = this[this.length - 1 - i];
+            this[this.length - 1 - i] = temp;
+        }
+        return this
+    }
+    var ary = [1, 45, 5, 11, 2, 11, 111, 22];
+    console.log(ary.myReverse());
+
+    Array.prototype.myReverse = function () {
+        var res = [];
+        for (var i = 0; i < this.length; i++) {
+            var temp = this[i];
+            var t = res.unshift(temp);
+        }
+        return res;
+    }
+    var ary = [1, 45, 5, 11, 2, 11, 111, 22];
+    console.log(ary.myReverse());
 </script>

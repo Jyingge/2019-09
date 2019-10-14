@@ -19,14 +19,14 @@
     而call在执行的时候，把toString方法中的this改成了字符串，所以返回的就是字符串的数据类型 问题：call这个方法在什么地方存放？ Function.prototype
 
     2. apply（和call只差在了第二个参数上，apply的第二个参数是个集合）
-    aoply 的目的和call一样，但是区别在于第二个参数，需要用集合的形式表达，最好是一个数组或者类数组。
+    apply 的目的和call一样，但是区别在于第二个参数，需要用集合的形式表达，最好是一个数组或者类数组。
     虽然第二个参数是一个集合，但是函数执行时，参数还是被散乱传上去的，并不是以集合的形式出出去的。
 
     3. bind
     使用bind更改过之后的函数，，this指向就不会在更改了。
-        var fn5=fn.bind(obj,3,3);
-        var fn6=fn5.bind(array,6,6);
-        此时，我们发现，这时候不管是fn5执行，还是fn6执行，this指向结果都是obj，由此也印证了使用bind更改过后的函数，this指向就不会在做更改了。
+    var fn5=fn.bind(obj,3,3);
+    var fn6=fn5.bind(array,6,6);
+    此时，我们发现，这时候不管是fn5执行，还是fn6执行，this指向结果都是obj，由此也印证了使用bind更改过后的函数，this指向就不会在做更改了。
 
     它的用法和call一模一样，只是不让函数立即执行，随之返回了一个新函数，新函数执行的时候this指向换掉了
     bind 返回值是个新函数，新函数执行的时候让老函数执行了，并且把老函数中的this指向改变了
@@ -108,7 +108,31 @@
     var ary = [2, 3, 4, 6, 8, 45, 7, 5, 666, 999];
     // 这两种方式都可以输出最大值
     Math.max(...ary)
-    Math.max.apply(Math, ary);
+    Math.max.apply(null, ary);
+
+    /*******************     实现myapply    **********************/
+    Function.prototype.myApply = function (context, arg) {
+        // arg = arg || [];
+        context = context || window;
+        var n = Symbol();
+        context[n] = this;
+        var res = context[n](...arg);
+        delete context[n];
+        return res;
+
+    }
+
+    function fn(a, b, c, d) {
+        console.log(this);
+        console.log(a + b + c + d);
+    }
+    var obj = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 5
+    }
+    fn.myApply(obj, [5, 6, 7, 8]);
 </script>
 <script>
     /***************************  bind   **********************/
@@ -129,29 +153,92 @@
     }
     f2(); //window
     f2.call(obj); //window
+    f2.bind(obj,2)
 
-   /* Function.prototype.myBind = function (context, ...arg) {
-        var _this = this; //此时，_this这个变量存储的就是f2函数
-        return function (...arr) {
-            return _this.call(context,...arg,...arr)
-            //    return  _this.apply(context,arg)
-        }
-    } */
+    /* Function.prototype.myBind = function (context, ...arg) {
+         var _this = this; //此时，_this这个变量存储的就是f2函数
+         return function (...arr) {
+             return _this.call(context,...arg,...arr)
+             //    return  _this.apply(context,arg.concat(arr))用apply省略了...
+         }
+     } */
     Function.prototype.myBind = function (context, ...arg) {
-        return (...ary)=>{
-            this.call(context, ...arg,...ary) //指得是mybind中的this
+        return (...ary) => {
+            this.call(context, ...arg, ...ary) //指得是mybind中的this
         }
     }
     var fn2 = f2.myBind(obj); //window
     //fn2执行的时候，f2执行，并且f2中的this改成了obj
-    fn2()    // fn2(2,2,2)是可以这样传参的,这两种方法都是可以写的，
+    fn2() // fn2(2,2,2)是可以这样传参的,这两种方法都是可以写的，
 
 
-    var fun =function(){
+    var fun = function () {
         console.log(arguments);
         console.log(this);
     }
-    var fun2 =fun.bind(obj,666,888);
+    var fun2 = fun.bind(obj, 666, 888);
     fun2();
-    
+</script>
+
+<script>
+    function Person(name,age) {
+        this.name=name;
+        this.age=age;
+    }
+    function myNew(...arg) {
+        //  ...arg  就相当于  Person,name,age
+        var obj = {};
+        // 第一步删除了Person，第二部吧Person赋给了constructor变量
+        var Constructor = arg.shift();
+        // 把obj.__proto__指向Constructor的原型
+        obj.__proto__ = Constructor.prototype;
+        // res就是引用数据类型
+        var res = Constructor.call(obj, ...arg);
+        return typeof res === 'object' ? res : obj;
+    }
+    myNew(Person, '珠峰', 10);
+
+/* 
+    function myNew(ClassN, ...arg) {  
+        var obj = {};//var obj=new Object();  
+        obj.__proto__ = ClassN.prototype;
+        var res = ClassN.call(obj, ...arg);
+        return typeof res === 'object' ? res : obj;
+    }
+    myNew(ClassN, '珠峰', 10); */
+
+
+     /*function myNew(context, ...arg) {
+        context = context || window;
+        arg = arg || [];
+        let n = symbol();
+        context[n] = this;
+        let res = context[n](...arg)
+        delete context[n]
+        return res
+
+    }
+    fn.myNew(obj, '珠峰', '10')
+
+
+    function myNew(context,arg) {
+        context = context || window;
+        arg = arg || [];
+        let n = symbol();
+        context[n] = this;
+        let res = context[n](...arg)
+        delete context[n]
+        return res
+
+    }
+    fn.myNew(obj, '珠峰', '10')
+
+    function myNew(context,...arg) {
+        context = context || window;  
+        return (...arr)=>{
+            return this.call(context,arg.concat(arr))
+        }
+    }
+   fn = f.myNew(obj, '珠峰', '10')
+   fn(1,3,2) */
 </script>

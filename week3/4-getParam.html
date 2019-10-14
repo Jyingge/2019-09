@@ -29,9 +29,9 @@
     } 
     var str = 'http://www.baidu.com?a=12&b=13&c=34';
     var res=getParam(str);
-    console.log(res);
+    console.log(res);//{a: "12", b: "13", c: "34"}
 </script>
-<script>
+ <script>
     String.prototype.mygetParam = function mygetParam() {
         var reg = /([^?=&]+)=([^?=&]+)/g;
         var ary = this.match(reg)
@@ -47,7 +47,7 @@
     var str = 'http://www.baidu.com?a=12&b=13&c=34';
     var res=str.mygetParam();
     console.log(res);
-</script>
+</script> 
 <script>
 //replace 比match的优势是 即使有g;也能实现小分组的捕获
     //str.replace('a','b')

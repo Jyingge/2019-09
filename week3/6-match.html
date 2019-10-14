@@ -17,7 +17,7 @@
 
 </html>
 <script>
-    var str = '珠峰2019哈哈2020';
+/*     var str = '珠峰2019哈哈2020';
     var reg = /\d+/g;
     var res = reg.exec(str); //["2019"]
     var str2 = str.match(reg);//['2019','2020']
@@ -26,8 +26,8 @@
 
     var str1 = 'http://www.baidu.com?a=12&b=13&c=34';
     var reg2 = /([^?=&]+)=([^?=&]+)/g;
-    console.log(reg2.exec(str1));
-    console.log(str1.match(reg2)); 
+    console.log(reg2.exec(str1));  //
+    console.log(str1.match(reg2)); //["a=12", "b=13", "c=34"] */
 
 
     /*
@@ -50,10 +50,11 @@ btn.onclick=function(){
     var str=IDcard.value;
     var reg=/[1-9]\d{5}(\d{4})(\d{2})(\d{2})\d{2}(\d)(\d|X)/;
     var res=str.match(reg);
+    // var res=reg.exec(str);
     console.log(res);
     var html=`这个人的出生年月日是${res[1]}年${res[2]}月${res[3]}日 性别是${res[4]%2?'男':'女'}`;
     textBox.innerHTML=html;    
 }
 
 
-</script>
+</script> 

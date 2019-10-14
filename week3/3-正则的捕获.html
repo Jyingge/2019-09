@@ -50,6 +50,9 @@
      console.log(res9);
  */
     /*封装一个execAll的方法 可以一次性吧所有符合条件的内容捕获到*/
+    
+    //思路：    一直用exec捕获，什么时候捕获到null 就停止捕获，先用一个变量接受exec的结果，当这个结果存在，就把结果放到数组中，当结果不存在是返回这个数组
+    
     RegExp.prototype.execAll = function (str = '') {
         // 首先查看对应的正则有没有修饰符g 
         if (!this.global) {
@@ -99,7 +102,7 @@
            reg=eval(reg.toString()+'g')
         }
         // 怎么保证str是 字符串？
-        str = str.toString();
+        // str = str.toString();
         // this =====>  reg0
         var res = reg.exec(str);
         var ary = [];

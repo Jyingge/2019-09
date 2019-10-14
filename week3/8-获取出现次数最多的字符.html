@@ -36,6 +36,14 @@
         }
     }
     console.log(obj);
+    // 这是一种写法
+    var val=Object.values(obj);
+    var key=Object.keys(obj);
+    var m=Math.max(...val);
+    var n=key[val.indexOf(m)]
+    console.log(n,m,'------');
+    
+   /*这是另一种写法 
     var a = '';
     var max = 0;
     for (var key in obj) {
@@ -44,25 +52,59 @@
            a=key;
         }
     }
-    console.log(max,a);
+    console.log(max,a); */
     
 
-    /*=========================使用正则==============================*/
+        /*=========================使用正则==============================*/
+        var str = 'bbavbkzheozcndiuhfikshfsikhfkesvhxjtgui';
+        var obj = {};
+        str = str.split('').sort((a, b) => a.localeCompare(b)).join('');
+        // str=str.split('').sort().join('');  也可以这样写 
+        // 不给sort 传参就是按阿斯科马排序
+        console.log(str,'******');
+        var reg = /(\w)\1*/g;
+        //  正则中\1代表第一个小分组捕获得内容
+
+        /*+++++++++++++++++++++++++使用match+++++++++++++++++++++++++++++*/
+        var ary = str.match(reg);
+        console.log(ary,'+++++++');
+        
+        ary.sort((a, b) => b.length - a.length)[0];
+        console.log(ary[0], ary[0].length,'******');
+
+        /*************************使用replace******************************/
+        str.replace(reg, (x, y) => {
+            console.log(x, y);
+            obj[y] = x.length
+        })
+        console.log(obj);
+
+        /*   再来一种方法*/
+        var k='',num=0;
+        str.replace(reg,($0,$1)=>{
+            if($0.length>num){
+                num=$0.length;
+                k=$1;
+            }
+       return k,num;
+        })
+        console.log(k,num,'----');
+        
+
+/*    **/
     var str = 'bbavbkzheozcndiuhfikshfsikhfkesvhxjtgui';
-    var obj = {};
-    str = str.split('').sort((a, b) => a.localeCompare(b)).join('');
-    console.log(str);
-    var reg = /(\w)\1*/g;
-
-    /*+++++++++++++++++++++++++使用match+++++++++++++++++++++++++++++*/
-    var ary = str.match(reg);
-    ary.sort((a, b) => b.length - a.length)[0];
-    console.log(ary[0], ary[0].length);
-
-    /*************************使用replace******************************/
-    str.replace(reg, (x, y) => {
-        console.log(x, y);
-        obj[y] = x.length
+    var obj={};
+   str= str.split('').sort().join('');
+    var reg=/(\w)\1*/g;
+    var res=str.match(reg);
+    console.log(res);
+    var s=res.sort((a,b)=>{
+        return b.length-a.length
     })
-    console.log(obj);
+    console.log(s[0].length,s[0][0]);
+    
+ 
+    
+
+
 </script>

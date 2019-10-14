@@ -1,10 +1,10 @@
 var oLis = document.querySelectorAll('.box>li');
 let flag = false;//数据已经请求完成 true代表正在请求
 let { getCss, setCss, winH, offset } = utils;
-/* function init() {
+function init() {
     [...oLis].forEach(item => item.innerHTML = '')
 }
-init(); */
+init();
 // 首先要获取数据，
 function getDate() {
     flag = true;
@@ -15,7 +15,7 @@ function getDate() {
         if (xhr.readyState == 4 && /200|304/.test(xhr.status)) {
             // 这步代表请求成功
             flag = false
-            console.log(xhr.response);
+            // console.log(xhr.response);
             let data = JSON.parse(xhr.response);
             // JSON.stringify();
             // console.log(data);
@@ -51,7 +51,7 @@ function renderHtml(ary) {
         div.className = 'pic_box';
         // temp.innerHTML += str;
         div.innerHTML = str;
-         temp.appendChild(div);
+        temp.appendChild(div);
     })
 }
 

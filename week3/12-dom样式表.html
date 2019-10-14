@@ -20,13 +20,15 @@
     var box=document.getElementById('box');
     // 通过style方式，我们只能获取到行内样式。
     console.log(box.style.width);//获取不到
-    console.log(box.style.padding);//30px
+    console.log(box.style.padding);//30px 
     // 通过getComputedStyle方法，可以获取当前元素的所有样式 ie6，7，8不兼容
     // getComputedStyle(box,null);// box.currentStyle  ie6-8
+
+
     console.log(getCss(box,'height'));
     setCss(box,'background','blue');
     setCss(box,'margin',200)
-    console.log(offset(box))
+    console.log(offset(box)) 
     
     
     

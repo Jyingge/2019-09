@@ -51,7 +51,7 @@ img {
 .pic_box {
     background: #fff;
     border-radius: 5px;
-    overflow: hidden;
+    overflow: visible;
     margin-bottom: 15px;
     transition: transform 0.5s;
 

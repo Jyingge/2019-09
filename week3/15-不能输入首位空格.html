@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在input框中，不能输入空格，总之就是输入不上</title>
+</head>
+<body>
+    <input type="text" id="inp">
+</body>
+</html>
+<script>
+inp.oninput=function(){
+    console.log(this);
+    let str=this.value;
+    // let res=str.replace(/^ +/g,''); 
+    // 只祛除了首空格，等输入框中有内容了，就能输入空格了。
+    let res=str.replace(/\D+/g,'');
+    // 只能输入数字，其他的都不能输入
+    this.value=res;
+}
+
+</script>

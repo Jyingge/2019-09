@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>getParams</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="../3.js"></script>
+<script>
+    //利用正则
+    String.prototype.mygetParam = function mygetParam() {
+        var reg = /([^?=&]+)=([^?=&]+)/g;
+        var ary = this.match(reg)
+        // console.log(ary);
+        var obj = {};
+        ary.forEach(item => {
+            // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
+            var m = item.split('=')
+            obj[m[0]] = m[1]
+        });
+        return obj
+    }
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var res = str.mygetParam(); //[a: "12", b: "13", c: "34"]
+    console.log(res);
+
+    // 利用split
+    String.prototype.queryParams = function (key) {
+        let str = this.split('?')[1];
+        let arr = str.split('&');
+        let obj = {};
+        arr.forEach(item => {
+            let a = item.split('=');
+            obj[a[0]] = a[1];
+        })
+        return key ? obj[key] : obj;
+    }
+    let url2 = "http://www.zhufengpeixun.cn/?lx=1&from=wx";
+    console.log(url2.queryParams("from")); //=>"wx"
+
+    // 利用自己封装的execAll
+   String.prototype.getParam= function getParam(key) {
+        var reg = /([^?=&]+)=([^?=&]+)/g;
+        var ary = reg.execAll(this)
+        // console.log(ary);
+        var obj = {};
+        ary.forEach(item => {
+            // 把数组中的每一项中的第二项当做属性名，第三性当做属性值
+            obj[item[1]] = item[2]
+        });
+        return key?obj[key]:obj
+    }
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+    var res = str.getParam('a');
+    console.log(res,'123456'); //{a: "12", b: "13", c: "34"}
+
+    // 用replace方法去实现getParam方法
+    var str = 'http://www.baidu.com?a=12&b=13&c=34';
+
+    function getParam(str) {
+        var o = {};
+        str.replace(/([^?=&]+)=([^?=&]+)/g, (a, b, c) => o[b] = c);
+        return o;
+    }
+    var obj = getParam(str);
+    console.log(obj); //{a: "12", b: "13", c: "34"}
+
+
+</script>

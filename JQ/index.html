@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>    
+    <div id='box' style='background:red'></div>    
+    <button>红</button>    
+    <button>绿</button>    
+    <button>蓝</button>
+</body>
+
+
+</html>
+
+
+<script>
+    var box = document.querySelector('#box'),
+        btnList = document.querySelectorAll('button'),
+        colorAry = ['red', 'green', 'blue'];
+    for (let i = 0; i < btnList.length; i++) {
+        btnList[i].onclick = function () {
+            box.style.background = colorAry[i];
+        }
+    }
+</script>
+
+
+<script>
+    /* * 1.编写一个方法“flatten”，将数组扁平化 （至少两种办法） * 2.然后实现“unique”数组去重方法，把数组进行去重 （至少两种办法） */
+    Array.prototype.flatten= function (arr) {
+        let str = JSON.stringify(this);
+        str = str.replace(/\[|\]/g, '');
+        str = '[' + str + ']';
+        var _this=this;
+        _this = JSON.parse(str);
+        return _this;
+    }
+    Array.prototype.unique=function(){
+        for (let i = 0; i < this.length; i++) {
+            var temp=this[i];
+            for (let j = 0; j < this.length; j++) {
+                var ary=this[j];
+                if(temp===ary){
+                    this.splice(j,1);
+                    j--;
+                }                
+            }
+            
+        }
+        return this;
+    }
+    var arr = [
+        [1, 2, 2],
+        [3, 4, 5, 5],
+        [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
+    ];
+    arr.flatten().unique().sort((a, b) => a - b); 
+    //=>[1, 2, 3, 4, 5, 6, 7, 8, 9....]
+  
+    
+</script>

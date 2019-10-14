@@ -27,6 +27,30 @@
 </html>
 
 <script>
+
+    function Person(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    Person();
+    new Person();
+    Person.age=100;
+
+
+    // 
+    function fn(){
+        // 类数组转数组
+        Array.from(arguments);
+        [...arguments];
+        [].slice.call(arguments,0);
+      /*   arguments.__proto__=Array.prototype;
+        console.log(arguments.slice()); */
+        
+    }
+    fn(1,2,3,4,6)
+</script>
+<script>
+
     /*求一组数的平均值 */
 
 //剩余运算符。转成数组在计算

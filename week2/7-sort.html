@@ -26,6 +26,20 @@
 
 </html>
 <script>
+//  对象的解构赋值
+    var obj={name:12,age:23};
+    var {age}=obj;
+    var {age,name,sex}=obj;
+    // age就是一个变量，对应的值是    对象中age对应的属性值
+</script>
+<script>
+    let str = 'snvuidfamzkcmvldenmblv4';
+    let arr = str.split('');
+    console.log(arr);
+    console.log(arr.sort());
+    console.log(arr.join(''));
+</script>
+<script>
     var ary = [{
             name: 'ming',
             age: 5
@@ -47,7 +61,7 @@
             age: 9
         }
     ]
-    var box = document.querySelector('#box');//query获取不存在映射关系。
+    var box = document.querySelector('#box'); //query获取不存在映射关系。
     var nameBtn = document.querySelector('#nameBtn');
     var ageBtn = document.querySelector('#ageBtn');
 
@@ -75,14 +89,20 @@
             return (a.name.localeCompare(b.name))*flag
         })
         renderHtml();
-    }
- */
+    } */
+
+
+
+
     /********************************  Dom 映射排序 *********************************/
     function renderHtml() {
         let str = '';
         ary.forEach((item, index) => {
-            let {name,age} =item;//对象的解构赋值。这个地方也可以不写，在下面的反引号中，就要写成item.age....
-            str += `<li>姓名是：${name};   年龄是：<span class="age">${age} </span> </li>;`;
+            let {
+                name,
+                age
+            } = item; //对象的解构赋值。这个地方也可以不写，在下面的反引号中，就要写成item.age....
+            str += `<li >姓名是：<span class='name'>${name}</span>;   年龄是：<span class="age">${age} </span> </li>`;
         })
         box.innerHTML = str;
     }
@@ -90,7 +110,7 @@
 
     let oLis = document.getElementsByTagName('li');
     let temp = oLis[0];
-    let flag = 1;
+    var flag = 1;
     ageBtn.onclick = function () {
         flag *= -1;
         //temp是页面上已经存在的节点，再去使用appendChile时，页面不会新增一个节点，只会改变原有节点的位置
@@ -108,16 +128,18 @@
             box.appendChild(item)
         })
     }
+  
     nameBtn.onclick = function () {
+        flag *= -1;
         let arr = [...oLis];
         arr.sort((a, b) => {
             // a,b对应的就是li标签，用这个内部标签span的innerHtml进行排序，
-            var name1 = a.getElementsByClassName('span')[0].innerHTML;
-            var name2 = b.getElementsByClassName('span')[0].innerHTML;
-            return name2.localeCompare(name1)
+            var name1 = a.getElementsByClassName('name')[0].innerHTML;
+            var name2 = b.getElementsByClassName('name')[0].innerHTML;
+            return (name2.localeCompare(name1))*flag
         })
         arr.forEach((item) => {
             box.appendChild(item)
         })
-    }
+    } 
 </script>

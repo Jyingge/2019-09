@@ -13,7 +13,7 @@
 </body>
 
 </html>
-<script>
+ <script>
     /*  function Person(name, age) {
         this.name = name;
         this.age = age;
@@ -35,6 +35,8 @@
     console.log(per1.constructor);  //Person
     console.log(per2.constructor);  // Object
  */
+
+
     /*     
         function Fn() {
             var n =10;
@@ -50,21 +52,23 @@
         Fn.prototype = { 
             aa:function() {console.log(this.m+10); }      
         }
-        var f2=new Fn; */
+        var f2=new Fn; 
+
+*/
+
+    console.log(f1.constructor);
+    console.log(f2.constructor);
+       f1.bb();
+    f1.aa();
+    f2.bb();
+      f2.aa();
+    f2.__proto__.aa(); 
 
 
 
-    // console.log(f1.constructor);
-    // console.log(f2.constructor);
-    //    f1.bb();
-    // f1.aa();
-    // f2.bb();
-    //   f2.aa();
-    // f2.__proto__.aa(); 
+    var name = '中国',
+        age = 5000;
 
-
-
-    var name = '中国', age = 5000;
     function Person() {
         getName = function () {
             console.log(this.name)
@@ -92,4 +96,84 @@
     Person();
     per.getName();
     per2.getName();
+</script> 
+
+<script>
+    // 上述函数执行的时候，一秒一输出晓明会css，晓明会html.....
+    var obj = {
+        name: "晓明",
+        skill: ['css', 'html', 'react', 'angular'],
+        say: function () {
+            for (let i = 0; i < this.skill.length; i++) {
+                setTimeout(() => {
+                    console.log(`${this.name}会${this.skill[i]}`);
+                }, 1000 * (i + 1))
+
+            }
+        }
+    }
+    obj.say();
+    // 上述方法，和这个方法是一样的，都能视线一秒一输出
+    function Person(name, skill) {
+        this.name = name;
+        this.skill = skill;
+    }
+    Person.prototype.say = function () {
+        for (let i = 0; i < this.skill.length; i++) {
+            setTimeout(() => {
+                console.log(`${this.name}会${this.skill[i]}`);
+            }, 1000 * (i + 1))
+        }
+    }
+    var p = new Person('晓明', ['css', 'html', 'react', 'angular']);
+    p.say();
+    // 还有一个方法用class创建
+    class Persono {
+        constructor(name, skill) {
+            this.name = name;
+            this.skill = skill;
+        }
+        say() {
+            for (let i = 0; i < this.skill.length; i++) {
+                setTimeout(() => {
+                    console.log(`${this.name}会${this.skill[i]}`);
+                }, 1000 * (i + 1))
+            }
+        }
+    }
+    var p = new Persono('晓明', ['css', 'html', 'react', 'angular']);
+    p.say();
+</script>
+<script>
+var name = '中国',
+    age = 5000;
+function Person() {
+    getName = function () {
+        console.log(this.name)
+    };
+    this.name = 'zfpx';
+    this.age = 9;
+}
+Person.name = '珠峰';
+Person.getName = function () {
+    console.log(this.name);
+};
+Person.prototype.getName = function () {
+    console.log(this.name);
+};
+var obj = {
+    name: '培训',
+    f: Person
+};
+var per = new Person();
+per.getName = function () {
+    console.log(12)
+};
+var per2 = new Person();
+obj.f();
+Person();
+per.getName();//12
+per2.getName();//zfpx
+
+
 </script>

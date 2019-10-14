@@ -24,6 +24,20 @@
 
 </html>
 <script>
+// in  
+    var obj={
+        a:undefined,
+        b:12
+    }
+    // obj.a  =>undefined
+    // obj.c  =>undefined
+
+    'toString' in obj;//true
+    obj.hasOwnProperty('toString')//false
+    
+
+</script>
+<script>
 // 封装一个方法：  plus 、minus 实现如下的执行结果
   
     Number.prototype.plus=function(a){
@@ -55,7 +69,7 @@
     console.log('qqq' in per1);
     // in 只看per1是否能够调用到 qqq，调到了就是true ，否则就是false，不管是否为共有和私有
 
-/****************************  封装函数 hasOwnProperty 和他功能一样 ***********************/
+/****************************  封装函数 和hasOwnProperty 功能一样 ***********************/
 
     //用this获取per1。属性通过kew这个形参可以获取到。紧接着判断 key是否为this的共有属性？
     // 判断是不是他的属性用in   判断是不是私有属性用hasOwnproperty
@@ -68,6 +82,7 @@
         return false
     }
     console.log(per1.hasPubProperty('eat')); //true
+    ''.hasPubProperty('length') ;
 
 
 /***********************   instanceof 判断一个值在不在原型链上     ************************/
@@ -90,6 +105,20 @@
         var str3 = str2.toLowerCase();
         return str3
     }
+    var res=''.myType();
+    console.log(res);
+
+  /*另一个写法*/
+    function getType(temp){
+        console.log(temp.constructor.toString===Function.prototype.toString)
+        var str = temp.constructor.toString();
+        return str.slice(9,str.indexOf('(')).toLowerCase();
+        
+    }
+    var res = getType('')//string
+    var res1 = getType([])//array
+    console.log(res,res1)
+/******************************************/
 
     //类数组：元素集合 实参集合    
     function sum(...arg) {
