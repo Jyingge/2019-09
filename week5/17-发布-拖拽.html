@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box,
+        #box1,
+        #box2 {
+            width: 100px;
+            height: 100px;
+            background: thistle;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0; 
+            cursor: move;
+            user-select: none;
+        }
+        #box1{
+            background: lightblue;
+
+        }
+        #box2{
+            background: yellow;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <div id="box2"> </div>
+
+</body>
+
+</html>
+<script src="./event.js"></script>
+<script src="./drag.js"></script>
+<script>
+    var n=0;
+    var box=document.getElementById('box'),
+    box1=document.getElementById('box1'),
+    box2=document.getElementById('box2');
+    new Drag('box');
+    on(box,'myIndex',addIndex);
+    new Drag('box1');
+    on(box1,'myIndex',addIndex);
+    new Drag('box2');
+    on(box2,'myIndex',addIndex);
+    function addIndex(ele) {
+        ele.style.zIndex=++n;
+    }
+
+</script>

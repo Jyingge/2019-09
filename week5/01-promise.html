@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+    // let p = new Promise();
+    // p.then();
+    // new Promise(() => {
+    //     //=>执行一个异步的任务（new Promise的时候，创建Promise的实例,立即会把函数体中的异步操作执行） 
+    //     //==>Promise 是同步的它可以管理异步
+    //     setTimeout(() => {}, 1000);
+    //     console.log(1); //第一步输出1
+    // }).then();
+    // console.log(2); //第二步输出2
+
+
+    /*    
+     *  promise状态的特点:         一经确认,不在修改!
+     *  Promise实例有三个状态：  
+                pending（准备：开始执行异步的任务）\fulfilled成功\rejected失败 ；
+     *  Promise :
+                是ES6中新增加的类（new Promise），目的是为了管理JS的异编程，所以我们把它称为Promise设计模式；
+     *   
+     */
+
+    // let p = new Promise((resolve, reject) => {
+    //     //==>resolve 当异步操作执行成功，我们执行resolve方法
+    //     //=>reject  当异步操作执行失败，我们执行reject方法
+    //     setTimeout(() => {
+    //         // resolve(100);
+    //         reject(111)
+    //     }, 1000);
+    // }).then((res) => {
+    //     //==>  第一个参数传递的是resolve
+    //     console.log('ok', res);
+    // }, () => {
+    //     //==> 第二个参数传递的是reject
+    //     console.log('no');
+    // });
+
+
+//     let p = new Promise((resolve, reject) => {
+//         $.ajax({
+//             url: './data.json',
+//             success: resolve,
+//             error: reject
+//         });
+//     });
+//     p.then(function (data) {
+//         // then的时候能写两个参数，但是写一个参数的话，就是对应的成功的回调函数；失败信息我们可以通过catch捕获错误信息。
+//         console.log(data);
+//         return new Promise(function (resolve,reject) {
+//             resolve('YES')
+//         });
+//     }).then(function (data2) {
+// // 这是上一个then函数的返回值,这就是连续写.then的作用
+//         console.log(data2);
+//     }).catch(function (error) {
+//         // 她是在捕获到错误信息的时候执行的函数
+//         console.log(error);  
+//     }).finally(()=>{
+//         // 不管是成功还是失败都会执行的代码，就可以放到finally里面
+//     })
+</script>
+<script>
+    /**
+     *      executor函数 是一个同步执行的函数，then/catch 里面的函数都是异步执行的。
+     *      then  catch  finally  这三个方法都是在Promise的原型上
+     *      all :  所有都成功，才能走成功的回调函数，只要有一个失败，就会走对应的失败函数
+     *      then   resolve   reject
+     */
+
+    let p1=new Promise(function (resolve,reject) {
+        setTimeout(() => {
+            resolve(123)
+            console.log(9);
+        }, 2000);
+    })
+    let p2=new Promise(function (resolve,reject) {
+        setTimeout(() => {
+            resolve(456)
+            console.log(8);
+        }, 3000);
+    })
+    let p3=new Promise(function (resolve,reject) {
+        setTimeout(() => {
+            reject(789)
+            console.log(7);
+        }, 4000);
+    })
+    Promise.all([p1,p2,p3]).then((data)=>{
+        console.log('data',data);
+    },(err)=>{
+        console.log('err',err);
+    })
+    // allSettled(这个是新增的语法)
+    Promise.allSettled([p1,p2,p3]).then((data)=>{
+        console.log(59,data);
+    })
+
+    Promise.race([p1,p2,p3]).then((data)=>{
+        console.log('sucessful',data);
+    },(err)=>{
+        console.log('fail',err);
+        
+    })
+
+// 这种做法，就是专门返回一个成功的实例
+    Promise.resolve(333).then((data)=>{
+        console.log(data);
+    })
+    Promise.reject(4444).then((data)=>{
+        console.log(data);
+    }).catch((error)=>{
+        console.log(error);
+    })
+
+
+</script>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{margin: 0;padding: 0;list-style: none;}
+    div{
+        box-sizing: border-box;
+    }
+    #outer{
+        width: 500px;height: 500px;background: sandybrown;margin: 50px auto;padding: 50px;
+    }
+    #center{
+        width: 400px;height: 400px;background: gold;padding: 50px;
+    }
+    #inner{
+        width: 300px;height: 300px;background: rgb(204, 204, 83);
+    }
+
+    
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="center">
+            <div id="inner"></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="./jquery.js"></script>
+<script>
+    var outer=document.getElementById('outer'),
+    center=document.getElementById('center'),
+    inner=document.getElementById('inner');
+    // Dom 利用0级事件绑定
+    /* box.onclick=function(){
+        console.log(888);
+        // 这个不会显示
+    }
+    box.onclick=function(){
+        console.log('why');
+        // 这个会显示
+    }
+    box.onclick=null;//事件移除
+    // 然而  Jquery 利用了DOM的二级事件绑定（下面的这两个绑定事件都会有显示）
+    $('#box').on('click',function () {
+        console.log('hello ');
+    })
+    $('#box').on('click',function () {
+        console.log('world ');
+    }) */
+
+    /*
+     * false   代表对应的函数需要在冒泡阶段触发函数(默认状态就是冒泡)
+     * true    代表对应的函数需要在捕获阶段触发
+     * 
+     */
+
+    /* outer.addEventListener('click',function () {
+        console.log(4);
+    },false);
+    center.addEventListener('click',function () {
+        console.log('what');
+    },false);
+    inner.addEventListener('click',function () {
+        console.log('549464');
+    },false);
+     */
+//--------------------------------------------------
+   /*  Element.prototype.on=function(type,callback){
+        this.addEventListener(type,callback,false)
+    }
+    outer.on('click',function () {
+        console.log('666',1);
+    }) */
+
+/*     function f(e) {
+        console.log(11,e.target);
+    }
+    inner.addEventListener('click',f,false);
+    // inner.removeEventListener('click',f,true);只能捕获冒泡阶段，其他时候无法移除
+
+    function complete() {
+        console.log('正常输出你的业务代码');
+        window.removeEventListener('load',complete,false);//这个是移除
+    }
+    window.addEventListener('load',function(){
+        console.log('load');//紧跟着ready 之后，它就触发了
+    },false)
+
+    window.ready(function (cb) {
+        window.addEventListener('DOMContentLoaded',cb,false)
+    })
+    window.ready(function () {
+        console.log('结构加载完成');
+    }) */
+
+/* 
+ *      DOM 2级事件绑定：  
+ *          元素.addEventListener('事件类型',回调函数,冒泡阶段或者捕获阶段)
+ *   
+ *          元素.attachEvent('on事件类型',回调函数)
+ *          元素.detachEvent('on事件类型'，回调函数)
+ * 
+ *      二级事件的同一个元素，用一个事件可以绑定多个回调函数
+ */
+
+/* 
+    $('#inner').one('click',function () {
+        console.log('one');
+    }) */
+
+// 这个就是点击一次就不能在点击了。
+    Element.prototype.one=function(type,callback){
+        function fn(e) {
+            callback.call(this,e)//这是保证下面的this指向不是window，而是inner
+            this.removeEventListener(type,fn,false)
+        }
+        this.addEventListener(type,fn,false)//这个fn就是绑定的事件，所以上面remove的this还是inner
+    }
+    inner.one('click',function () {
+        console.log('myone',this);//如果这个时候callback(e)执行的时候没有改变this指向，那它指向的就是window
+    })
+</script>

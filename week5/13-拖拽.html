@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box
+
+        /* ,
+        #box2,
+        #box3 */
+            {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: sandybrown;
+            cursor: move;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <div id="box3"></div>
+</body>
+
+</html>
+<!-- 
+    鼠标移动：
+        盒子跟着鼠标移动，  鼠标当前位置-鼠标初始位置+盒子的初始位置 =盒子当前位置
+ -->
+<script src="./jquery.js"></script>
+<script>
+    // var box = document.getElementById('box');
+
+    // function move(e) {
+    //     this.style.left = e.pageX - this.startPx + this.startX + 'px'; //盒子当前位置
+    //     this.style.top = e.pageY - this.startPy + this.startY + 'px';
+    // }
+    // box.onmousedown = function (e) {
+    //     this.startX = $(this).offset().left; //盒子的初始位置
+    //     this.startY = $(this).offset().top;
+    //     this.startPx = e.pageX; //鼠标初始位置
+    //     this.startPy = e.pageY;
+
+    //     document.onmousemove = move.bind(this);
+    //     document.onmouseup = function () {
+    //         document.onmousemove = null;
+    //         document.onmouseup = null;
+    //     }
+    // }
+    /*更改成了二级事件*/
+    // var box = document.getElementById('box');
+    // function start(e){
+    //     this.startX = $(this).offset().left;
+    //     this.startY = $(this).offset().top;
+    //     this.startPx = e.pageX;
+    //     this.startPy = e.pageY;
+    //     this.MOVE = move.bind(this);
+    //     this.END = end.bind(this);
+    //     document.addEventListener('mousemove',this.MOVE,false);
+    //     document.addEventListener('mouseup',this.END,false)
+    // }
+    // function move(e){
+    //     this.style.left = e.pageX - this.startPx + this.startX + 'px';
+    //     this.style.top = e.pageY - this.startPy + this.startY + 'px';
+    // }
+    // function end(e){
+    //     // 鼠标抬起执行的函数
+    //     console.log(666)
+    //     document.removeEventListener('mousemove',this.MOVE,false);
+    //     document.removeEventListener('mouseup',this.END,false)
+    // }
+    // box.addEventListener('mousedown',start,false);
+    // box2.addEventListener('mousedown',start,false);
+    // box3.addEventListener('mousedown',start,false);
+</script>
+<script>
+    // class Darg {
+    //     constructor(id,n) {
+    //         this.n=n;//目标次数
+    //         this.count=0;//拖拽次数
+    //         this.box = document.getElementById(id);
+    //         this.START=this.start.bind(this);
+    //         this.MOVE = this.move.bind(this);
+    //         this.END = this.end.bind(this);
+    //         this.box.addEventListener('mousedown',this.START,false);
+    //     }
+    //     start(e) {
+    //         // 保证this 是当前的实例
+    //         this.startX = this.offset(this.box).l;
+    //         this.startY = this.offset(this.box).t;
+    //         this.startPx = e.pageX;
+    //         this.startPy = e.pageY;
+    //         document.addEventListener('mousemove', this.MOVE, false);
+    //         document.addEventListener('mouseup', this.END, false);
+    //         addZIndex(this.box)
+    //     }
+    //     move(e) {
+    //         // 保证this是当前实例
+    //         this.box.style.left = e.pageX - this.startPx + this.startX + 'px';
+    //         this.box.style.top = e.pageY - this.startPy + this.startY + 'px';
+    //     }
+    //     end(e) {
+    //         // 鼠标抬起执行的函数
+    //         document.removeEventListener('mousemove', this.MOVE, false);
+    //         document.removeEventListener('mouseup', this.END, false)
+    //         // 做拖拽次数的判断
+    //         if (this.n===undefined) return;
+    //         this.count++;//次数累加
+    //         if (this.count>=this.n) {
+    //             this.clear();
+    //         }
+    //     }
+    //     clear(){
+    //         this.box.removeEventListener('mousedown',this.START,false);
+    //     }
+    //     offset(ele) {
+    //         let l = ele.offsetLeft,
+    //             t = ele.offsetTop,
+    //             temp = ele.offsetParent;
+    //         while (temp) {
+    //             l += temp.offsetLeft + temp.clientLeft;
+    //             t += temp.offsetTop + temp.clientTop;
+    //             temp = temp.offsetParent;
+    //         }
+    //         return {
+    //             l,
+    //             t
+    //         }
+    //     }
+    // }
+    // let n=0;
+    // function addZIndex(ele) {
+
+    //     ele.style.zIndex=++n;
+    // }
+
+    // var b=new Darg('box',2);
+    // new Darg('box2',3);
+    // new Darg('box3',8)
+</script>
+<script>
+    // var box = document.getElementById('box');
+
+    // function move(e) {
+    //     let minl = 0,
+    //         mint = 0,
+    //         curl = e.pageX - this.startPx + this.startL,
+    //         curt = e.pageY - this.startPy + this.startT,
+    //         maxl = document.documentElement.clientWidth - this.offsetWidth,
+    //         maxt = document.documentElement.clientHeight - this.offsetHeight;
+    //     curl = curl < minl ? minl : (curl > maxl ? maxl:curl);
+    //     curt = curt < mint ? mint : (curt > maxt ? maxt:curt);
+
+    //     this.style.left = curl + 'px';
+    //     this.style.top = curt + 'px';
+    // }
+    // box.onmousedown = function (e) {
+    //     let o = offset(this);
+    //     this.startPx = e.pageX;
+    //     this.startPy = e.pageY;
+    //     this.startL = o.l;
+    //     this.startT = o.t;
+
+    //     document.onmousemove = move.bind(this);
+    //     document.onmouseup = up.bind(this);
+    // }
+
+    // function up() {
+    //     document.onmousemove = null;
+    //     document.onmouseup = null;
+    // }
+
+    // function offset(ele) {
+    //     let l = ele.offsetLeft,
+    //         t = ele.offsetTop,
+    //         temp = ele.offsetParent;
+    //     while (temp) {
+    //         l += temp.offsetLeft + temp.clientLeft;
+    //         t += temp.offsetTop + temp.clientTop;
+    //         temp = temp.offsetParent;
+    //     }
+    //     return {
+    //         l,
+    //         t
+    //     }
+    // }
+
+
+
+    box.addEventListener('mousedown', down, false);
+    function down(e) {
+        this.startPx = e.pageX;
+        this.startPy = e.pageY;
+        this.startL = this.offsetLeft;
+        this.startT = this.offsetTop;
+        this.MOVE = move.bind(this);
+        this.UP = up.bind(this);
+        document.addEventListener('mousemove', this.MOVE, false);
+        document.addEventListener('mouseup', this.UP, false);
+    }
+
+    function move(e) {
+        let minl = 0,
+            mint = 0,
+            curl = e.pageX - this.startPx + this.startL,
+            curt = e.pageY - this.startPy + this.startT,
+            maxl = document.documentElement.clientWidth - this.offsetWidth,
+            maxt = document.documentElement.clientHeight - this.offsetHeight;
+        curl = curl < minl ? minl : (curl > maxl ? maxl : curl);
+        curt = curt < mint ? mint : (curt > maxt ? maxt : curt);
+
+        this.style.left = curl + 'px';
+        this.style.top = curt + 'px';
+    }
+
+    function up(e) {
+        document.removeEventListener('mousemove', this.MOVE, false)
+        document.removeEventListener('mouseup', this.UP, false)
+    }
+    
+</script>

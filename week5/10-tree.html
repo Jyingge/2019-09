@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="box">
+        <li>
+            <span>一级菜单1</span>
+            <ul>
+                <li>
+                    <span>二级菜单肉</span>
+                    <ul>
+                        <li><span>三级菜单9</span></li>
+                        <li><span>三级菜单10</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单水</span>
+                    <ul>
+                        <li><span>三级菜单9</span></li>
+                        <li><span>三级菜单10</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单蔬菜</span>
+                    <ul>
+                        <li><span>三级菜单9</span></li>
+                        <li><span>三级菜单11</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>一级菜单2</span>
+            <ul>
+                <li>
+                    <span>二级菜单4</span>
+                    <ul>
+                        <li><span>三级菜单9</span></li>
+                        <li><span>三级菜单11</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单5</span>
+                    <ul>
+                        <li><span>三级菜单9</span></li>
+                        <li><span>三级菜单10</span></li>
+                        <li><span>三级菜单11</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单6</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>一级菜单3</span>
+            <ul>
+                <li>
+                    <span>二级菜单7</span>
+                    <ul>
+                        <li><span>三级头</span></li>
+                    </ul>
+                </li>
+                <li><span>二级菜单8</span>
+                    <ul>
+                        <li><span>我饿了</span></li>
+                        <li><span>额了吗</span></li>
+                        <li><span>element</span></li>
+                    </ul>
+                </li>
+                <li><span>二级菜9</span>
+                    <ul>
+                        <li><span>西红柿炒鸡蛋</span></li>
+                        <li><span>水煮肉片</span></li>
+                        <li><span>我想吃肉</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+
+</html>
+
+<!-- <script> 
+    // 点击box 通过e.target判断点击的元素是不是span 是的话，就是让他的兄弟显示隐藏，不是的话就啥也不干
+
+    // var box = document.getElementById('box');
+    // box.onclick = function (e) {
+    //     e = e || window.event;
+    //     var tar = e.target || e.srcElement; //点击的那个元素
+    //     if (tar.nodeName.toLowerCase() == 'span') {
+    //         let nextE = tar.nextElementSibling; //span 对应的那个兄弟ul
+    //         nextE && nextE.classList.toggle('hide'); //nextE有就执行，没有就啥也不干
+    //         if (nextE && nextE.classList.contains('hide')) { //这一步是判断让所有儿子都遮住的
+    //             let uls = nextE.getElementByTagName('ul');
+    //             for (let i = 0; i < uls.length; i++) {
+    //                 uls[i].classList.add('hide')
+    //             }
+    //         }
+    //     }
+    // }
+  </script> -->
+
+<script src="./jquery.js"></script>
+<script>
+    $box = $('#box');
+    $box.on('click', function (e) {
+        var tar = e.target || e.srcElement;
+        console.log(tar); //这个是原生的
+        var $tar = $(tar);
+        console.log($tar); //这样就是jq对象的了
+        if ($tar.toLowerCase() == 'span') {
+            let $nextE = $tar.siblings('ul');
+            $nextE.toggleClass('hide');
+            if ($nextE.hasClass('hide')) {
+                $nextE.find('ul').addClass('hide');
+            }
+        }
+    })
+</script>

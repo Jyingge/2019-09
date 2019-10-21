@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件</title>
+    <style>
+        body {
+            background: sandybrown
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            background: salmon;
+            margin: 150px auto;
+        }
+        #btn{
+            margin: 100px 350px;
+            background: slateblue;
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" contenteditable="true"></div>
+    <input type="text" id="btn">
+</body>
+
+</html>
+<script>
+    /**
+     *              [鼠标事件]
+     * onclick        单击
+     * ondblclick     双击(大致300ms之内连续点击两次)
+     * onmouseenter   鼠标移入
+     * onmouseleave   鼠标移出
+     * onmouseover    鼠标滑过
+     * onmouseout     鼠标滑出
+     * onmousemove    鼠标滑动
+     * onmousewheel   鼠标滚轮
+     * onmousedown    鼠标按下
+     * onmouseup      鼠标抬起
+     * oncontextmenu  鼠标右击
+     */
+    box.onclick = function () {
+        console.log('单击触发的函数');
+    }
+    box.ondblclick = function () {
+        console.log('双击触发的函数');
+    }
+    box.onmouseover=function(){
+       console.log('鼠标滑过');
+    }
+    box.onmouseout = function () {
+        console.log('鼠标滑出')
+    }
+    box.onmousemove = function () {
+        console.log('鼠标滑动')
+    }
+    box.onmousewheel = function () {
+        console.log('鼠标滚轮')
+    }
+    box.onmousedown = function () {
+        console.log('鼠标按下(mo)')
+    }
+    box.onmouseup = function () {
+        console.log('鼠标抬起(ren)')
+    }
+    box.oncontextmenu = function (e) {
+        console.log('鼠标右击触发');
+        e.preventDefault();//右击的时候不会出现菜单栏
+    }
+
+
+</script>
+<script>
+/**
+ *          [键盘事件]
+ *  onkeydown       键盘按下
+ *  onkeyup         键盘抬起
+ *  onkeypress      按下抬起才触发一次
+ *  
+*/
+    btn.onkeydown=function(){
+        console.log('键盘按下keydown');
+    }
+    btn.onkeyup=function(){
+        console.log('键盘抬起keyup');
+    }
+    btn.onkeypress=function(){
+        console.log('0按下抬起0');
+    }
+/**
+ *          [input]
+ *  onfocus     获取焦点
+ *  onblur      失去焦点
+ *  oninput     内容改变就触发
+ *  onchange    内容发生改变，并且失去焦点的时候
+ * 
+ **/
+    btn.onfocus=function(){
+        console.log('获取焦点');
+    }
+    btn.onblur=function(){
+        console.log('失去焦点');
+    }
+    btn.onchange=function(){
+        console.log('~~  ~~ 嫦娥 ~~  ~~');
+    }
+    btn.oninput=function(){
+        console.log(this.value);
+    }  
+
+</script>
+<script src="./jquery.js">
+/**
+ *          [系统事件]
+ *  window.onscroll     页面滚动：只要能出现滚动条的元素，都可以绑定该事件
+ *  window.onresize     窗口大小发生改变的时候
+ *  window.onload       页面资源加载完成之后触发
+ *  
+*/
+
+window.onload=function () {
+    console.log('他们说你变了');
+}
+$(window).ready(function () {
+    console.log('变得不一样了');
+    //DOM结构加载完成之后触发 
+})
+</script>

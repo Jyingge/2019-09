@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发布订阅</title>
+</head>
+
+<body>
+    <!-- 
+        订阅：
+            把名字加入到订阅者清单
+        发布：
+            按照清单去送期刊
+
+        在js中我们队发布订阅的理解是这样的：
+            var ary=[];  //=>订阅者清单
+            function on (f){
+                //=>订阅函数   把对应的时间放到清单里边
+                ary.push(f)
+            }  
+            function fire(){
+                ary.forEach(()=>{
+                    f();//=>给你吧期刊送过去就完事了
+                })
+            }  
+    -->
+
+    <button id="btn">发布订阅 </button>
+</body>
+
+</html>
+<!-- <script>
+    var ary = []; //=>订阅者清单
+    function on(f) {
+        //=>订阅函数   把对应的时间放到清单里边
+        ary.push(f)
+    }
+
+    function off(f) {
+        // 取消订阅
+        let n = ary.indexOf(f);
+        ary.splice(n, 1)
+    }
+
+    function fire() {
+        ary.forEach((f) => {
+            f.call(this, ...arguments); //=>给你吧期刊送过去就完事了
+        })
+    }
+
+    function f1() {
+        console.log(this);
+    }
+
+    function f2() {
+        console.log(this);
+    }
+
+    function f3() {
+        console.log(this);
+    }
+    on(f1);
+    on(f2);
+    on(f3);
+    fire(66666666); //每个人都给
+    off(f2)
+    btn.onclick = fire;
+</script> -->
+
+<script>
+    /* function on(ele,f) {
+        ele.ary = ele.ary || [];
+        if(ele.ary.indexOf(f)==-1){
+            ele.ary.push(f)
+        }
+    }
+
+    function fire(ele, ...arg) {
+        ele.ary = ele.ary || [];
+        ele.ary.forEach((item) => {
+            item.call(this, ...arg)
+        })
+    }
+
+    function off(ele, f) {
+        ele.ary = ele.ary || [];
+        let n = ele.ary.indexOf(f);
+        if (n != -1) {
+            ele.ary.splice(n, 1);
+        }
+    } */
+
+    function on(ele, type, f) {
+        if (/^my/.test(type)) {
+            // 如果不是原生事件，就自己创造一个事件池，
+            ele[type] = ele[type] || [];
+            ele[type].push(f);
+        } else {
+            type = type.replace(/^on/, '');
+            ele.addEventListener(type, f, false);
+            //addEventListener自带事件池 (原生事件自带事件池)
+        }
+    }
+
+    function fire(ele, type, ...arg) {
+        if (/^my/.test(type)) {
+            // 如果不是原生事件，就自己创造一个事件池，然后还要吧事件池里的事件执行
+            ele[type] = ele[type] || [];
+            ele[type].forEach(item => {
+                item.call(this, ...arg)
+                console.log(this);//window
+                
+            });
+        }
+    }
+
+    function off(ele, type, f) {
+        if (/^my/.test(type)) {
+            ele[type] = ele[type] || [];
+            let n = ele[type].indexOf(f);
+            if (n != -1) {
+                ele[type].splice(n, 1);
+            }
+        } else {
+            type = type.replace(/^on/, ''); //防止传入的参数带on
+            ele.removeEventListener(type, f, false);
+            //addEventListener自带事件池 (原生事件自带事件池)
+        }
+    }
+    var f1=function(){
+        console.log(6);
+    }
+    on(btn, 'onclick', function () {
+        console.log('dianji1');
+    })
+    on(btn, 'onclick', function () {
+        console.log('dianji1');
+    })
+    off(btn,'onclick',f1)
+    on(btn, 'myFn', function () {
+        console.log('myFN');
+    })
+    on(btn, 'myFn', function () {
+        console.log('myFN myFN');
+    })
+    fire(btn,'myFn');//她能让myfn执行
+</script>
