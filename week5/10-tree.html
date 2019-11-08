@@ -122,7 +122,7 @@
         console.log(tar); //这个是原生的
         var $tar = $(tar);
         console.log($tar); //这样就是jq对象的了
-        if ($tar.toLowerCase() == 'span') {
+        if (tar.nodeName.toLowerCase() == 'span') {
             let $nextE = $tar.siblings('ul');
             $nextE.toggleClass('hide');
             if ($nextE.hasClass('hide')) {

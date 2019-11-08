@@ -1,0 +1,39 @@
+[
+    {
+        "type":0,
+        "img":[],
+        "commentNum":11
+    },
+    
+    {
+        "type":1,
+        "img":["./img/4.jpg"],
+        "commentNum":11
+    },
+    {
+        "type":1,
+        "img":["./img/3.jpg"],
+        "commentNum":11
+    },
+    {
+        "type":2,
+        "img":["./img/1.jpg"],
+        "commentNum":11
+    },
+    {
+        "type":3,
+        "img":["./img/4.jpg"],
+        "commentNum":11
+    },
+    {
+        "type":0,
+        "img":[],
+        "commentNum":11
+    },
+    {
+        "type":1,
+        "img":["./img/1.jpg"],
+        "commentNum":11
+    }
+   
+]

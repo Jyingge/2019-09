@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+k
+<body>
+    <!-- 
+        回到函数是高阶函数的一种，
+        
+        高阶函数：
+              如果函数的 参数 是一个函数，
+              如果一个函数 返回 了一个函数(返回函数就是高阶函数)
+        
+        常见高阶函数的应用：
+            核心功能？--
+       
+     -->
+</body>
+
+</html>
+<script>
+    function say() {
+        //  AOP  面向切片编程
+        console.log('say');
+    }
+    Function.prototype.before = function (beforeFunc) {
+        // 剩余运算符，将所有参数组合成一个数组，只能在最后一个参数里用。
+        return (...arg) => { //newFn 箭头函数没有this，arguments ，原型
+            beforeFunc();
+            this(...arg); //展开
+        }
+    }
+    let newFn=say.before(function () {
+        console.log('before');
+    })
+    newFn(); 
+</script>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/1.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/swiper.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header_logo">
+            <span class="logo icon_lg"></span>
+            <div class="center">
+                <span class="left">标准版</span>
+                |
+                <span class="right">智能版</span>
+            </div>
+            <div class="tool_box">
+                <span class="icon_search"></span>
+                <span class="icon_user"></span>
+                <span class="icon_set"></span>
+            </div>
+        </div>
+        <ul class="header_text">
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+            <li>测试 </li>
+        </ul>
+    </header>
+    <main>
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="slideBox">
+                <div class="swiper-slide">
+                    <img src="./img/1.jpg" alt="">
+                    <p>wangfengshizhu</p>
+                </div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+
+    </main>
+    <footer id="listBox">
+        <div class="list">
+            <div class="textBox">
+                <p>ok今天天气非常的好，</p>
+                <div class="conmentBox">
+                    <span class="icon_com"></span>
+                    <span>111</span>
+                    <span>王峰专栏</span>
+                </div>
+            </div>
+            <div class="imgBox">
+                <img src="./img/7.jpg" alt="">
+            </div>
+        </div>
+
+
+        <div class="list">
+                <div class="textBox">
+                    <p>ok今天天气非常的好，</p>
+                    <div class="conmentBox">
+                        <span class="icon_com"></span>
+                        <span>111</span>
+                        <span>王峰专栏</span>
+                    </div>
+                </div>
+              
+            </div>
+    </footer>
+</body>
+
+</html>
+<script src="../../JQ/jquery-3.3.1.js"></script>
+<script src="./js/swiper.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+        },
+
+        autoplay: true,
+        loop: true,
+    });
+
+    let $slideBox = $('#slideBox');
+    let $listBox=$('#listBox');
+    function getData() {
+        $.ajax({
+            type: 'get',
+            url: './data/banner.json',
+            success: function (data) {
+                renderslide(data)
+            }
+        })
+    }
+    getData();
+
+    function renderslide(ary) {
+        let str = '';
+        ary.forEach((item, index) => {
+            str += `
+            <div class="swiper-slide">
+                <img src="${item.img}" alt="">
+                <p>${item.title}</p>
+            </div>`
+        });
+
+        $slideBox.html(str);
+    }
+
+    function getlist() {
+        $.ajax({
+            type: 'get',
+            url: './data/list.json',
+            success: function (data) {
+                renderlist(data)
+            }
+        })
+    }
+    getlist();
+    function renderlist(ary) {  
+        let str='';
+        ary.forEach((item,index) => {
+          
+            if(item.type==0){
+                str+=`<div class="list">
+                <div class="textBox">
+                    <p>ok今天天气非常的好，</p>
+                    <div class="conmentBox">
+                        <span class="icon_com"></span>
+                        <span>${item.commentNum}</span>
+                        <span>王峰专栏</span>
+                    </div>
+                </div>
+            </div>`
+            }
+            else{
+                str+=`<div class="list">
+            <div class="textBox">
+                <p>ok今天天气非常的好，</p>
+                <div class="conmentBox">
+                    <span class="icon_com"></span>
+                    <span>${item.commentNum}</span>
+                    <span>王峰专栏</span>
+                </div>
+            </div>
+            <div class="imgBox">
+                <img src="${item.img}" alt="">
+            </div>
+        </div>`
+            }
+
+        });
+        $listBox.html(str);
+    }
+</script>

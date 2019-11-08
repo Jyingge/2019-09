@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="icon" href="">
+  <style>
+    a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    a.current {
+      color: seashell;
+      background: yellowgreen;
+    }
+
+    h2 {
+      display: none;
+      background: sandybrown;
+      color: #fff;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#css">css</a>
+  <a href="#js">js</a>
+  <a href="#html">html</a>
+
+  <h2>今天是</h2>
+  <h2>周五</h2>
+  <h2>晴</h2>
+
+</body>
+
+</html>
+<script>
+  /**
+   *          css3   transition  animation     
+   * transition  ：
+   * box.addEventListener('transitionend',function(){},{passive:true,capture:true})
+   *       capture  ：再捕获阶段触发
+   *       passive（为true的时候）：先执行默认事件，在执行绑定事件（为false的时候，先执行绑定事件，在执行默认事件）
+   * animation ：
+   *       帧动画，@keyframe name{0%{} 100%{}}
+   * h5   seo
+   * 
+   * font-size  可以继承
+   * 
+   * em   相对于父级 font-size 计算
+   * rem  相对于根节点的 font-size 计算 
+   * 
+   * 1rem  ===  100px   
+   *  vw   vh   
+   *      1vw = 宽度的100分之一;
+   *      假设 设计稿是750px的；  量出100px的盒子  那么设置多少vw？ 100/750*100=vw  
+   * 
+   * viewport   视口  
+   * dpr        设备像素比 
+   * 
+   * flexible.js  这个是淘宝的布局方式，把屏幕分成10分，1rem ===  w/10  ；
+   *  假设 设计稿是750px的；  量出100px的盒子  那么设置多少rem？ 100/750 * 10 = 7.5rem
+   * 
+   * @media  all and (max-width:600px)
+   *       中间如果给定了最大宽度（宽度小于等于600px），那就是符合条件的时候才执行这条命令 
+   * 
+   */
+
+  /*
+   *   
+   */
+  // window.onhashchange = function () {
+  //   console.log(location.hash);
+  // }
+
+  let a = document.querySelectorAll('a');
+  let h2 = document.querySelectorAll('h2');
+  function tab(n) {
+    [...a].forEach((item, index) => {
+      if (index == n) {
+        item.classList.add('current');
+        h2[index].style.display = 'block';
+      } else {
+        item.classList.remove('current');
+        h2[index].style.display = 'none';
+      }
+    })
+  }
+
+  window.onhashchange = function () {
+    switch (location.hash) {
+      case '#css':
+        tab(0)
+        break;
+      case '#js':
+        tab(1)
+        break;
+      case '#html':
+        tab(2)
+        break;
+    }
+  }
+</script>

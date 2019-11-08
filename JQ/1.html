@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .container {
+            width: 600px;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            margin: 100px auto;
+        }
+
+        .container .wriper {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .container .wriper .silde {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .container .wriper .silde img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            background: rgba(0, 0, 0, .3);
+            user-select: none;
+        }
+
+        .footer span {
+            flex: 1;
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            margin: auto;
+            border-right: 1px solid #ccc;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .footer span.active {
+            background: #3b8bed;
+        }
+
+        .footer span:hover {
+            cursor: pointer;
+        }
+
+        .footer span:nth-child(4) {
+            border-right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container">
+        <div class="wriper">
+            <div class="silde">
+                <img src="../自学/渐隐渐现轮播图周/img/1.jpg" alt="">
+            </div>
+            <div class="silde">
+                <img src="../自学/渐隐渐现轮播图周/img/2.jpg" alt="">
+            </div>
+            <div class="silde">
+                <img src="../自学/渐隐渐现轮播图周/img/3.jpg" alt="">
+            </div>
+            <div class="silde">
+                <img src="../自学/渐隐渐现轮播图周/img/4.jpg" alt="">
+            </div>
+        </div>
+        <div class="footer">
+            <span class="active">赵丽颖</span>
+            <span>吴亦凡</span>
+            <span>周杰伦</span>
+            <span>蔡依林</span>
+        </div>
+    </section>
+</body>
+
+</html>
+<script src="./jquery-1.11.3.min.js"></script>
+<script>
+        let $container = $('.container'),
+            $wriper = $container.find('.wriper'),
+            $silde = $container.find('.silde');
+        let n = 0,
+            Interval = 2000,
+            aotuTimer = null;
+
+        function int() {
+            $silde.eq(0).siblings().hide();
+        }
+        int();
+        aotuTimer = setInterval(move, Interval)
+        function move() {
+            n++;
+            $silde.eq(n).css({
+                opacity: 0,
+            }).show().animate({
+                opacity: 1
+            }, 300).siblings().animate({
+                opacity: 0
+            }, function () {
+                $silde.eq(n).siblings().hide()
+            }, 300)
+        }
+</script>

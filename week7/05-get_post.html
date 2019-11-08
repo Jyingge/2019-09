@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+// 封装ajax？？？？？？？
+
+
+function ajax(options) {
+    let {
+        method = 'get',// 默认是 get 请求
+        url='',
+        data = {}, // 默认空对象
+        async = true, // 默认异步
+        cache = true,// 默认走缓存
+        headers = {},
+        success,
+        error
+    } = options;
+    method = method.toLowerCase();// 防止大写
+
+    // 处理data;
+    let searchStr = '';
+    for (let k in data) {
+        searchStr += `${k}=${data[k]}&`;
+    }
+    searchStr = searchStr.replace(/&$/, '');// 'a=12&b=13' 
+    if (method == 'get') {
+        // 判断之前的url上有没有问号
+        if (url.indexOf('?') == -1) {
+            url += '?' + searchStr;
+        } else {
+            // ./data.json?qqq=123&
+            url += '&' + searchStr;
+        }
+        if (!cache) {
+            // 不走缓存
+            url += `&_=${Date.now()}`
+        }
+    }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open(method, url, async);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (/200|304/.test(xhr.status)) {
+                let data;
+                try {
+                    data=JSON.parse(xhr.response);
+                } catch (error) {
+                    data = xhr.response;
+                }
+                success && success(data);
+            } else if (/[45]\d{2}/.test(xhr.status)) {
+                error && error(xhr)
+            }
+        }
+    }
+    headers = Object.assign({
+        'content-type': 'application/x-www-form-urlencoded'
+    }, headers)
+    for (let k in headers) {
+        xhr.setRequestHeader(k, escape(headers[k]));// 为了处理中文
+    }
+    xhr.send(searchStr)
+}
+
+
+</script>
+<script>
+    /* 
+        get     delete
+        post    put option
+
+        get post之间的区别？
+            get有可能走缓存，post不存在缓存
+            get的参数是拼接在url后边的，post是放在了请求体中。
+            get的参数有大小限制的，是有与浏览器对于URL的长度限制导致的。
+            get的传参方式不安全，post相对比较安全
+     */
+    ajax({
+        method: 'get', //不是必须的，默认值是get
+        url: './data.json',
+        data: {   //这是要传给后台的数据，不是必须要有的 
+            a: 12,
+            b: 13,
+            c: "zhu"
+        },
+        async:true, // 同步异步  不是必须  默认就是异步(true)
+        cache:false, // flase 代表不走缓存（会自动补上_t）   默认get走缓存为true
+        headers:{  
+            qqq:111,
+            // 这个是设置请求头的
+        },
+        success(data){
+            // 成功的回调函数  
+        },
+        error(err){
+            // 失败的回调函数  
+        }
+    })
+</script>

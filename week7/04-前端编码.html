@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="用户名">
+    <input type="password" placeholder="密码">
+    <button id="btn">提交</button>
+</body>
+
+</html>
+<script>
+    /*
+     *       encodeURI  编码（转成符号）
+     *       decodeURI  解码（转成汉字）
+     *       encodeURIComponent  编码组件  就比encodeURI多转义了一些特殊字符
+     *       decodeURIComponent  解码（转成汉字）
+     */
+</script>
+<script>
+    /*  let inps = document.querySelectorAll('input');
+
+    function getData(obj) {
+        var xhr = new XMLHttpRequest()
+        let str='';
+        for(let k in obj){
+            str+=`${k}=${obj[k]}&`;
+        }
+        str=`t=`+Math.random();
+        xhr.open('get', `./data.json?${str}`, true);
+        // xhr.open('get', `./data.json?name=${obj.name}&password=${obj.password}`, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && /200|304/.test(xhr.status)) {
+                console.log(xhr.response);
+            }
+        }
+        xhr.timeout = 2000;
+        xhr.ontimeout = function () {
+            console.log('请求超时');
+        }
+        xhr.send();
+    }
+    btn.onclick = function () {
+        let name = inps[0].value;
+        let password=inps[1].value;
+        console.log(name,password);
+        let obj={name,password};
+        getData();
+    } */
+</script>
+<script>
+    let xhr = new XMLHttpRequest();
+    // xhr.open('post', 'https://www.souyidai.com/export/invest/portalData2', true);
+    // xhr.open('get', './data.json', true);
+    xhr.open('post', './data.json', true);
+
+    // post 不存在走缓存
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (/200|304/.test(xhr.status)) {
+                console.log(1);
+                let t = xhr.getResponseHeader('date');//获取指定响应头
+                // xhr.getAllResponseHeaders()//获取所有的响应头
+                console.log(new Date(t));
+            } else if (/[45]\d{2}/.test(xhr.status)) {
+                console.log(2);
+            }
+        }
+    }
+    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+    let obj = {
+        a: 12,
+        b: 13
+    }
+    // xhr.send(JSON.stringify(obj)) //这种方式传输就是字符串的形式
+    // 怎么转成form Data的格式？
+    //    首先要把传递的对象转成search字符串，然后在去更改请求头的content-type属性。
+    let str = '';
+    for (let k in obj) {
+        str += `${k}=${obj[k]}&`;
+    }
+    xhr.send(str);
+</script>

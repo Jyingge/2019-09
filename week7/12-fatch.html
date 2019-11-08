@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="./http_fetch.js"></script>
+<script>
+    // http.get('./data.json', {a:12,b:13,t:Date.now()}).then((data) => {
+    //     console.log('get',data);
+    // }).catch((err)=>{
+    //     console.log('get',err);
+    // })
+
+    http.post('./data.json', {a:12,b:13,t:Date.now()},'formData').then((data) => {
+        console.log('post',data);
+    }).catch((err)=>{
+        console.log('post',err);
+    })
+</script>
+
+<script src="./axios.js"></script>
+<script>
+    // let http=axios.create({
+    //     headers:{},
+    //     bseURL:'', 
+    //     requestTransform(){},
+
+    // });
+    /* 
+        axios.get('./data.json').then((d) => {
+            console.log(d, 'axios');
+        }, (e) => {
+            console.log(e, 'axios');
+        })
+     */
+
+        fetch('./data.json', {
+           body: JSON.stringify(data), // must match 'Content-Type' header
+           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+           credentials: 'same-origin', // include, same-origin, *omit
+           headers: {
+               'user-agent': 'Mozilla/4.0 MDN Example',
+               'content-type': 'application/json'
+           },
+           method: 'POST', // *GET, POST, PUT, DELETE, etc.
+           mode: 'cors', // no-cors, cors, *same-origin
+           redirect: 'follow', // manual, *follow, error
+           referrer: 'no-referrer', // *client, no-referrer
+       }).then((d) => {
+           console.log(data.json());//json 函数只能执行一次
+           return data.json();
+       }, (e) => {
+           console.log(e);
+       }).then((data) => {
+           console.log(data, 'data');
+       }).catch((err) => {
+           console.log(err, 'err');
+       })
+
+
+    
+    /*  http('./data.json', {
+        method: 'get',
+        data: {
+            a: 12,
+            b: 13
+        },
+        headers: {
+
+        },
+        credentials: 'same-orign'
+    }).then((d) => {
+        console.log(d);
+        return data.json();
+    }, (e) => {
+        console.log(e);
+    })
+ */
+
+
+
+</script>

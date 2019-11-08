@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<script>
+    let w = document.documentElement.clientWidth || document.body.clientWidth;
+    document.documentElement.style.fontSize = w * 100 / 750 + 'px';
+    window.onresize = function () {
+        let w = document.documentElement.clientWidth || document.body.clientWidth;
+        document.documentElement.style.fontSize = w * 100 / 750 + 'px';
+    }
+</script>
+
+<body>
+    <section class="loadingBox">
+        <h1>企鹅</h1>
+        <h2>h5交互场景简历</h2>
+        <div class="progressBox">
+            <div class="progress"></div>
+        </div>
+
+    </section>
+    <section class="phoneBox">
+        <header>
+            <h1>Who are you</h1>
+            <h2>www.yinggedejia.com</h2>
+            <h3 class="hide"> 00:00</h3>
+        </header>
+
+        <footer>
+            <div class="circle"></div>
+        </footer>
+
+        <div class="overBox bot">
+            <div class="overBtn"></div>
+        </div>
+
+    </section>
+    <section class="chatBox">
+        <ul class="chatMsgBox">
+            <li class="opa">
+                <div class="imgBox">
+                    <img src="./images/message-head1.png" alt="">
+                </div>
+                <div class="msg">明月几时有？把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间？
+                </div>
+            </li>
+            <li class="right opa">
+                <div class="imgBox">
+                    <img src="./images/message-head2.png" alt="">
+                </div>
+                <div class="msg">我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间？
+                </div>
+            </li>
+            <li class="opa">
+                <div class="imgBox">
+                    <img src="./images/message-head1.png" alt="">
+                </div>
+                <div class="msg">程序员没有头发这可怎么办呢？ 头发都没有啦？
+                </div>
+            </li>
+            <li class="right opa">
+                <div class="imgBox">
+                    <img src="./images/message-head2.png" alt="">
+                </div>
+                <div class="msg">现在的程序员发量都挺少的...
+                </div>
+            </li>
+            <li class="right opa">
+                <div class="imgBox">
+                    <img src="./images/message-head2.png" alt="">
+                </div>
+                <div class="msg">都是秃子
+                </div>
+            </li>
+            <li class="opa">
+                <div class="imgBox">
+                    <img src="./images/message-head1.png" alt="">
+                </div>
+                <div class="msg">ok, let's go!
+                </div>
+            </li>
+            <li class="opa">
+                <div class="imgBox">
+                    <img src="./images/message-head1.png" alt="">
+                </div>
+                <div class="msg">明月几时有？把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间？
+                </div>
+            </li>
+            <li class="right opa">
+                <div class="imgBox">
+                    <img src="./images/message-head2.png" alt="">
+                </div>
+                <div class="msg">我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间？
+                </div>
+            </li>
+        </ul>
+        <div class="keyboard bot">
+            <p></p>
+            <div class="chatBtn hide"></div>
+        </div>
+    </section>
+    <!-- 
+        preload：   none 不预加载
+                    auto 预加载
+                    metadata 预加载元数据（大小，总时间）
+        autoplay：  是自动播放的
+        loop        循环播放
+    -->
+    <button id="btn"></button>
+    <audio src="./audio/bell.mp3" preload="metadata" autoplay="true" id="bell"></audio>
+    <audio src="./audio/say.mp3" preload="metadata" loop="true" id="say"></audio>
+    <audio src="./audio/music.mp3" preload="metadata" id="bgm"></audio>
+
+</body>
+
+</html>
+<script src="./js/index.js"></script>

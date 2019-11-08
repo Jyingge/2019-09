@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+//  封装  socket.io是对于websocket的一个封装 ??????????? 
+let p =new Promise(function (res,rej) {
+    rej(66)
+})
+p.then(function (data) {
+    // 成功回调
+    console.log(true);
+    
+},function (err) {
+    console.log(false);
+}).then(function (data) {
+    console.log(1,data);
+        /* 
+         后边的then的回调函数执行，是看前then的回调函数是否成功执行，如果成功了，就让后边的then的成功回调执行，执行不成功，就让后边then的失败回调执行，后边then的回调的参数，是根据前边then的回调函数的返回值决定的。
+        */
+    return new Promise(function (res,rej) {
+        rej(99999);
+    })
+},function (err) {
+    console.log(2,err);
+        /*
+             若是前边then的回调函数返回的是个promise实例，则后边的then就是相当于给了这个新的实例
+        */
+}).then(()=>{},()=>{}).catch(()=>{
+        /*
+                假如前边已经捕获到了失败，则不再走catch； 
+        */
+}).finally(function () {
+        /*
+                不管前边走了什么状态，都会执行该函数，然而该函数并没有任何实参 
+         */
+})
+</script>
+<script>
+  Promise.resolve('666');    //返回的是一个成功状态的实例 
+  Promise.reject('0000000'); //返回的是一个失败状态的实例 
+
+  Promise.all([]); //这里存放的是各种Promise实例  例如 Promise.all([p,p1,p2,p3]).then(()=>{},()=>{})
+                                                //   Promise.race([p,p1,p2,p3]).then(()=>{},()=>{})
+
+</script>
