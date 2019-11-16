@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>监听对象中每个属性</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+    </div>
+    <div id="qqq">
+
+    </div>
+    <div id="www">
+
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝"
+        }
+    })
+    var ary=[];
+    let obj={};
+    let val=8;
+    Object.defineProperty(obj,'qqq',{
+      /*   value:'王二蛋',
+        enumerable:true, //可枚举 能循环
+        configurable:true, // 可删除
+        writable:true, //只读属性 */
+        get(){
+            // 获取
+            console.log('get');
+            return val  //zhe ge yong chu jiu da le 
+        },
+        set(value){
+            // 给对应属性设置的值
+            console.log('set',arguments);
+            val=value;
+            ary.forEach(item=>item())
+            return 'set' //mei sha yong chu 
+        }
+    })
+    function render() {
+        qqq.innerHTML=obj.qqq;        
+    }
+
+    ary.push(render)
+    function render2() {
+        www.innerHTML=obj.qqq;        
+    }
+    ary.push(render2)
+    /* console.log(obj.qqq);
+    for(var k in obj){
+        console.log(k);
+    }    
+    // delete obj.qqq;
+    obj.qqq=666; */
+    
+    let obj2 = {a:12,b:13};
+
+    let o = new Proxy(obj2,{
+        get(...arg){
+            console.log(arg)
+        },
+        set(...arg){
+            console.log(arg)
+        }
+    });
+    console.log(obj2.a);
+    console.log(o.a,'-------------');
+   
+</script>
+
+
+    
+    

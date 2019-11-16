@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="number" v-model="n">
+        <h1 v-if="n%2">{{name}}</h1>
+        <!--  <span></span>   如果有这个标签，v-if就不管用了。 也就是说，if和else中间不能有任何其他东西，只能挨着  -->
+        <h2 v-else-if="n%3==0">{{n+name}}</h2>
+        <br>
+        ----------------------------------------------
+        <h1 v-if="n%2==0">v-if</h1>
+        <h2 v-show="n%2==0">v-show</h2>
+        <!-- 
+            v-if   元素整个就不加载了
+            v-show 只是让元素隐藏了（频繁操作的时候最好要用show）
+         -->
+        <br>
+        -----------------------------------------------
+        <ul>
+            <li v-for="i in 10" v-if="i%2==0">{{i}}</li>
+            <!-- 
+            v-for的优先级，要比v-if的高
+        -->
+        </ul>
+        ----------------------------------------------
+        <br>
+        <button @click="change">Tab</button>
+        <input v-if="flag" type="text" placeholder="姓名" key="1">
+        <input v-else type="text" placeholder="年龄" :key="2">
+
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            n: 0,
+            flag: true
+        },
+        methods: {
+            change() {
+                this.flag = !this.flag
+            }
+        }
+    })
+</script>

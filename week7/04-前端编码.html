@@ -23,8 +23,8 @@
      *       decodeURIComponent  解码（转成汉字）
      */
 </script>
-<script>
-    /*  let inps = document.querySelectorAll('input');
+<script src="">
+      let inps = document.querySelectorAll('input');
 
     function getData(obj) {
         var xhr = new XMLHttpRequest()
@@ -32,7 +32,8 @@
         for(let k in obj){
             str+=`${k}=${obj[k]}&`;
         }
-        str=`t=`+Math.random();
+        // <!-- 去除缓存 -->
+        str+=`t=`+Math.random();
         xhr.open('get', `./data.json?${str}`, true);
         // xhr.open('get', `./data.json?name=${obj.name}&password=${obj.password}`, true);
         xhr.onreadystatechange = function () {
@@ -51,8 +52,8 @@
         let password=inps[1].value;
         console.log(name,password);
         let obj={name,password};
-        getData();
-    } */
+        getData(obj);
+    }
 </script>
 <script>
     let xhr = new XMLHttpRequest();

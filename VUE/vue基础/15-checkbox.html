@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+
+
+
+        <input type="checkbox" id="all" v-model="all" @change="fn"><label for="all">水果栏子</label>
+        <pre>-----------------------------------------------</pre>
+        <input type="checkbox" id="apple" v-model="checklist" value="2"><label for="apple">苹果</label>
+        <input type="checkbox" id="banana" v-model="checklist" value="3"><label for="banana">香蕉</label>
+        <input type="checkbox" id="pear" v-model="checklist" value="4"><label for="pear">梨子</label>
+        <input type="checkbox" id="orange" v-model="checklist" value="5"><label for="orange">橘子</label>
+        <input type="checkbox" id="peach" v-model="checklist" value="6"><label for="peach">桃子</label>
+        <input type="checkbox" id="water" v-model="checklist" value="7"><label for="water">西瓜</label>
+        
+        <!-- 多个checkbox绑定同一个数组，这个时候，数组中的内容就是你选中的checkbox的value值-->
+
+
+        <pre>*******************************************************</pre>
+
+
+        <template v-for="item in backAry">
+            <input type="checkbox" v-bind:id="item" v-model="checklist" :value="item">
+            <label :for="item">{{item}}</label>
+        </template>
+
+
+        <!--
+              v-bind 专门用来绑定行内属性的 简写: 
+              template  是vue内置的一个标签，可以避免增加无用标签的这种毛病 
+         -->
+
+
+        <pre>*******************************************************</pre>
+
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            backAry: ['apple', 'banana', 'pear', 'orange', 'peach'],
+            checklist: [],
+            all: false
+        },
+        methods: {
+            fn() {
+                if (this.all) {
+                    this.checklist = [2, 3, 4, 5, 6, 7]
+                } else {
+                    this.checklist = []
+                }
+            }
+        }
+    })
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 400px;
+            height: 400px;
+            margin: auto;
+            border: 3px solid;
+            border-color: transparent transparent transparent red;
+            transform: rotate(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div id="div2"><p>绿色</p>
+        
+</body>
+
+</html>
+<script>
+    var s1 = 'abcdefghigk';
+    var s2 = 'sjrabcde';
+    var str = '';
+    for (let i = 0; i < s1.length; i++) {
+        var temp1 = s1[i];
+        for (let j = 0; j < s2.length; j++) {
+            var temp2 = s2[j];
+            if (temp1 == temp2) {
+                str+=temp1;
+                break;
+            }
+        }
+    }
+    console.log(str);
+    
+</script>

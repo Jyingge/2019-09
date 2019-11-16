@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        {{ary}}
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+       /* 数组的变异方法（能改变原有数组的原生方法）
+            数组的改变能触发试图更新的只有那几个数组变异方法：
+            one : 真个数组的替换
+            two : 使用splice
+            three   : 使用无关变量（t）
+       */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝",
+            ary:[1,2,3]
+        }
+    });
+    // 
+</script>

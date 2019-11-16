@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <!-- 
+        v-for  
+            后面跟随的是表达式 v-for="自定义变量 in data中的数据" (注意：自定义的标签只能在标签内部使用)；
+            用在哪个标签上，就循环展示哪个标签；
+            可以嵌套使用
+            
+     -->
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        ----------------------------------------------------
+
+<!-- v-for="item in items" -->
+        <ul>
+            <li v-for="item in items">
+                {{ item }}
+                <span v-for="item in ['王','峰','是','小','王','.']">
+                    {{ item }}
+                </span>
+            </li>
+        </ul>
+        ----------------------------------------------------
+        <span  v-for="item in 10">
+                {{ item }}
+        </span>
+<!-- v-for="(item,index) in arr" -->
+
+        <table>
+            <thead>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in arr">
+                    <td v-html="item.id">1</td>
+                    <td v-html="item.name">张三</td>
+                    <td v-html="item.age">26</td>
+                </tr>
+               <!--  <tr  v-for="(val,item,index) in obj"> 
+                    {{val}}  {{item}}  {{index}}
+                </tr> -->
+            </tbody>
+        </table>
+        ----------------------------------------------------
+
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            items: [1, 2, 3, 4],
+            arr: [{
+                id: 1,
+                name: "张三",
+                age: 26
+            }, {
+                id: 2,
+                name: "李四",
+                age: 27
+            }, {
+                id: 3,
+                name: "王五",
+                age: 28
+            }, ],
+            
+        },
+       
+
+
+
+    })
+</script>

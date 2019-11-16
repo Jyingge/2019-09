@@ -21,7 +21,6 @@ function loadBox() {
                     if (e.propertyName === 'opacity') {
                         loadingBox.classList.add('hide');
                         console.log(11);
-                        
                         phoneBoxFn();//第一屏完成之后，第二屏才能执行显示
                         bell.play();
                     }

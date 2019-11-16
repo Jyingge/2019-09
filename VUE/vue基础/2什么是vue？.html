@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules//vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <!-- 小胡子语法，vue规定{{这里面只能写表达式，不能写语句}} -->
+        <h1>{{eee+qqq+aaa}}</h1>
+        <h1>{{aaa}}</h1>
+        <div><a href="http://baidu.com">百度</a></div>
+    </div>
+    <div id="app2">
+        <h1>{{qqq}}</h1>
+    </div>
+</body>
+</html>
+<script>
+/* 
+    简单来说，她就是框架
+    架子给搭好了框架帮你调用，库就是给你工具自己调用
+    渐进式 vue vue-router路由  vuex axios 
+    vue 的ui组件库  ele iview vant    
+*/
+new Vue({
+    // el:'#app',//不能是body 和html
+    // template:`<div>这是个执行模板{{qqq}}</div>`,
+    data:{
+        // data中的属性，就是vue的变量
+        qqq:'hello',
+        eee:'22222',
+        aaa:[1,2,3,4]
+    }
+}).$mount('#app2')
+</script>

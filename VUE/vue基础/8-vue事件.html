@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .outer{
+        width: 400px;height: 400px;padding: 50px;background: lightcoral;box-sizing: border-box;
+    }
+    .inner{
+        width: 300px;height: 300px;background: lightcyan;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- vue指令 -->
+        <h1>{{name}}</h1>
+        <button v-on:click="myalert">王峰</button>
+        <button @click="myalert">臭宝贝</button>
+        <button v-on:click="qqq">大坏蛋</button>
+        <button @click="myalert()">@click=“myalert()”</button>
+        <button @click="myalert(666)">@click=“myalert(6666)”</button>
+        <button @click="myalert(666,777,888)">@click=“myalert(666，777，888)”</button>
+        <button @click="myalert($event,'臭弟弟',name)">@click=“myalert($event,name)”</button>
+        <button @click="myalert.call(this,555)">click="myalert.call(this,555)"</button>
+   
+    <!-- 事件修饰符 -->
+    <a href="http://baidu.com" @click.prevent="myalert" target="_block">百度</a>
+
+    <div class="outer" @click.self="outerFn">
+        <div class="inner" @click.passive="innerFn"></div>
+    </div>
+
+</div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    /* v-on 是专门用来绑定事件的指令  简写@
+        @click="函数名"     =>  在methods中的函数会接受一个事件对象作为参数
+        @click="函数名()"   =>  相当于没有给函数传递有任何实参
+        @click="函数名(666)"=>  相当于给函数传递一个另一个实参666
+        若既要传自己的参数，又要传事件对象，则需要手动写一个$event实参(MouseEvent)
+
+       事件修饰符：
+            prevent(preventDefault)
+            stop(stopPropergation)
+            once 只能点击一次
+            self 只能点击自己(只有在点击元素自身的时候，才会触发对应的函数)
+            capture在捕获阶段阶段触发对应的函数
+            passive:先执行默认行为，在执行对应的事件
+    */
+
+    // div.addEventListener('click',fn,{passive:true,capture:false})
+    // capture:false在捕获阶段阶段触发对应的函数
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝",
+        },
+        methods:{
+            // 这个对象中存放的都是当前实例用到的方法
+            // 这里方法中的this统一是当前实例
+            myalert(e){
+                console.log(arguments);
+                alert(this.name)    
+                console.log(this,"臭宝贝",e);
+            },
+            qqq:()=>{
+                console.log(this);
+                alert(this,"大坏蛋")
+            },
+         /*    name(){
+                console.log(6666666666);
+                // 这种情况下吧，就很奇怪了，会报错
+                // [Vue warn]: Method "name" has already been defined as a data property.
+                // methods中的内容和data中的内容，都会挂载到当前实例上所以说，methods中的属性和data中的属性名不能重复
+                
+            } */
+            outerFn(){
+                console.log('outer');
+            },
+            innerFn(){
+                console.log('inner');
+            }
+        }
+    })
+</script>

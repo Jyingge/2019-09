@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <input type="text" v-model="name">
+        <input type="number" v-model="age" @keydown.13="myfn">
+        <!-- 
+            按下回车键  会触发函数
+         -->
+        <br>
+        ------------------------------------------------------
+        <button @click.alt="myfn">7</button>
+        <!-- 
+            只有在按下alt键的时候才能用  @click.alt.exact="myfn" 
+            在按下alt键或者alt和任意键都好用   @click.alt="myfn"
+        -->
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝",
+            age:18
+        },
+        methods:{
+            myfn(e){
+                
+                    // 如果有按键修饰符之后，就不用写判断语句了，也就是@keydown.13="myfn"
+                    alert(this.name+this.age+'岁啦');
+                    console.log(7);
+            }
+        }
+    })
+</script>

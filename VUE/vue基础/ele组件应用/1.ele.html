@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/element-ui/lib/theme-chalk/index.css">
+    <style>
+        select {
+            width: 200px;
+            font-size: 18px;
+            line-height: 38px;
+            height: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{name}}</h2>
+        <el-input v-model="username" style="width: 300px;" size="small" placeholder="请输入用户名"></el-input>
+        <h2>性别</h2>
+        <div>
+            <el-radio v-model="sex" label="0">男</el-radio>
+            <el-radio v-model="sex" label="1">女</el-radio>
+        </div>
+        <h2>选择课程</h2>
+        <div>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            </el-checkbox-group>
+        </div>
+        <h2>兴趣爱好</h2>
+        <div>
+            <el-select v-model="hobby" filterable placeholder="请选择爱好">
+                <el-option v-for="item in ary" :key="item.val" :label="item.text"  :value="item.val">  </el-option>
+            </el-select>
+        </div>
+        <h2></h2>
+        <div>
+            <h2>手机号</h2>
+            <el-input  placeholder="请输入手机号" v-model="input10"  style="width: 360px;" clearable> </el-input>
+        </div>
+        <h2></h2>
+        <el-button :plain="true" @click="submit">提交</el-button>
+    </div>
+</body>
+
+</html>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script src="../../node_modules/element-ui/lib/index.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            checkAll:false,
+            ary: [{val: 'eat',text: '吃肉肉'}, {val: 'play',text: '笑嘻嘻'}, {val: 'sleep',text: '睡觉觉'}, {val: 'learn',text: '爱哥哥' }],
+            username: '',
+            course: [],
+            isIndeterminate:true,
+            cities: ['html', 'js','css','vue'],
+            checkedCities: ['html', 'js'],
+            sex: '0',
+            hobby: '',
+            input10: '',
+        },
+        methods: {
+            handleCheckAllChange(val) {
+                let cityOptions=['html', 'js','css','vue'];
+                this.checkedCities = val ? cityOptions : [];
+                this.isIndeterminate = false;
+            },
+            handleCheckedCitiesChange(value) {
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.cities.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+            },
+            submit() {
+                let obj = {};
+                if (!this.username || !this.input10) {
+                    this.$message({
+                        message: '必填项不能为空',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                obj.username = this.username;
+                obj.cities = this.cities;
+                obj.sex = this.sex;
+                obj.hobby = this.hobby;
+                obj.input10 = this.input10;
+                fetch('http://127.0.0.1:8080/add/userinfo', {
+                    method: 'post',
+                    body: JSON.stringify(obj),
+                }).then(response => response.json()).then((data) => {
+                    console.log(data);
+                    if (data.code == 0) {
+                        this.$message({
+                            message: '恭喜你，这是一条成功消息',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+           
+        }
+    })
+</script>
