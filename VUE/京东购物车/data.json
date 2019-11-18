@@ -4,7 +4,7 @@
     "desc": "颜色：浅紫色",
     "price": 18000,
     "count": 1,
-    "isSelect": true,
+    "isSelect": false,
     "id":100
 },
 {
@@ -13,7 +13,7 @@
     "desc": "颜色：深红色",
     "price": 38000,
     "count": 9,
-    "isSelect": true,
+    "isSelect": false,
     "id":200
 },
 {
@@ -22,7 +22,7 @@
     "desc": "颜色：酒红色",
     "price": 28000,
     "count": 1,
-    "isSelect": true,
+    "isSelect": false,
     "id":300
 },
 {
@@ -31,7 +31,7 @@
     "desc": "颜色：酒红色",
     "price": 28000,
     "count": 1,
-    "isSelect": true,
+    "isSelect": false,
     "id":300
 }
 ]

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>珠峰培训</title>
+	<!-- IMPORT CSS -->
+	<link rel="stylesheet" type="text/css" href="./price.css">
+</head>
+
+<body>
+	<div class="wrap" id="app">
+		<div class="box">
+			<ul class="list">
+				<li v-for="(item,index) in dataList">
+					<i @click="handel($event,'menu',index)"></i>
+					<em v-html="item.count"></em>
+					<i @click="handel($event,'plus',index)"></i>
+					<span>
+						单价：<strong v-html="item.price+'元'"></strong>
+						小计：<strong v-html="item.price*item.count+'元'"></strong>
+					</span>
+				</li>
+			</ul>
+			<div class="info">
+				<span>商品公合计：<em v-html="total"></em>件</span>
+				<span>共花费了：<em v-html="moeny"></em>元</span>
+				<span>其中最贵的商品单价是：<em v-html="expensive"></em>元</span>
+			</div>
+		</div>
+	</div>
+	<!-- IMPORT JS -->
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		let dataList = [{
+			id: 1,
+			count: 0,
+			price: 12.5
+		}, {
+			id: 2,
+			count: 0,
+			price: 10.5
+		}, {
+			id: 3,
+			count: 0,
+			price: 8.5
+		}, {
+			id: 4,
+			count: 0,
+			price: 8
+		}, {
+			id: 5,
+			count: 0,
+			price: 14.5
+		}];
+
+		let vm = new Vue({
+			el: "#app",
+			data: {
+				dataList,
+			},
+			methods: {
+				handel(e, type, dataIndex) {
+					this.dataList = this.dataList.map((item, index) => {
+						if (dataIndex == index) {
+							if (type == 'menu') {
+								item.count--;
+								item.count <= 0 ? item.count = 0 : null
+							} else if (type == 'plus') {
+								item.count++;
+								item.count >= 10 ? item.count = 10 : null
+							}
+						}
+						return item;
+					})
+				}
+			},
+			computed: {
+				total() {
+					return this.dataList.reduce((item, next) => {
+						return item + next.count
+					}, 0)
+				},
+				moeny() {
+					return this.dataList.reduce((item, next) => {
+						return item + next.count * next.price
+					}, 0)
+				},
+				expensive() {
+					let ary = this.dataList.filter(item=>{
+						return item.count>=1
+					}).map(item => {
+						return item.price
+					})
+					return ary.length<=0?'0':Math.max.apply(Math, ary)
+				}
+				
+			}
+		});
+
+
+		/* let arr = [10, 20, 30, 40];
+		let result = arr.reduce((accumulator, item, index) => {
+			return accumulator + item;
+		}, 100);//=>第二个参数是初始累加器的值
+		console.log(result); */
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0; list-style: none;user-select: none;}
+    .mainbox{
+        margin: 40px 50px;
+    }
+    .mainbox ul{
+        overflow: hidden;
+        display: flex;
+        position: relative;
+        top: 1px;
+    }
+    .mainbox ul li{
+        width: 50px;
+        border: 1px solid;
+        text-align: center;
+        line-height: 50px;
+        height: 48px;
+        background: pink;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+    .mainbox ul li.active{
+        display: block;
+        border-bottom:1px solid #fff;
+        background: #fff;
+    }
+    .mainbox .page{
+        width: 194px;
+        height: 200px;
+        border: 1px solid;
+        display: none;
+        text-align: center;
+        line-height: 200px;
+       
+    }
+    .mainbox .page.active{
+        display: block;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="mainbox">
+            <ul>
+                <li :class="{active:index==cur}" v-for="(item,index) in tabData" v-html="item.name" @click="cur=index"></li>
+             
+            </ul>
+            <div :class="{page:true ,active:index==cur}" v-for="(item,index) in tabData" v-html="item.desc"  ></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let tabData=[{name:'music',id:1,desc:'this is a music'},{name:'foot',id:1,desc:'this is a football'},{name:'piano',id:1,desc:'this is a piano'}];
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝",
+            tabData:tabData,
+            cur:0
+        }
+    })
+</script>
