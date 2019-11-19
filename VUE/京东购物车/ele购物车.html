@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
+            @selection-change="handleSelectionChange" border>
+            <el-table-column type="selection" width="120" align="center">
+            </el-table-column>
+            <el-table-column prop="name" label="商品名称" align="center" width="120">
+            </el-table-column>
+            <el-table-column prop="desc" label="商品介绍" align="center" show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column label="图片" show-overflow-tooltip align="center">
+                <template slot-scope="scope">
+                    <img :src="scope.row.img" style="width: 80px;height: 80px;">
+                </template>
+            </el-table-column>
+            <el-table-column label="单价" align="center" show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <div>{{scope.row.price|money}}</div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="num" label="数量" align="center" show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <el-input-number v-model="scope.row.num" @change="handleChange" :min="1" :max="10" label="描述文字">
+                    </el-input-number>
+                </template>
+            </el-table-column>
+            <el-table-column prop="priceAll" align="center" label="小计" show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <div>{{scope.row.price*scope.row.num|money}} </div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="option" align="center" label="操作" show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <el-button type="danger" icon="el-icon-delete" circle
+                        @click="open2($event,'delete',scope.row.index)"></el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <table>
+            <tr style="text-align: center;">
+                <td style="width: 1085px; border: 2px solid  #F5F7FA; border-top: 0px;">
+                    <h4>总价</h4>
+                </td>
+                <td style="width:419px; border: 2px solid  #F5F7FA; border-top: 0px;border-left: 0px;">
+                    <h3>{{sumFn|money}}</h3>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 20px; margin-right: 40px; text-align: right;">
+            <el-button type="danger" plain @click="open2($event,'delAll')"> 清空购物车</el-button>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/element-ui/lib/index.js"></script>
+<script>
+    Vue.filter('money', function (val) {
+        console.log(val);
+        return '￥' + (val / 1).toFixed(2)
+    })
+    let tableData = [{
+        name: '海之蓝',
+        desc: '好喝不上头',
+        img: './haizhilan.jfif',
+        num: '1',
+        price: '1980',
+    }, {
+        name: '海之蓝',
+        desc: '好喝不上头',
+        img: './haizhilan.jfif',
+        num: '2',
+        price: '1980',
+    }, {
+        name: '海之蓝',
+        desc: '好喝不上头',
+        img: './haizhilan.jfif',
+        num: '3',
+        price: '1980',
+    }, {
+        name: '海之蓝',
+        desc: '好喝不上头',
+        img: './haizhilan.jfif',
+        num: '8',
+        price: '1980',
+    }];
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            tableData,
+            multipleSelection: [],
+        },
+        methods: {
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+                console.log(this.multipleSelection, '----');
+            },
+            handleChange(value) {
+                console.log(value);
+            },
+            open2(ev, type, n) {
+                this.$confirm('此操作将永久删除内容, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    if (type == 'delete') {
+                        this.tableData.splice(n, 1);
+                    } else if (type == 'delAll') {
+                        this.tableData = [];
+                    }
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            }
+        },
+        computed: {
+            sumFn() {
+                return this.multipleSelection.reduce((prev, next) => prev + next.num * next.price, 0)
+            }
+        }
+
+    })
+</script>

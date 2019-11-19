@@ -7,7 +7,7 @@ let vm = new Vue({
         name:"珠峰",
         datalist:[],
         total:0,
-        checkAll:true,
+        checkAll:false,
         show:false,
         delIndex:null
     },
@@ -30,14 +30,7 @@ let vm = new Vue({
             })
         },
         sum(){
-            // 求总价
-            //this.datalist.filter(item=>item.isSelect) 筛选出 选中的商品
-            /* let ary = this.datalist.filter(item=>item.isSelect);
-            let t = 0;
-            ary.forEach(item=>{
-                t += item.count*item.price
-            })
-            this.total = t; */
+          
             this.total = this.datalist.filter(item=>item.isSelect).reduce((prev,next)=>prev+next.count*next.price,0)
         },
         checkOneFn(obj){

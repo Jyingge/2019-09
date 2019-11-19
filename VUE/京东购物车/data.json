@@ -22,7 +22,7 @@
     "desc": "颜色：酒红色",
     "price": 28000,
     "count": 1,
-    "isSelect": false,
+    "isSelect": true,
     "id":300
 },
 {

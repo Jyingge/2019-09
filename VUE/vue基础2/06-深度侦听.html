@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>深度侦听</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <input type="text" v-model="obj.a">
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝",
+            obj:{
+                a:12
+            }
+        },
+        methods:{
+            fn(){},
+            
+        },
+        watch:{
+            /* obj(newValue,oldValue){
+                console.log(newValue,oldValue);
+            } */
+
+            obj:{
+                deep:true, //深度
+                immediate:true,//一上来就先执行一次
+                handler(newValue,oldValue){
+                    // 深度侦听的时候，vue并没有给我们保留旧值
+                    console.log(newValue,oldValue);
+                }
+            }
+        }
+    })
+</script>

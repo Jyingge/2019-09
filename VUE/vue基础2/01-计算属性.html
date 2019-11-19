@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <h1>{{name|fn}}</h1>
+        <!--  methods 写法  -->
+        <h2>{{name|reverse}}</h2>
+        <!-- filters 写法 -->
+        <h3>{{reverse(name)}}</h3>
+        <h4>{{t}}</h4>
+        <!-- computed  的写法 -->
+        <h5>{{reverseMessage}} name</h5>
+        <h6 v-html="reverseName"></h6>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            t: 0,
+            message: 'Hello'
+        },
+        methods: {
+            fn() {},
+            reverse(val) {
+                console.log('t');
+                return val.split('').reverse().join('')
+            }
+        },
+        created: function () {
+            // 一进来就执行的 这里面是个函数
+        },
+        filters: {
+            // 管道符  |
+            fn(val, x, n) {
+                // this不是当前实例
+            },
+            reverse(val) {
+
+                return val.split('').reverse().join('')
+            }
+        },
+        computed: {
+            // 计算属性的  会有对应的缓存，当依赖的值不发生改变，那么试图更新时，就会使用上一次计算出的结果
+            // this.name  依赖就是在函数中用到了那个变量，就会依赖那个变量
+            reverseMessage() {
+                console.log('computed', this.t, this.name);
+                return this.message.split('').reverse().join('')
+            },
+            reverseName: {
+                get() {
+                    return this.name.split('').join('+')
+                },
+                set(val) {
+                    console.log(val);
+                    this.t=val
+                }
+            }
+        }
+    })
+</script>

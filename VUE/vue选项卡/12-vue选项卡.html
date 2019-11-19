@@ -17,25 +17,29 @@
             box-sizing: border-box;
             border:1px solid #FFF
         }
-
+         .tab.current{
+            background: lightpink;
+            color: white;
+        }
         .body {
             width: 400px;
             height: 300px;
             text-align: center;
-            background: yellow;
+            background: lightpink;
             border: 1px dashed #ccc;
             overflow: hidden;
             box-sizing: border-box;
             line-height: 300px;
             color:black;
             font-size:24px;
+            color: white;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div class="tab" @click="handle(index)" v-for="(item,index) in ary" v-html="item"></div>
+        <div v-for="(item,index) in ary"  :class="{tab:true,current:index==qqq}" @click="qqq=index" v-html="item"></div>
         <div class="body" v-for="(item,index) in body" v-html="item" v-show="index === qqq"></div>
     </div>
 </body>
@@ -49,12 +53,8 @@
             name: "珠峰",
             ary: ["js", "css", "vue", "html"],
             body: ["js学得好", "css学得好", "vue学得好", "html学得好"],
-            qqq: 0
-        },
-        methods: {
-            handle(n) {
-                this.qqq = n
-            }
+            qqq: 0,
+           
         }
     })
 </script>
