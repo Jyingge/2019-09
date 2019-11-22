@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" >
+        <h1>{{name}}</h1>
+        <father></father>
+    </div>
+    <template id="father">
+        <div @click.stop="fathercount++">
+            这是父组件 {{fathercount}}
+            <pre>------------------------</pre>
+            <son></son>
+        </div>
+    </template>
+    <template id="son" >
+        <div @click.stop="soncount++"> 
+            这是子组件 {{soncount}}
+        </div>
+    </template>
+
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component("father",{
+        template:"#father",
+        data(){
+            return {
+                fathercount:1000
+            }
+        },
+        created(){
+            console.log("father组件创建成功");
+        },
+        mounted(){
+            console.log("father组件dom渲染成功");
+        },
+        updated(){
+            console.log("father组件dom更新成功");
+        },
+    });
+    Vue.component("son",{
+        template:"#son",
+        data(){
+            return {
+                soncount:0
+            }
+        },
+        created(){
+            console.log("son组件创建成功");
+        },
+        mounted(){
+            console.log("son组件dom渲染成功");
+        },
+        updated(){
+            console.log("son组件dom更新成功");
+        },
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝"
+        },
+        created(){
+            console.log("根组件创建成功");
+        },
+        mounted(){
+            console.log("根组件dom渲染成功");
+        },
+        updated(){
+            console.log("根组件dom更新成功");
+        },
+    })
+    /* 创建从外到里，渲染从里到外 */
+</script>

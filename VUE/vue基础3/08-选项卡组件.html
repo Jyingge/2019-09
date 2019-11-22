@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tabBox {
+            display: flex;
+            width: 800px;
+            height: 80px;
+            line-height: 50px;
+            text-align: center;
+            list-style: none;
+        }
+
+        .tabBox li {
+            flex: 1;
+            max-width: 120px;
+            border: 1px solid lightcoral;
+        }
+
+        .tabBox li.current {
+            background: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-tab :data="ary" @change="fn" @tab-remove="tabRm"></my-tab>
+    </div>
+</body>
+<template id="mytab">
+    <ul class="tabBox">
+        <li v-for="(item,index) in data" :class="{current:index==qqq}" @click="tabFn(index,item)">
+            <pre>{{item}}   <span @click.stop="delFn(index)">  X</span></pre>
+        </li>
+    </ul>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('my-tab', {
+        template: '#mytab',
+        props: ['data'],
+        data() {
+            return {
+                qqq: 0
+            }
+        },
+        methods: {
+            tabFn(n, str) {
+                this.qqq = n;
+                this.$emit('change', n, str)
+            },
+            delFn(n) {
+                // this.data.splice(n,1);
+                // this.data=[];
+                this.$emit('tab-remove',n)
+            }
+        }
+    })
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            ary: ['wang', 'feng', 'shi', 'xiao', 'bao', 'bei'],
+        },
+        methods: {
+            fn(n, item) {
+                console.log(n, item);
+            },
+            tabRm(n){
+                this.ary.splice(n,1)
+            }
+        },
+
+    })
+</script>

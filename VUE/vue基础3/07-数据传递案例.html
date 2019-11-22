@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <input placeholder="姓名" v-model="name" type="text">
+        <input placeholder="年龄" v-model="age" type="number">
+        <button @click="submit">提交</button>
+        <pre>
+            <wife :list="wifeList" @change="delFn"></wife> <husband :list="husbandList"  @change="delFn"></husband>
+        </pre>
+    </div>
+
+    <template id="wife">
+        <div style="display: inline-block;">
+            <h2>妻子列表</h2>
+            <ul>
+                <li v-for="item in list" :key="item.id"> 姓名：{{item.name}}; 年龄：{{item.age}}
+                    <button @click="del(item)">X</button></li>
+
+
+            </ul>
+        </div>
+    </template>
+    <template id="husband">
+        <div style="display: inline-block;">
+            <h2>丈夫列表</h2>
+            <ul>
+                <li v-for="item in list" :key="item.id"> 姓名：{{item.name}}; 年龄：{{item.age}}
+                    <button @click="del(item)">X</button></li>
+
+            </ul>
+        </div>
+    </template>
+
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let wife = {
+        template: '#wife',
+        props: ['list'],
+        methods:{
+            del(item){
+                this.$emit('change',item)
+            }
+        }
+    }
+    let husband = {
+        template: '#husband',
+        props: ['list'],
+        methods:{
+            del(item){
+                this.$emit('change',item)
+            }
+        }
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            age: 18,
+            ary: [],
+        },
+        components: {
+            wife,
+            husband,
+        },
+        computed: {
+            wifeList() {
+                return this.ary.filter(item => item.age >= 18)
+            },
+            husbandList() {
+                return this.ary.filter(item => item.age < 18)
+            }
+        },
+        methods: {
+            submit() {
+                let obj = {
+                    name: this.name,
+                    age: this.age,
+                    id: Math.random(),
+                };
+                this.ary.unshift(obj);
+                this.name = '';
+                this.age = '';
+
+            },
+            delFn(item){
+                this.ary=this.ary.filter(it=>it.id!==item.id)
+            }
+        }
+    })
+</script>

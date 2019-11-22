@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <son :data="19"></son>
+    </div>
+</body>
+
+<template id="son">
+    <div>
+        <h2 >
+            父组件传进来的数据是：{{data}}
+            {{name123}}
+        </h2>
+    </div>
+</template>
+
+<pre>
+    父传子  子组建使用父组件的数据
+            $parent
+            props
+            $attrs    可以获取没有被props接受的数据
+            provide/inject  父组件提供provide 后代组件提供inject 不是响应式（不会自动更新）
+</pre>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let son={
+        template:"#son",
+        /* props:{
+            data:{
+                type:Number, //传进来数据的类型限制
+                // default:0,//不传数据时候的默认数据
+                required:true,
+                validator:function (val) {
+                    // 自定义参数规则
+                    console.log(val);
+                    return val>18
+                    // return false
+                }
+            }
+        }, */
+        props:{
+            data:Number,
+            a:Number
+        },
+        created(){
+            // 这里面存放的是没有被props接收的那些参数
+            console.log(this.name123);
+        },
+        inject:['name123']
+        
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝"
+        },
+        components:{
+            son,
+        },
+        // provide:{
+        //     name123:this.name
+        // },
+        provide:function () {
+            console.log(this);
+            return {
+                name123:this.name
+            }
+        }
+    })
+</script>
