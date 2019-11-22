@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局组件*全局组件2</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <qqq></qqq>
+        <el-qqq></el-qqq>
+        <my-component></my-component>
+        <pre>----------******************++++++++++++++++++***************-------------</pre>
+        <pre>  
+            Vue.component(组件名,{})
+                组件名可以是烤串命名(temp-demo),也可以是驼峰命名，
+                但是“使用”的时候，需要用烤串命名，
+                组件名不能是已经存在的html标签
+                组件的模板中只能有一个跟元素，这点跟transition标签类似
+
+                optiion中的属性与根实例基本一致，只是组件的data属性必须是一个函数
+                这是为了保证组件的独立性
+        </pre>
+        <pre>----------******************++++++++++++++++++***************-------------</pre>
+
+        <count>{{name}}</count>
+    </div>
+
+    <!-- 文档碎片 -->
+    <template id="mycount">
+        <div>
+            hello world
+            {{name}}
+            <button @click="changeName">按钮</button>
+            <h2>{{name2}}</h2>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* 
+    啥事组件？
+      就是为了模块开发，日后好维护。
+      也就是模块（理解成一块一快的东西）每个js文件都是一个模块
+    */
+    Vue.component('qqq', {
+        template: '<div>这是个全局组件</div>'
+    })
+    Vue.component('el-qqq', {
+        template: '<h1>这是我写的el组件</h1>'
+    })
+    Vue.component("my-component", {
+        template: '<h1>驼峰式命名的组件好像有点小bug 千万别写成驼峰式  但是写成烤串形式就能行了 </h1>'
+    })
+
+    // ------------------------------------------------------------------------------------------------
+    let obj=
+    Vue.component('count', {
+        template: '#mycount',
+        data(){
+            //    保证数据的独立性，所以必须是函数的形式
+            return{
+               name:666
+           } 
+        },
+        computed:{
+            name2(){
+                return this.name+'computed'
+            }
+        },
+        methods:{
+            changeName(){
+                // 这里面的this都是当前实例
+                // 在vue中组件就是vue实例
+                // vm(new Vue) 称之为根实例(根组件)
+                this.name=Math.random();
+            }
+        },
+    })
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝"
+        }
+    })
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1 ref="qqq">{{name}}</h1>
+        <h2 ref="qqq">{{name}}</h2>
+        <h2 ref="qqq">{{name}}</h2>
+        <h2 ref="www" v-for="i in ary">{{name}} ++ ++ ++ {{name}}</h2>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝",
+            ary: [1, 2, 3, 4, 5],
+
+        },
+        created() {
+            console.log(this);
+        },
+        mounted() {
+            this.ary.pop();
+            // dom 更新操作是异步
+            console.log(this.$refs.qqq, "这个只能输出最后一个元素");
+            this.$nextTick(() => {
+                // 这个回调函数会在dom更新完成之后触发
+                console.log(arguments);
+
+                console.log(this.$refs.www, "用v-for循环出来的就是全部数组");
+            })
+            this.ary.pop();
+            this.$nextTick(() => {
+                // 这个回调函数会在dom更新完成之后触发 这个回调函数也是异步的
+                console.log(arguments);
+                console.log(this.$refs.www, "用v-for循环出来的就是全部数组");
+            })
+
+        }
+    })
+</script>

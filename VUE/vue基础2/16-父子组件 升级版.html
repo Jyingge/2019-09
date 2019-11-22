@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <mycount></mycount>
+    </div>
+
+    <pre>***********************                               *****************
+                a组件中用了b组件，那么，A组件就是父组件，b组件就是子组件
+                父组件自组建跟全局组件和私有组件没有任何关系
+
+***********************                               *****************</pre>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let mybutton={
+        // 在那个模板中写的变量就数组那个组件的，别的组件找不到
+        template:`<div> <button @click="add">增加</button><button @click="minus">减少</button> </div>`,
+        methods:{
+            add(){
+                console.log("+");
+               this.$parent.count++
+            },
+            minus(){
+                console.log("-",this);
+               this.$parent.count--
+            },
+        }
+    }
+    let myh1={
+        template:'<h1>数字是{{qqq}} </h1>',
+        props:['qqq'],
+        created(){
+            console.log(this);
+            
+        }
+    }
+    let mycount={
+        template:`<h1>数字是<myh1 :qqq='count'></myh1> <mybutton/> </h1>`,
+        data(){
+            return {
+                count:0
+            }
+        },
+        components:{
+            mybutton,myh1
+        }
+    }
+    
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"王峰小宝贝"
+        },
+        components:{
+            // 注册组件
+            mycount
+        }
+    })
+</script>
