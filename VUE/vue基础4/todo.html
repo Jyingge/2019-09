@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my></my>
+    </div>
+</body>
+</html>
+    <template id="my">
+        <div>
+        </div>
+    </template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    Vue.component('my',{
+        template:"#my",
+    })
+    let vm = new Vue({
+        el:'#app',
+        store,
+        data:{
+            name:"王峰小宝贝"
+        },
+        computed:{},
+
+    })
+</script>

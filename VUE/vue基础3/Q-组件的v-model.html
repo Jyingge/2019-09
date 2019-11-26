@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的v-model</title>
+    <style>
+        .inpBox {
+            width: 500px;
+            height: 50px;
+        }
+        .inpBox input{
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 22px;
+            padding-left: 20px;
+        }
+        .inpBox input:focus{
+            border-color: rgb(160, 148, 235);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-input v-model="name" placeholder="please  enter content "></my-input>
+        <!--  -->
+    </div>
+    <template id="myInput">
+        <div class="inpBox">
+            <input type="text" :placeholder="placeholder" :value="value" @input="$emit('input',$event.target.value)">
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('my-input', {
+        template: "#myInput",
+        props: ["placeholder","value"],
+    })
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "王峰小宝贝"
+        }
+    })
+</script> 
