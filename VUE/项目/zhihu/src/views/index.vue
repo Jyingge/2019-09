@@ -17,11 +17,11 @@
         </router-link>
       </div>
       <div>
-        <i class="iconfont icon-plus big"></i>
+        <i class="iconfont icon-plus big" @click="show"></i>
       </div>
       <div>
         <router-link to="/notify">
-          <i class="iconfont icon-tongzhi2-copy"></i>
+          <i class="iconfont icon-tongzhi2-copy" ></i>
           <div>通资</div>
         </router-link>
       </div>
@@ -32,30 +32,54 @@
         </router-link>
       </div>
     </nav>
+    <my-dialog :isshow="flag" @close="close">
+    
+    </my-dialog>
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import {mapState} from 'vuex'
-
+import { mapState } from "vuex";
+import dialog from "@/components/dialog.vue";
 export default {
   name: "index",
   data() {
-    return {};
+    return {
+      flag: false
+    };
+  },
+  created() {
+    if (localStorage.getItem("token")) {
+      // this.$router.push('/login')
+    }
+  },
+  methods: {
+    show() {
+      this.flag = true;
+    },
+    close() {
+      this.flag = false;
+    },
   },
   computed: {
     ...mapState(["loginState"])
   },
-  components: {}
+  components: {
+    "my-dialog": dialog
+  }
 };
 </script>
 <style lang="less" scoped>
 // 只对当前模板起作用scoped
+.mainPage > div:nth-child(1) {
+  padding-bottom: 18vw;
+}
 nav {
   user-select: none;
+  background: #fff;
   a {
     text-decoration: none;
-    color: rgb(64, 150, 190);
+    color: black;
     i {
       font-size: 6vw;
     }
@@ -76,7 +100,7 @@ nav {
       color: plum;
     }
     a.router-link-active {
-      color: pink;
+      color: rgb(64, 150, 190);
     }
   }
 }

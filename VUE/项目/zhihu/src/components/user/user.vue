@@ -2,8 +2,8 @@
   <div>
     <header>
       <input type="text" >
-      <span class="iconfont icon-saomiao">扫描</span>
-      <span @click="change" class="iconfont icon-shezhi">{{loginState?'退出':'登录'}} </span>
+      <span class="iconfont icon-saomiao"></span>
+      <span @click="change" class="iconfont icon-shezhi"> {{loginState?'退出':'登录'}} </span>
     </header>
     <in v-if="loginState"></in>
     <no-in v-else></no-in>
@@ -44,4 +44,9 @@ export default {
 </script>
 
 <style lang="less">
+header{
+  .iconfont{
+    font-size: 7vw;
+  }
+}
 </style>

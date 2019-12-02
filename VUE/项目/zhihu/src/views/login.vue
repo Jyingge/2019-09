@@ -15,9 +15,9 @@
       <div class="rt">需要帮助</div>
     </div>
     <div class="otherLogin">
-      <div>微信</div>
-      <div>QQ</div>
-      <div>新浪</div>
+      <div class="iconfont icon-weixin"></div>
+      <div class="iconfont icon-qq"></div>
+      <div class="iconfont icon-weibo"></div>
     </div>
   </div>
 </template>
@@ -107,6 +107,7 @@ export default {
     > div {
       flex: 1;
       text-align: center;
+      font-size: 7vw;
     }
   }
 }
