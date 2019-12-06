@@ -1,27 +1,50 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Index from '../views/index.vue'
+
+import org from './org'
+import crm from './custormer'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'index',
+    component: Index,
+    redirect:'/org',
+    children:[
+      {
+        path:'/org',
+        name:'org',
+        component:()=>import('../views/org.vue'),
+        children:org
+      },
+      {
+        path:'/crm',
+        name:'crm',
+        component:()=>import('../views/crm.vue'),
+        children:crm,
+      }
+    ],
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue')
+  },
+  {
+    path:'/test',
+    component: () => import(/* webpackChunkName: "login" */ '../views/test/test.vue')
+  },
+  {
+    path:'*',//走到不存在的路径时，直接跳转到首页
+    redirect:'/'
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
