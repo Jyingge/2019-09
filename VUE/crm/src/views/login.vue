@@ -36,7 +36,7 @@ export default {
       }
       let obj = {
         account: this.name,
-        password: md5(this.psw)
+        password: this.psw
       };
       login(obj).then(data => {
         if (data.code == 0) {
