@@ -66,3 +66,26 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+
+### 安装脚手架  create-react-app npm i create-react-add -g
++	创建项目 create-react-app 项目名  （这个是用脚手架安装项目）
++	不用脚手架创建项目   npx create-react-app 项目名
++	如果你想使用less 
+>	1.先暴露配置文件  npm run eject  (但是执行之前，首先要提交一下，让git是干净的)
+>	2.配置暴露之后  需要修改 config中的 webpack.config.js文件中的less属性 
+>   3、修改完成之后 需要我们安装 less和less-loader这个两个依赖
+
+### react 
++	react的结构中写变量  用{}的方式 {这里面也可以写表达式}
++	react的组件都是一个函数或者是累  react组件在使用的时候首字母要大写
++	react的子元素不能是一个对象，可以是基本数据类型或者是数组
++	组件中只能有一个根元素，vue也是一样的；
++	元素的类名不是写calss  必须写成className={}
++	动态类名是需要手动拼接在一起的
++	元素的函内央视必须是一个对象的形式
++	循环的时候，使用map
++	判断的时候，使用三元运算符；
++	class  有extends的时候必须要写super
+
